@@ -1,0 +1,202 @@
+{
+  "projectType": "saas",
+  "projectName": "Kitsu",
+  "projectDescription": "Collaboration platform for animation, VFX, and video game production studios",
+  "theme": "maple",
+  "primaryColor": "#a95d10",
+  "lightColor": "#465b6e",
+  "darkColor": "#acb1bb",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "installation"
+            ]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "features/productions",
+              "features/assets",
+              "features/shots",
+              "features/tasks",
+              "features/scheduling",
+              "features/playlists"
+            ]
+          },
+          {
+            "group": "Production Management",
+            "pages": [
+              "production/creating-productions",
+              "production/production-settings",
+              "production/asset-types",
+              "production/episodes-sequences"
+            ]
+          },
+          {
+            "group": "Asset & Shot Management",
+            "pages": [
+              "assets/asset-library",
+              "assets/breakdown",
+              "shots/shot-management",
+              "shots/sequences"
+            ]
+          },
+          {
+            "group": "Task Management",
+            "pages": [
+              "tasks/task-types",
+              "tasks/task-status",
+              "tasks/assignments",
+              "tasks/reviews"
+            ]
+          },
+          {
+            "group": "Planning & Tracking",
+            "pages": [
+              "planning/scheduling",
+              "planning/timesheets",
+              "planning/quota-management",
+              "planning/budget"
+            ]
+          },
+          {
+            "group": "Collaboration",
+            "pages": [
+              "collaboration/news-feed",
+              "collaboration/notifications",
+              "collaboration/comments",
+              "collaboration/playlists"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "admin/user-management",
+              "admin/departments",
+              "admin/custom-actions",
+              "admin/status-automations",
+              "admin/studios"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "User Guide",
+        "groups": [
+          {
+            "group": "For Artists",
+            "pages": [
+              "guides/artist/my-tasks",
+              "guides/artist/timesheet",
+              "guides/artist/uploading-work"
+            ]
+          },
+          {
+            "group": "For Supervisors",
+            "pages": [
+              "guides/supervisor/reviewing-work",
+              "guides/supervisor/team-management",
+              "guides/supervisor/tracking-progress"
+            ]
+          },
+          {
+            "group": "For Producers",
+            "pages": [
+              "guides/producer/production-overview",
+              "guides/producer/scheduling",
+              "guides/producer/budgeting"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Development",
+        "groups": [
+          {
+            "group": "Setup",
+            "pages": [
+              "development/overview",
+              "development/environment-setup",
+              "development/architecture"
+            ]
+          },
+          {
+            "group": "Contributing",
+            "pages": [
+              "development/contributing",
+              "development/code-guidelines",
+              "development/translations"
+            ]
+          },
+          {
+            "group": "API Integration",
+            "pages": [
+              "api/overview",
+              "api/authentication",
+              "api/entities",
+              "api/tasks",
+              "api/files"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "Help",
+            "pages": [
+              "resources/faq",
+              "resources/troubleshooting",
+              "resources/community"
+            ]
+          },
+          {
+            "group": "Additional Info",
+            "pages": [
+              "resources/changelog",
+              "resources/roadmap",
+              "resources/license"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Production management",
+    "Asset and shot tracking",
+    "Task management and status tracking",
+    "Scheduling and timeline planning",
+    "Review and playlist system",
+    "Team collaboration and news feed",
+    "Budget and quota management",
+    "Timesheet tracking",
+    "Custom workflows and automations",
+    "Multi-studio support"
+  ],
+  "publicApiSurface": [
+    "Productions API",
+    "Assets API",
+    "Shots API",
+    "Tasks API",
+    "Episodes API",
+    "Sequences API",
+    "Files API",
+    "Playlists API",
+    "People API",
+    "Task Types API",
+    "Task Status API",
+    "Comments API",
+    "Notifications API",
+    "Schedule API",
+    "Budget API"
+  ]
+}
