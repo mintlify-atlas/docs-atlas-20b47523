@@ -1,0 +1,381 @@
+---
+title: 'API Overview'
+description: 'Learn how to integrate with the Kitsu API from the frontend'
+icon: 'plug'
+---
+
+## Introduction
+
+Kitsu provides a comprehensive REST API for managing production data. The frontend uses a modular API client architecture built on top of Superagent for HTTP requests and Socket.io for real-time updates.
+
+## API Client Architecture
+
+The API client is organized into specialized modules, each handling a specific domain:
+
+```
+src/store/api/
+├── client.js          # Base HTTP client
+├── assets.js          # Asset operations
+├── shots.js           # Shot operations
+├── tasks.js           # Task and comment operations
+├── entities.js        # Generic entity operations
+├── files.js           # File and preview operations
+├── people.js          # Team member operations
+├── productions.js     # Production/project operations
+└── ...                # Additional modules
+```
+
+## Base Client
+
+All API modules use the base client (`src/store/api/client.js`) which provides:
+
+<CardGroup cols={2}>
+  <Card title="HTTP Methods" icon="network-wired">
+    GET, POST, PUT, DELETE with callback and promise-based interfaces
+  </Card>
+  <Card title="Authentication" icon="lock">
+    Automatic 401 handling and redirect to login
+  </Card>
+  <Card title="Error Handling" icon="triangle-exclamation">
+    Centralized error handling and reporting
+  </Card>
+  <Card title="File Uploads" icon="upload">
+    File upload support with progress tracking
+  </Card>
+</CardGroup>
+
+### Client Methods
+
+The base client provides both callback-based and promise-based methods:
+
+<Tabs>
+  <Tab title="Promise-based">
+    ```javascript
+    import client from '@/store/api/client'
+
+    // GET request
+    const data = await client.pget('/api/data/tasks')
+
+    // POST request
+    const result = await client.ppost('/api/data/tasks', taskData)
+
+    // PUT request
+    const updated = await client.pput('/api/data/tasks/123', updates)
+
+    // DELETE request
+    const deleted = await client.pdel('/api/data/tasks/123')
+    ```
+  </Tab>
+  
+  <Tab title="Callback-based">
+    ```javascript
+    import client from '@/store/api/client'
+
+    // GET request
+    client.get('/api/data/tasks', (err, tasks) => {
+      if (err) console.error(err)
+      else console.log(tasks)
+    })
+
+    // POST request
+    client.post('/api/data/tasks', taskData, (err, result) => {
+      if (err) console.error(err)
+      else console.log(result)
+    })
+    ```
+  </Tab>
+  
+  <Tab title="File Upload">
+    ```javascript
+    import client from '@/store/api/client'
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const { request, promise } = client.ppostFile(
+      '/api/pictures/preview-files/123',
+      formData
+    )
+
+    // Track upload progress
+    request.on('progress', e => {
+      console.log(`Upload: ${e.percent}%`)
+    })
+
+    // Wait for completion
+    const result = await promise
+    ```
+  </Tab>
+</Tabs>
+
+## API Base URL
+
+The API communicates with the Zou backend:
+
+- **Development**: Configured via `KITSU_API_TARGET` environment variable
+- **Production**: Uses the same host as the frontend (`/api`)
+
+### API Endpoints Structure
+
+Kitsu API endpoints follow a consistent pattern:
+
+<AccordionGroup>
+  <Accordion title="Data Endpoints (/api/data)">
+    Used for CRUD operations on entities:
+    ```
+    GET    /api/data/tasks          # List tasks
+    GET    /api/data/tasks/:id      # Get task
+    POST   /api/data/tasks          # Create task
+    PUT    /api/data/tasks/:id      # Update task
+    DELETE /api/data/tasks/:id      # Delete task
+    ```
+  </Accordion>
+  
+  <Accordion title="Action Endpoints (/api/actions)">
+    Used for complex operations:
+    ```
+    POST /api/actions/tasks/:id/comment
+    POST /api/actions/tasks/:id/subscribe
+    PUT  /api/actions/persons/:id/assign
+    ```
+  </Accordion>
+  
+  <Accordion title="Picture Endpoints (/api/pictures)">
+    Used for file uploads:
+    ```
+    POST /api/pictures/preview-files/:id
+    POST /api/pictures/thumbnails/persons/:id
+    ```
+  </Accordion>
+  
+  <Accordion title="Auth Endpoints (/api/auth)">
+    Authentication operations:
+    ```
+    POST /api/auth/login
+    GET  /api/auth/logout
+    GET  /api/auth/authenticated
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Using API Modules
+
+API modules should always be called from Vuex actions, not directly from components:
+
+<CodeGroup>
+```javascript Good: Use in Vuex Actions
+// src/store/modules/tasks.js
+import tasksApi from '@/store/api/tasks'
+
+const actions = {
+  async loadTask({ commit }, taskId) {
+    try {
+      const task = await tasksApi.getTask(taskId)
+      commit(LOAD_TASK_END, task)
+      return task
+    } catch (err) {
+      console.error('Failed to load task:', err)
+      throw err
+    }
+  }
+}
+```
+
+```javascript Avoid: Direct Component Usage
+// Don't do this in components
+import tasksApi from '@/store/api/tasks'
+
+export default {
+  async mounted() {
+    // Missing state management
+    const task = await tasksApi.getTask(this.taskId)
+    this.task = task // Not synchronized with Vuex
+  }
+}
+```
+</CodeGroup>
+
+<Warning>
+Always use Vuex actions for API calls to ensure proper state management and error handling.
+</Warning>
+
+## Error Handling
+
+The API client automatically handles authentication errors:
+
+```javascript src/store/api/client.js
+ppost(path, data) {
+  return superagent
+    .post(path)
+    .send(data)
+    .then(res => res?.body)
+    .catch(err => {
+      // Automatic redirect on 401
+      if (res?.statusCode === 401) {
+        errors.backToLogin()
+      }
+      throw err
+    })
+}
+```
+
+In your actions, handle other errors appropriately:
+
+```javascript
+actions: {
+  async loadTasks({ commit }, filters) {
+    try {
+      const tasks = await tasksApi.getTasks(filters)
+      commit(LOAD_TASKS_END, tasks)
+      return tasks
+    } catch (err) {
+      // Handle network errors, server errors, etc.
+      console.error('Failed to load tasks:', err)
+      commit(LOAD_TASKS_ERROR, err.message)
+      throw err
+    }
+  }
+}
+```
+
+## Query Parameters
+
+Use the `buildQueryString` helper for URL parameters:
+
+```javascript
+import { buildQueryString } from '@/lib/query'
+import client from '@/store/api/client'
+
+export default {
+  getTasks(filters) {
+    const path = '/api/data/tasks'
+    return client.pget(buildQueryString(path, filters))
+  }
+}
+```
+
+Example usage:
+```javascript
+const filters = {
+  project_id: '123',
+  task_status_id: '456',
+  limit: 100
+}
+
+const tasks = await tasksApi.getTasks(filters)
+// GET /api/data/tasks?project_id=123&task_status_id=456&limit=100
+```
+
+## Real-time Updates
+
+Kitsu uses Socket.io for real-time collaboration:
+
+```javascript
+// Socket is available in Vuex store
+store.$socket.on('task:update', (data) => {
+  store.commit(UPDATE_TASK, data)
+})
+
+store.$socket.on('comment:new', (data) => {
+  store.commit(NEW_COMMENT, data)
+})
+
+store.$socket.on('preview:ready', (data) => {
+  store.commit(UPDATE_PREVIEW, data)
+})
+```
+
+The socket connection is established in `src/main.js`:
+
+```javascript
+import VueWebsocket from 'vue-websocket-next'
+import IO from 'socket.io-client'
+
+app.use(VueWebsocket, IO, '/events')
+store.$socket = app.config.globalProperties.$socket
+```
+
+## Common Patterns
+
+### Fetching Related Data
+
+Many endpoints support a `relations=true` parameter:
+
+```javascript
+client.getModel(modelName, modelId, relations = false) {
+  let path = `/api/data/${modelName}/${modelId}`
+  if (relations) path += '?relations=true'
+  return client.pget(path)
+}
+```
+
+Example:
+```javascript
+const task = await client.getModel('tasks', taskId, true)
+// Returns task with populated assignees, task_type, etc.
+```
+
+### Search
+
+Global search across entities:
+
+```javascript
+client.searchData(query, limit, offset, index_names, productionId) {
+  const path = '/api/data/search'
+  const data = { query, limit, offset, index_names }
+  if (productionId !== 'all') {
+    data.project_id = productionId
+  }
+  return client.ppost(path, data)
+}
+```
+
+### Events
+
+Fetch recent events for synchronization:
+
+```javascript
+client.getEvents(after, before, limit, lastEventId = null) {
+  let path = `/api/data/events/last?after=${after}&before=${before}&limit=${limit}`
+  if (lastEventId) {
+    path += `&cursor_event_id=${lastEventId}`
+  }
+  return client.pget(path)
+}
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Use Vuex Actions" icon="sitemap">
+    Always call API methods from Vuex actions, never directly from components
+  </Card>
+  <Card title="Handle Errors" icon="shield">
+    Implement proper error handling and user feedback
+  </Card>
+  <Card title="Type Safety" icon="check">
+    Validate API responses before committing to state
+  </Card>
+  <Card title="Optimize Requests" icon="bolt">
+    Cache data when appropriate and avoid unnecessary API calls
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+Explore specific API modules:
+
+<CardGroup cols={2}>
+  <Card title="Authentication" icon="lock" href="/api/authentication">
+    Learn about authentication and session management
+  </Card>
+  <Card title="Entities" icon="cube" href="/api/entities">
+    Work with assets, shots, and other entities
+  </Card>
+  <Card title="Tasks" icon="list-check" href="/api/tasks">
+    Manage tasks and comments
+  </Card>
+  <Card title="Files" icon="file" href="/api/files">
+    Handle file uploads and previews
+  </Card>
+</CardGroup>

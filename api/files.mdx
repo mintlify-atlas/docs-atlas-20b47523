@@ -1,0 +1,549 @@
+---
+title: 'Files API'
+description: 'Manage file statuses, output types, and entity files'
+icon: 'file'
+---
+
+## Overview
+
+The files API (`src/store/api/files.js`) handles file management, output files, and file status tracking. This module is simpler than others but essential for production file delivery workflows.
+
+## File Statuses
+
+File statuses track the state of output files in the production pipeline.
+
+### Get File Statuses
+
+```javascript
+import filesApi from '@/store/api/files'
+
+const statuses = await filesApi.getFileStatuses()
+
+// Returns array of file status objects
+[
+  {
+    id: 'status-1',
+    name: 'To Review',
+    short_name: 'rev',
+    color: '#f5a623',
+    is_default: false
+  },
+  {
+    id: 'status-2',
+    name: 'Approved',
+    short_name: 'app',
+    color: '#22d160',
+    is_default: false
+  },
+  {
+    id: 'status-3',
+    name: 'Rejected',
+    short_name: 'rej',
+    color: '#ff3860',
+    is_default: false
+  }
+]
+```
+
+Usage in Vuex:
+
+```javascript
+// Store module
+const actions = {
+  async loadFileStatuses({ commit }) {
+    const statuses = await filesApi.getFileStatuses()
+    commit(LOAD_FILE_STATUSES_END, statuses)
+    return statuses
+  }
+}
+
+const mutations = {
+  [LOAD_FILE_STATUSES_END](state, statuses) {
+    state.fileStatuses = statuses
+  }
+}
+```
+
+## Output Types
+
+Output types define the kinds of files that can be delivered from tasks (e.g., renders, caches, exports).
+
+### Get Output Types
+
+```javascript
+const outputTypes = await filesApi.getOutputTypes()
+
+// Returns array of output type objects
+[
+  {
+    id: 'type-1',
+    name: 'Geometry',
+    short_name: 'geo',
+    archived: false
+  },
+  {
+    id: 'type-2',
+    name: 'Render',
+    short_name: 'rnd',
+    archived: false
+  },
+  {
+    id: 'type-3',
+    name: 'Cache',
+    short_name: 'cch',
+    archived: false
+  },
+  {
+    id: 'type-4',
+    name: 'Texture',
+    short_name: 'tex',
+    archived: false
+  }
+]
+```
+
+Usage in Vuex:
+
+```javascript
+const actions = {
+  async loadOutputTypes({ commit }) {
+    const types = await filesApi.getOutputTypes()
+    commit(LOAD_OUTPUT_TYPES_END, types)
+    return types
+  }
+}
+
+const mutations = {
+  [LOAD_OUTPUT_TYPES_END](state, types) {
+    state.outputTypes = types
+    state.outputTypesMap = new Map(
+      types.map(type => [type.id, type])
+    )
+  }
+}
+```
+
+## Entity Output Files
+
+Output files are production files associated with entities (assets, shots, etc.).
+
+### Get Entity Output Files
+
+```javascript
+const outputFiles = await filesApi.getEntityOutputFiles(entityId)
+
+// Returns array of output file objects
+[
+  {
+    id: 'file-1',
+    name: 'hero_character_v003.abc',
+    entity_id: 'asset-456',
+    task_type_id: 'type-modeling',
+    output_type_id: 'type-geometry',
+    file_status_id: 'status-approved',
+    revision: 3,
+    representation: 'abc',
+    size: 524288000, // bytes
+    checksum: 'a3f5b9c2...',
+    path: '/renders/assets/characters/hero/geo/hero_character_v003.abc',
+    created_at: '2024-01-15T14:30:00Z',
+    updated_at: '2024-01-15T14:30:00Z',
+    person_id: 'user-789',
+    source_file_id: null,
+    temporal_entity_id: null
+  },
+  {
+    id: 'file-2',
+    name: 'hero_character_texture_v002.zip',
+    entity_id: 'asset-456',
+    task_type_id: 'type-texturing',
+    output_type_id: 'type-texture',
+    file_status_id: 'status-approved',
+    revision: 2,
+    representation: 'zip',
+    size: 104857600,
+    path: '/renders/assets/characters/hero/tex/hero_character_texture_v002.zip',
+    created_at: '2024-01-12T10:15:00Z'
+  }
+]
+```
+
+## Usage Examples
+
+### Load File Data in Component
+
+```vue
+<template>
+  <div class="file-manager">
+    <h2>Output Files</h2>
+    
+    <div class="file-list">
+      <div 
+        v-for="file in outputFiles" 
+        :key="file.id"
+        class="file-item"
+      >
+        <div class="file-info">
+          <strong>{{ file.name }}</strong>
+          <span class="file-size">{{ formatSize(file.size) }}</span>
+          <span 
+            class="file-status"
+            :style="{ backgroundColor: getStatusColor(file.file_status_id) }"
+          >
+            {{ getStatusName(file.file_status_id) }}
+          </span>
+        </div>
+        
+        <div class="file-meta">
+          <span>{{ getOutputTypeName(file.output_type_id) }}</span>
+          <span>Revision {{ file.revision }}</span>
+          <span>{{ formatDate(file.created_at) }}</span>
+        </div>
+        
+        <div class="file-path">
+          <code>{{ file.path }}</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters([
+      'entityOutputFiles',
+      'fileStatuses',
+      'outputTypes'
+    ]),
+    
+    entityId() {
+      return this.$route.params.id
+    },
+    
+    outputFiles() {
+      return this.entityOutputFiles(this.entityId)
+    }
+  },
+  
+  methods: {
+    ...mapActions([
+      'loadEntityOutputFiles',
+      'loadFileStatuses',
+      'loadOutputTypes'
+    ]),
+    
+    getStatusName(statusId) {
+      const status = this.fileStatuses.find(s => s.id === statusId)
+      return status?.name || 'Unknown'
+    },
+    
+    getStatusColor(statusId) {
+      const status = this.fileStatuses.find(s => s.id === statusId)
+      return status?.color || '#999'
+    },
+    
+    getOutputTypeName(typeId) {
+      const type = this.outputTypes.find(t => t.id === typeId)
+      return type?.name || 'Unknown'
+    },
+    
+    formatSize(bytes) {
+      if (bytes === 0) return '0 B'
+      const k = 1024
+      const sizes = ['B', 'KB', 'MB', 'GB']
+      const i = Math.floor(Math.log(bytes) / Math.log(k))
+      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i]
+    },
+    
+    formatDate(dateString) {
+      return new Date(dateString).toLocaleDateString()
+    }
+  },
+  
+  async mounted() {
+    // Load all file-related data
+    await Promise.all([
+      this.loadFileStatuses(),
+      this.loadOutputTypes(),
+      this.loadEntityOutputFiles(this.entityId)
+    ])
+  }
+}
+</script>
+
+<style scoped>
+.file-item {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.file-status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  color: white;
+  font-size: 0.85rem;
+  margin-left: 0.5rem;
+}
+
+.file-size {
+  color: #666;
+  margin-left: 0.5rem;
+}
+
+.file-meta {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.file-meta span {
+  margin-right: 1rem;
+}
+
+.file-path {
+  margin-top: 0.5rem;
+  background: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 3px;
+}
+
+.file-path code {
+  font-size: 0.85rem;
+}
+</style>
+```
+
+### File Status Filter
+
+```vue
+<template>
+  <div class="file-filter">
+    <h3>Filter by Status</h3>
+    
+    <div class="status-buttons">
+      <button
+        v-for="status in fileStatuses"
+        :key="status.id"
+        :class="{ active: selectedStatus === status.id }"
+        :style="{ borderColor: status.color }"
+        @click="selectedStatus = status.id"
+      >
+        {{ status.name }}
+      </button>
+      
+      <button 
+        :class="{ active: selectedStatus === null }"
+        @click="selectedStatus = null"
+      >
+        All
+      </button>
+    </div>
+    
+    <div class="filtered-files">
+      <file-item 
+        v-for="file in filteredFiles" 
+        :key="file.id"
+        :file="file"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedStatus: null
+    }
+  },
+  
+  computed: {
+    filteredFiles() {
+      if (!this.selectedStatus) {
+        return this.outputFiles
+      }
+      return this.outputFiles.filter(
+        file => file.file_status_id === this.selectedStatus
+      )
+    }
+  }
+}
+</script>
+```
+
+### Output Type Selector
+
+```vue
+<template>
+  <select v-model="selectedOutputType">
+    <option :value="null">All Types</option>
+    <option 
+      v-for="type in outputTypes" 
+      :key="type.id"
+      :value="type.id"
+    >
+      {{ type.name }} ({{ type.short_name }})
+    </option>
+  </select>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  data() {
+    return {
+      selectedOutputType: null
+    }
+  },
+  
+  computed: {
+    ...mapGetters(['outputTypes'])
+  },
+  
+  watch: {
+    selectedOutputType(typeId) {
+      this.$emit('filter-change', typeId)
+    }
+  }
+}
+</script>
+```
+
+## API Reference
+
+### filesApi Methods
+
+<ParamField path="getFileStatuses" type="function">
+  Get all file statuses
+  
+  **Returns:** Promise\<Array\> - Array of file status objects
+  
+  **Example:**
+  ```javascript
+  const statuses = await filesApi.getFileStatuses()
+  ```
+</ParamField>
+
+<ParamField path="getOutputTypes" type="function">
+  Get all output file types
+  
+  **Returns:** Promise\<Array\> - Array of output type objects
+  
+  **Example:**
+  ```javascript
+  const types = await filesApi.getOutputTypes()
+  ```
+</ParamField>
+
+<ParamField path="getEntityOutputFiles" type="function">
+  Get all output files for an entity
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  
+  **Returns:** Promise\<Array\> - Array of output file objects
+  
+  **Example:**
+  ```javascript
+  const files = await filesApi.getEntityOutputFiles('asset-123')
+  ```
+</ParamField>
+
+## Data Structures
+
+### File Status Object
+
+```typescript
+interface FileStatus {
+  id: string
+  name: string           // "Approved", "Rejected", etc.
+  short_name: string     // "app", "rej", etc.
+  color: string          // Hex color code
+  is_default: boolean
+}
+```
+
+### Output Type Object
+
+```typescript
+interface OutputType {
+  id: string
+  name: string          // "Geometry", "Render", etc.
+  short_name: string    // "geo", "rnd", etc.
+  archived: boolean
+}
+```
+
+### Output File Object
+
+```typescript
+interface OutputFile {
+  id: string
+  name: string
+  entity_id: string
+  task_type_id: string
+  output_type_id: string
+  file_status_id: string
+  revision: number
+  representation: string  // File extension/format
+  size: number           // Bytes
+  checksum: string
+  path: string           // File path on storage
+  created_at: string     // ISO date
+  updated_at: string     // ISO date
+  person_id: string
+  source_file_id: string | null
+  temporal_entity_id: string | null
+}
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Cache Reference Data" icon="database">
+    Load file statuses and output types once and cache in Vuex
+  </Card>
+  <Card title="Display File Sizes" icon="weight-scale">
+    Format file sizes in human-readable units (KB, MB, GB)
+  </Card>
+  <Card title="Show Status Colors" icon="palette">
+    Use status colors for visual feedback in the UI
+  </Card>
+  <Card title="Group by Type" icon="layer-group">
+    Organize files by output type for easier navigation
+  </Card>
+</CardGroup>
+
+## Integration with Tasks
+
+Output files are often related to task deliverables. You can combine the files API with the tasks API:
+
+```javascript
+// Get task and its output files
+const [task, outputFiles] = await Promise.all([
+  tasksApi.getTask(taskId),
+  filesApi.getEntityOutputFiles(task.entity_id)
+])
+
+// Filter files by task type
+const taskOutputFiles = outputFiles.filter(
+  file => file.task_type_id === task.task_type_id
+)
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="API Overview" icon="plug" href="/api/overview">
+    Review the API architecture overview
+  </Card>
+  <Card title="Tasks API" icon="list-check" href="/api/tasks">
+    Learn more about task management
+  </Card>
+</CardGroup>

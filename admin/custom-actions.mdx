@@ -1,0 +1,332 @@
+---
+title: Custom Actions
+description: Extend Kitsu with custom actions and integrations
+---
+
+## Overview
+
+Custom Actions allow you to extend Kitsu's functionality by creating buttons that trigger external tools, scripts, or web services. This powerful feature enables integration with your studio's pipeline tools, third-party applications, and custom workflows.
+
+## Accessing Custom Actions
+
+Navigate to the **Custom Actions** page from the main administration menu to view and manage all custom actions configured in your system.
+
+## What are Custom Actions?
+
+Custom Actions appear as buttons in the Kitsu interface that can:
+
+- Launch external applications or scripts
+- Open web-based tools with entity data
+- Trigger pipeline automation
+- Integrate with third-party services
+- Execute custom workflows
+- Send data to external systems
+
+## Creating a Custom Action
+
+<Steps>
+  <Step title="Click New Custom Action">
+    Click the **New custom action** button in the top-right corner.
+  </Step>
+  
+  <Step title="Configure Action Details">
+    Fill in the custom action information:
+    
+    **Name**: Display name for the button (e.g., "Open in Maya", "Send to Shotgrid")
+    
+    **URL**: The URL or command to execute. You can use template variables:
+    - `{entity_id}`: The ID of the selected entity
+    - `{entity_type}`: The type of entity (asset, shot, etc.)
+    - `{production_id}`: The current production ID
+    - `{task_id}`: The task ID if applicable
+    
+    **Entity Type**: Where the action appears:
+    - All
+    - Asset
+    - Shot
+    - Sequence
+    - Edit
+    - Episode
+    
+    **Is AJAX**: Check if the action should make an AJAX request instead of opening a new window
+  </Step>
+  
+  <Step title="Save">
+    Click **Confirm** to create the custom action.
+  </Step>
+</Steps>
+
+<Tip>
+  Use descriptive names that clearly indicate what the action does, like "Export to FBX" or "View in Ftrack".
+</Tip>
+
+## Custom Action Types
+
+### URL Actions
+
+Open external web services or tools:
+
+```plaintext
+https://your-tool.com/entity?id={entity_id}&type={entity_type}
+```
+
+### Protocol Handlers
+
+Launch desktop applications:
+
+```plaintext
+maya://open?file={entity_id}
+```
+
+### API Endpoints
+
+Trigger backend services (with AJAX enabled):
+
+```plaintext
+https://api.your-studio.com/sync?entity={entity_id}
+```
+
+## Template Variables
+
+Use these variables in your URL to pass entity information:
+
+| Variable | Description | Example Value |
+|----------|-------------|---------------|
+| `{entity_id}` | Unique identifier for the entity | `abc123-def456` |
+| `{entity_type}` | Type of entity | `asset`, `shot`, `sequence` |
+| `{production_id}` | Current production ID | `prod-789` |
+| `{task_id}` | Task identifier | `task-456` |
+| `{project_id}` | Project/production ID | `proj-123` |
+
+<Info>
+  Template variables are automatically replaced with actual values when the action is triggered.
+</Info>
+
+## Entity Types
+
+Custom actions can be configured to appear for specific entity types:
+
+### All
+The action appears for all entity types (assets, shots, sequences, episodes, edits).
+
+### Asset
+Action only appears on asset pages and asset-related views.
+
+### Shot
+Action only appears on shot pages and shot-related views.
+
+### Sequence
+Action only appears on sequence pages and sequence-related views.
+
+### Edit
+Action only appears on edit pages and edit-related views.
+
+### Episode
+Action only appears on episode pages and episode-related views.
+
+<Note>
+  Choose the appropriate entity type to ensure actions appear in the right context.
+</Note>
+
+## AJAX vs. Standard Actions
+
+### Standard Actions (AJAX disabled)
+
+- Opens URL in a new browser tab/window
+- Good for launching external tools or web pages
+- User sees the destination page
+- Example: Opening an asset in a web-based review tool
+
+### AJAX Actions (AJAX enabled)
+
+- Sends a background HTTP request to the URL
+- No new window opens
+- Good for triggering backend processes
+- User sees a success/error notification
+- Example: Syncing data to an external database
+
+<Warning>
+  AJAX actions require proper CORS configuration if calling external domains.
+</Warning>
+
+## Editing Custom Actions
+
+To modify an existing custom action:
+
+1. Click the **Edit** button next to the action
+2. Update the action details:
+   - Change the name
+   - Modify the URL or template
+   - Adjust entity type
+   - Toggle AJAX mode
+3. Click **Confirm** to save changes
+
+<Tip>
+  Test your custom actions thoroughly after editing to ensure they work as expected.
+</Tip>
+
+## Deleting Custom Actions
+
+To remove a custom action:
+
+1. Click the **Delete** button next to the action
+2. Confirm the deletion
+3. The action will be removed from all relevant pages
+
+<Warning>
+  Deleted custom actions cannot be recovered. Export your custom actions configuration before making changes.
+</Warning>
+
+## Exporting Custom Actions
+
+Export your custom actions configuration to CSV:
+
+1. Click the **Export** button
+2. Download the CSV file containing:
+   - Action type
+   - Action name
+   - URL template
+   - Entity type
+   - AJAX setting
+
+Use exports for:
+- Backup and version control
+- Migrating between Kitsu instances
+- Documentation
+- Sharing configurations with other studios
+
+## Common Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Pipeline Integration" icon="diagram-project">
+    - Launch DCC tools (Maya, Houdini, Nuke)
+    - Open files in version control
+    - Sync to asset management systems
+    - Trigger render farm submissions
+  </Card>
+  
+  <Card title="External Tools" icon="link">
+    - Open in Shotgrid/Ftrack
+    - View in external review tools
+    - Send to editorial systems
+    - Export to client portals
+  </Card>
+  
+  <Card title="Automation" icon="robot">
+    - Trigger batch processing
+    - Generate reports
+    - Send notifications
+    - Update external databases
+  </Card>
+  
+  <Card title="Utilities" icon="wrench">
+    - Generate thumbnails
+    - Create deliverables
+    - Validate assets
+    - Run quality checks
+  </Card>
+</CardGroup>
+
+## Example Custom Actions
+
+### Open in Maya
+
+```yaml
+Name: Open in Maya
+URL: maya://open?file=/projects/{production_id}/assets/{entity_id}
+Entity Type: Asset
+Is AJAX: No
+```
+
+### Sync to Shotgrid
+
+```yaml
+Name: Sync to Shotgrid
+URL: https://api.studio.com/sync/shotgrid?entity={entity_id}&type={entity_type}
+Entity Type: All
+Is AJAX: Yes
+```
+
+### Export to Review Tool
+
+```yaml
+Name: View in Screening Room
+URL: https://review.studio.com/shot/{entity_id}
+Entity Type: Shot
+Is AJAX: No
+```
+
+### Generate Report
+
+```yaml
+Name: Generate Asset Report
+URL: https://reporting.studio.com/generate?asset={entity_id}&production={production_id}
+Entity Type: Asset
+Is AJAX: Yes
+```
+
+## Security Considerations
+
+<AccordionGroup>
+  <Accordion title="URL Validation">
+    - Validate URLs before saving custom actions
+    - Use HTTPS for secure connections
+    - Avoid exposing sensitive data in URLs
+    - Implement proper authentication on external endpoints
+  </Accordion>
+  
+  <Accordion title="Access Control">
+    - Only administrators can create custom actions
+    - Custom actions inherit user permissions
+    - External endpoints should verify Kitsu user authentication
+    - Use API tokens for server-to-server communication
+  </Accordion>
+  
+  <Accordion title="Data Protection">
+    - Don't include passwords or API keys in URLs
+    - Use environment variables for sensitive configuration
+    - Implement rate limiting on external endpoints
+    - Log custom action usage for audit purposes
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+### Action Doesn't Appear
+
+- Check that entity type matches the page you're on
+- Verify the custom action is not deleted or disabled
+- Ensure you have appropriate permissions
+- Refresh the page
+
+### AJAX Action Fails
+
+- Check browser console for error messages
+- Verify CORS headers on the external endpoint
+- Test the URL directly in a browser
+- Ensure the endpoint returns proper status codes
+
+### Variables Not Replaced
+
+- Verify variable syntax: `{variable_name}`
+- Check that the entity has the required data
+- Test with a simple URL first
+- Review server logs for errors
+
+## Best Practices
+
+<Card title="Custom Action Guidelines" icon="lightbulb">
+  - Use clear, action-oriented names
+  - Test actions in a development environment first
+  - Document custom actions for team members
+  - Keep URLs simple and maintainable
+  - Use AJAX for background operations
+  - Version control your custom action configurations
+  - Monitor custom action usage and performance
+</Card>
+
+## Related Pages
+
+- [Status Automations](/admin/status-automations) - Automate workflow based on status changes
+- [API Overview](/api/overview) - Build integrations with Kitsu's API
+- [Task Types](/tasks/task-types) - Configure task types for workflow

@@ -1,0 +1,357 @@
+---
+title: Scheduling
+description: Plan your production timeline and manage task assignments with Gantt-style scheduling
+---
+
+The Production Schedule helps you plan when tasks will be completed, assign work to team members, and track progress against your timeline.
+
+## What is Production Scheduling?
+
+Kitsu's scheduling feature provides:
+
+- **Gantt-style timeline** view of your production
+- **Task type scheduling** by asset type or sequence
+- **Team assignments** with workload visualization
+- **Estimation-based planning** using task estimations
+- **Schedule versions** to compare different plans
+- **Real vs. Planned** mode to track actual progress
+
+## The Schedule Page
+
+The scheduling page (~/workspace/source/src/components/pages/ProductionSchedule.vue:1) shows your production timeline.
+
+### Timeline Controls
+
+**Date Range**: Set the visible timeline:
+- Start Date: Beginning of your view window
+- End Date: End of your view window
+- **Today Button**: Jump to current date
+
+**Zoom Levels**:
+- **Week View**: See months at a glance
+- **1 Day**: Daily granularity
+- **2 Days**: Balance detail and overview
+- **3 Days**: Maximum detail view
+
+**View Modes**:
+- **Planned (prev)**: View scheduled dates
+- **Real**: See actual progress dates
+
+**Entity Filter**:
+- **All**: Show all entity types
+- **Asset/Shot/Sequence**: Filter to specific type
+
+Only available when multiple entity types exist.
+
+## Schedule Hierarchy
+
+The schedule organizes work in levels:
+
+### Level 1: Task Types
+
+Top-level rows represent task types:
+- Modeling, Rigging, Animation, etc.
+- Color-coded by task type
+- Shows overall date range
+- Click to expand/collapse
+
+### Level 2: Asset Types or Sequences
+
+When expanded, shows:
+- **For Assets**: Asset types (Characters, Props, etc.)
+- **For Shots**: Sequences (SEQ010, SEQ020, etc.)
+
+Each shows its own date range.
+
+### Level 3: Individual Tasks
+
+Expanding an asset type/sequence shows:
+- Individual tasks grouped by assignee
+- Each person's tasks listed separately
+- Task bars span from start to end date
+
+## Creating a Schedule
+
+### Setting Task Dates
+
+Drag task bars to set dates:
+
+1. Click and drag the left edge to set **start date**
+2. Click and drag the right edge to set **end date**
+3. Drag the middle to move without changing duration
+
+<Note>
+Dates automatically adjust for weekends and days off. The duration matches the task estimation.
+</Note>
+
+### Assign Tasks Modal
+
+Bulk assign tasks to team members:
+
+1. Select a task type row
+2. Click **Assign Tasks** button
+3. Choose the task type from dropdown
+4. Drag entity types from the list onto the schedule
+5. Set start and end dates
+6. Select assignees (remove unwanted people)
+7. Set options:
+   - **Force Unassign**: Remove other assignments
+   - **Forced Daily Quotas**: Override calculated quota
+   - **Estimated Daily Quota**: Auto-calculated
+
+8. Click **Apply**
+
+### Estimation and Duration
+
+Task duration comes from estimations:
+
+- Set in the task details or asset/shot lists
+- Measured in **man-days**
+- Converted to calendar days based on:
+  - Number of assignees
+  - Days off and weekends
+  - Daily quota settings
+
+**Example**: A 10 man-day task assigned to 2 people takes approximately 5 calendar days (excluding weekends).
+
+## Schedule Versions
+
+Create multiple schedule scenarios:
+
+### Creating Versions
+
+1. Switch to **Planned (prev)** mode
+2. Click the **New Version** button (calendar-plus icon)
+3. Name your version (e.g., "Aggressive Schedule", "With Buffer")
+4. Click **Confirm**
+
+### Using Versions
+
+Select versions from the dropdown:
+- **Reference**: The production's active schedule
+- **Your versions**: Named alternatives
+
+Each version stores:
+- Task assignments
+- Start and due dates
+- Estimations
+
+<Note>
+The "Reference" version represents the production's official schedule. Custom versions are scenarios for planning.
+</Note>
+
+### Applying to Production
+
+When ready to make a version official:
+
+1. Select your version
+2. Click **Apply to Production**
+3. Confirm the action
+4. Task dates update in the main production
+
+<Warning>
+Applying a version to production overwrites current task dates. This action affects the entire team.
+</Warning>
+
+### Version Management
+
+- **Edit**: Change version name and settings
+- **Delete**: Remove a version permanently
+- **Lock**: Prevent changes to a version
+
+Locked versions are read-only but can still be viewed and exported.
+
+## Working with the Timeline
+
+### Expand/Collapse
+
+Control detail level:
+
+- **Expand All**: Click the expand-all button to see all levels
+- **Collapse All**: Click again to hide details
+- **Individual expand**: Click arrows on specific rows
+
+### Drag and Drop
+
+Rearrange and assign:
+
+- **From side panel**: Drag entity types onto the schedule
+- **Within schedule**: Move tasks to different dates
+- **Between assignees**: Reassign by dragging
+
+### Visual Indicators
+
+**Task Colors**: Match task type colors
+
+**Assignee Grouping**: Tasks group by person:
+- Shows assignee avatar
+- Lists all their tasks
+- Visualizes workload
+
+**Date Ranges**: Parent items show min/max dates of children
+
+## Real vs. Planned Mode
+
+### Planned Mode (prev)
+
+Shows scheduled dates:
+- Based on **start_date** and **due_date**
+- Editable (drag to change)
+- Used for planning
+- Can use schedule versions
+
+### Real Mode
+
+Shows actual progress:
+- Based on **real_start_date** and **done_date**
+- Read-only (dates come from task activity)
+- Tracks what actually happened
+- No version support
+
+Useful for comparing planned vs. actual progress.
+
+## Department Filtering
+
+Filter tasks by department:
+
+1. Select a department from the dropdown
+2. Only shows tasks for that department
+3. Useful for department heads to focus on their team
+
+## Exporting Schedules
+
+Export timeline data:
+
+1. Click the **Export** button
+2. Generates a CSV file with:
+   - Task type and entity information
+   - Start and end dates
+   - Assignees
+   - Estimations and durations
+
+3. Use in other tools (Excel, Project management software)
+
+## Side Panel Features
+
+### Task Type Selection
+
+Choose which task type to assign:
+- Dropdown lists all production task types
+- Filters available entities
+- Shows assigned/unassigned entities
+
+### Entity List
+
+Shows entities grouped by type:
+
+- **Asset Types**: For asset tasks
+- **Sequences**: For shot tasks
+
+**Filters**:
+- **Show Assigned**: Toggle to hide already-assigned entities
+- Expand/collapse to see individual items
+- Drag to schedule or select for bulk operations
+
+### Assignment Form
+
+When assigning tasks:
+
+**Dates**: Start and end dates for the assignment
+
+**Assignees**: List of team members:
+- Filtered by department (if task type has one)
+- Remove people you don't want assigned
+- Click **minus** button to remove
+
+**Options**:
+- **Force Unassign**: Remove existing assignments first
+- **Forced Daily Quotas**: Override auto-calculation
+
+**Daily Quota**: Calculated as:
+```
+Entities / Days / Assignees = Quota per person per day
+```
+
+Helps visualize realistic workloads.
+
+## Task Selection and Editing
+
+### Select Individual Tasks
+
+Click a task bar to open the edit panel:
+
+- View task details
+- Edit start date and estimation
+- End date calculates automatically
+- See assigned entity
+- Click **Apply** to save changes
+
+### Keyboard and Mouse
+
+- **Click**: Select item
+- **Drag**: Move dates
+- **Drag edges**: Resize duration
+- **Double-click**: Open entity page
+
+## Best Practices
+
+### Planning Your Schedule
+
+- Start with big milestones
+- Work backwards from delivery date
+- Add buffer time for iterations
+- Account for dependencies
+- Include time for reviews and approvals
+
+### Using Estimations
+
+- Base on historical data when possible
+- Add contingency for complex work
+- Review and adjust as you learn
+- Track actual time to improve future estimates
+
+### Team Assignment
+
+- Balance workload across team
+- Consider skill levels and experience
+- Account for part-time or split assignments
+- Factor in holidays and time off
+- Leave some capacity for unexpected work
+
+### Schedule Versions
+
+- Create optimistic and conservative versions
+- Test "what-if" scenarios
+- Compare different team compositions
+- Keep reference version updated
+- Archive completed versions
+
+### Timeline Management
+
+- Update regularly (weekly recommended)
+- Flag issues early when dates slip
+- Communicate changes to the team
+- Use Real mode to review progress
+- Adjust future tasks based on actuals
+
+## Limitations
+
+- Not available for TV shows with multiple episodes
+- Real mode is read-only
+- Version changes don't auto-notify team
+- Requires task estimations to be set
+- Manual sync with external tools needed
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Tasks" icon="check-square" href="/features/tasks">
+    Set estimations and track time
+  </Card>
+  <Card title="Assets" icon="cube" href="/features/assets">
+    View asset production status
+  </Card>
+  <Card title="Shots" icon="video" href="/features/shots">
+    Track shot progress
+  </Card>
+</CardGroup>

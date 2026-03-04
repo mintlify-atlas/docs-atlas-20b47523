@@ -1,0 +1,457 @@
+---
+title: Episodes & Sequences
+description: Organize TV show productions with episodes and sequences in Kitsu
+icon: film
+---
+
+For TV show productions, Kitsu provides hierarchical organization through Episodes and Sequences, allowing you to structure content by broadcast episodes and narrative sequences.
+
+## Understanding the Hierarchy
+
+TV Show productions use a three-level structure:
+
+```
+Production
+  └── Episode (e.g., "Episode 01")
+       └── Sequence (e.g., "SEQ010", "SEQ020")
+            └── Shots
+```
+
+<Info>
+  Episodes and Sequences are only available when the production type is set to **TV Show**.
+</Info>
+
+## Episodes
+
+Episodes represent broadcast episodes or major divisions of your production.
+
+### Episode Properties
+
+<ResponseField name="Name" type="string" required>
+  The episode identifier (e.g., "E01", "Episode 01", "101").
+</ResponseField>
+
+<ResponseField name="Description" type="text">
+  Synopsis or notes about the episode content.
+</ResponseField>
+
+<ResponseField name="Status" type="select">
+  Current episode status:
+  - **Running**: Actively in production (default)
+  - **Standby**: On hold or pending
+  - **Complete**: Finished and delivered
+  - **Canceled**: Not moving forward
+</ResponseField>
+
+<ResponseField name="Metadata" type="custom">
+  Custom fields defined in production settings (e.g., air date, duration, episode number).
+</ResponseField>
+
+### Creating Episodes
+
+<Steps>
+  <Step title="Navigate to Episodes">
+    Select your TV Show production and go to the **Episodes** page.
+  </Step>
+  
+  <Step title="Click New Episode">
+    Click the **New Episode** button (visible to Managers only).
+  </Step>
+  
+  <Step title="Enter Episode Details">
+    - **Name**: Episode identifier
+    - **Description**: Optional synopsis
+    
+    Additional metadata fields will appear if configured in production settings.
+  </Step>
+  
+  <Step title="Create Tasks">
+    After creating the episode, you can:
+    - Create episode-level tasks (e.g., "Episode Edit", "Episode Color")
+    - Add sequences within the episode
+  </Step>
+</Steps>
+
+### Managing Episodes
+
+#### Editing Episodes
+
+1. Click the **Edit** icon next to an episode in the list
+2. Modify the name, description, or metadata
+3. Click **Confirm** to save changes
+
+#### Episode Tasks
+
+Episodes can have their own tasks for episode-level work:
+
+- **Episode Editing**: Assembling the episode from sequences
+- **Episode Color Grading**: Overall color correction
+- **Episode Sound Design**: Audio mixing and mastering
+- **Episode Delivery**: Final export and delivery
+
+Create episode tasks by:
+1. Clicking the task cell in the episode list
+2. Selecting the task type
+3. Assigning to team members
+
+#### Deleting Episodes
+
+<Warning>
+  Deleting an episode removes all sequences, shots, and tasks within it. This action cannot be undone.
+</Warning>
+
+To delete an episode:
+1. Click the **Delete** icon (trash can)
+2. Type the episode name to confirm
+3. Click **Confirm**
+
+## Sequences
+
+Sequences organize shots within episodes, typically representing scenes or narrative beats.
+
+### Sequence Properties
+
+<ResponseField name="Name" type="string" required>
+  The sequence identifier (e.g., "SEQ010", "S01").
+</ResponseField>
+
+<ResponseField name="Episode" type="reference">
+  Which episode this sequence belongs to (automatically set based on current episode).
+</ResponseField>
+
+<ResponseField name="Description" type="text">
+  Scene description or notes.
+</ResponseField>
+
+<ResponseField name="Metadata" type="custom">
+  Custom fields for tracking sequence-specific information.
+</ResponseField>
+
+### Creating Sequences
+
+<Steps>
+  <Step title="Select an Episode">
+    Choose the episode from the episode selector dropdown, or click into an episode.
+  </Step>
+  
+  <Step title="Navigate to Sequences">
+    Go to the **Sequences** page (automatically scoped to the current episode).
+  </Step>
+  
+  <Step title="Click New Sequence">
+    Click the **New Sequence** button.
+  </Step>
+  
+  <Step title="Enter Sequence Details">
+    - **Name**: Sequence identifier
+    - **Description**: Scene description
+    - Episode is automatically set to the current episode
+  </Step>
+  
+  <Step title="Add Shots">
+    After creating the sequence, add shots to it from the Shots page.
+  </Step>
+</Steps>
+
+### Managing Sequences
+
+#### Editing Sequences
+
+1. Click the **Edit** icon next to a sequence
+2. Update the name, description, or metadata
+3. Click **Confirm**
+
+#### Sequence Tasks
+
+Like episodes, sequences can have sequence-level tasks:
+
+- **Sequence Layout**: Rough blocking and timing
+- **Sequence Animation**: Character animation
+- **Sequence Lighting**: Lighting setup
+- **Sequence Compositing**: Final comp
+
+#### Moving Sequences Between Episodes
+
+To move a sequence to a different episode:
+1. Edit the sequence
+2. Change the **Episode** field
+3. Save the changes
+
+<Note>
+  Moving a sequence also moves all its shots to the new episode.
+</Note>
+
+## Filtering and Searching
+
+### Episode Filtering
+
+On the Episodes page, you can:
+
+- **Search by name**: Type in the search field
+- **Filter by status**: `status=running`, `status=complete`
+- **Filter by metadata**: Use custom metadata fields in searches
+- **Department filter**: Show only tasks for specific departments
+
+Example searches:
+```
+e01                    # Find episode 1
+status=running         # Show only running episodes  
+airdate>2024-01-01     # Episodes airing after a date (if metadata configured)
+```
+
+### Sequence Filtering
+
+On the Sequences page:
+
+- **Auto-scoped to episode**: Sequences are filtered by the current episode
+- **Search by name**: Find specific sequences
+- **Filter by metadata**: Use sequence metadata fields
+- **Advanced filters**: Build complex queries with the filter builder
+
+Example searches:
+```
+seq01                  # Find sequence 01
+sequence=wip          # Sequences with tasks in progress
+```
+
+## Metadata for Episodes and Sequences
+
+Add custom metadata fields to track additional information:
+
+### Common Episode Metadata
+
+- **Episode Number**: Broadcast episode number
+- **Air Date**: Scheduled broadcast date
+- **Duration**: Target runtime
+- **Script Date**: When the script was finalized
+- **Storyboard Status**: Storyboard approval status
+
+### Common Sequence Metadata
+
+- **Location**: Where the scene takes place
+- **Time of Day**: Day/night/interior/exterior
+- **Page Count**: Script page range
+- **Complexity**: Simple/Medium/Complex
+
+Add metadata in **Production Settings** → **Parameters** → **Metadata Descriptors**.
+
+## Working with Episode Context
+
+### Episode Selector
+
+When working in a TV Show production, you'll see an episode selector that affects:
+
+- Which sequences are visible
+- Which shots are visible  
+- Which assets are shown (if episode-specific)
+
+Options in the selector:
+- **Specific episodes**: View one episode at a time
+- **All**: View content across all episodes
+- **Main**: View only main/shared content
+
+### Context-Aware Navigation
+
+Kitsu remembers your episode context:
+
+- Switching between Shots, Sequences, and Assets maintains the current episode
+- Breadcrumbs show: Production > Episode > Page
+- Quick switching between episodes via the selector
+
+## Statistics and Tracking
+
+### Episode Statistics
+
+View production progress per episode:
+
+1. Navigate to **Episode Stats** from the main menu
+2. See task completion by episode
+3. Compare progress across episodes
+4. Identify bottlenecks
+
+Statistics show:
+- Task status distribution
+- Time spent per episode
+- Completion percentage
+- Retake counts
+
+### Sequence Statistics
+
+Track sequence-level metrics:
+
+1. Go to **Sequence Stats**
+2. View completion by sequence
+3. See shot counts per sequence
+4. Monitor time estimates vs. actuals
+
+## Creating Tasks for Episodes and Sequences
+
+### Bulk Task Creation
+
+Create tasks for multiple episodes or sequences at once:
+
+<Steps>
+  <Step title="Select Entities">
+    Check the boxes next to episodes or sequences.
+  </Step>
+  
+  <Step title="Open Task Creation Modal">
+    Click the **Create Tasks** button that appears.
+  </Step>
+  
+  <Step title="Choose Task Type">
+    Select which task type to create.
+  </Step>
+  
+  <Step title="Confirm">
+    Tasks are created for all selected entities.
+  </Step>
+</Steps>
+
+### Episode Task Types
+
+Common task types for episodes:
+
+- **Episode Edit**: Assembling shots into the episode
+- **Episode Color**: Color grading the full episode
+- **Episode Sound**: Audio mixing and sound design
+- **Episode QC**: Quality control review
+- **Episode Delivery**: Final delivery and export
+
+Configure these in **Production Settings** → **Task Types** (set entity type to "Episode").
+
+### Sequence Task Types
+
+Common task types for sequences:
+
+- **Sequence Layout**: Camera and blocking
+- **Sequence Previz**: Preview visualization  
+- **Sequence Animation**: Animation supervisor review
+- **Sequence Lighting**: Lighting setup
+- **Sequence Comp**: Compositing
+
+## Export and Reporting
+
+### Exporting Episodes
+
+From the Episodes page:
+
+1. Click the **Export** button
+2. CSV file includes:
+   - Episode names
+   - Descriptions
+   - All metadata fields
+   - Task status for each task type
+   - Time spent
+   - Assignees
+
+### Exporting Sequences
+
+From the Sequences page:
+
+1. Filter to the desired episode(s)
+2. Click **Export**
+3. CSV includes sequence data and task information
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Consistent Naming" icon="hashtag">
+    Use consistent patterns for episode and sequence names:
+    - Episodes: "E01", "E02" or "EP01", "EP02"
+    - Sequences: "SEQ010", "SEQ020" or "S01", "S02"
+  </Card>
+  
+  <Card title="Plan Your Structure" icon="sitemap">
+    Decide on episode/sequence breakdown before production starts. Changes later can be disruptive.
+  </Card>
+  
+  <Card title="Use Metadata Wisely" icon="tags">
+    Add metadata fields that provide real value for tracking and reporting, not just for the sake of data.
+  </Card>
+  
+  <Card title="Track Episode Status" icon="chart-line">
+    Keep episode status current to help coordinate team efforts and communicate progress.
+  </Card>
+</CardGroup>
+
+## Common Workflows
+
+### Starting a New Episode
+
+<Steps>
+  <Step title="Create the Episode">
+    Add a new episode with name and description.
+  </Step>
+  
+  <Step title="Break Down into Sequences">
+    Create sequences based on the script breakdown.
+  </Step>
+  
+  <Step title="Create Shots">
+    Add shots to each sequence.
+  </Step>
+  
+  <Step title="Generate Tasks">
+    Bulk-create tasks for all shots in the episode.
+  </Step>
+  
+  <Step title="Assign Team">
+    Assign tasks to artists and begin production.
+  </Step>
+</Steps>
+
+### Episode Delivery
+
+<Steps>
+  <Step title="Complete All Shots">
+    Ensure all shot tasks are marked as Done.
+  </Step>
+  
+  <Step title="Episode-Level Tasks">
+    Complete episode edit, color, and sound tasks.
+  </Step>
+  
+  <Step title="QC Review">
+    Run quality control checks.
+  </Step>
+  
+  <Step title="Mark Episode Complete">
+    Change episode status to "Complete".
+  </Step>
+  
+  <Step title="Export and Deliver">
+    Generate final deliverables.
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Can't see sequences">
+    **Check**: Ensure you have an episode selected in the episode selector. Sequences are episode-scoped.
+  </Accordion>
+  
+  <Accordion title="Wrong episode for sequences">
+    **Solution**: Edit the sequence and change the Episode field to move it.
+  </Accordion>
+  
+  <Accordion title="Episode/Sequence tasks not appearing">
+    **Check**: Verify that task types are configured for Episode or Sequence entity types in Production Settings → Task Types.
+  </Accordion>
+  
+  <Accordion title="Can't create episodes or sequences">
+    **Permission check**: Only Manager and Admin roles can create episodes and sequences.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Creating Shots" icon="video" href="/shots/creating-shots">
+    Learn how to create and manage shots within sequences
+  </Card>
+  <Card title="Task Management" icon="list-check" href="/tasks/task-overview">
+    Understand how to manage tasks across episodes and sequences
+  </Card>
+</CardGroup>

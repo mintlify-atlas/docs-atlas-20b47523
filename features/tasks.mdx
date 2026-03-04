@@ -1,0 +1,368 @@
+---
+title: Tasks
+description: Track work assignments, add comments, upload previews, and manage production progress
+---
+
+Tasks represent individual work assignments in your production pipeline. Each asset or shot goes through multiple tasks (Modeling, Animation, Compositing, etc.) that track progress from start to finish.
+
+## What are Tasks?
+
+A task is a unit of work assigned to team members:
+
+- Belongs to an **asset** or **shot**
+- Has a **task type** (Modeling, Rigging, Animation, etc.)
+- Tracked with a **status** (TODO, WIP, Waiting for Approval, Approved, etc.)
+- Assigned to one or more **team members**
+- Contains **comments**, **previews**, and **annotations**
+- Tracks **time spent** and **estimations**
+
+## The Task Page
+
+The task detail page (~/workspace/source/src/components/pages/Task.vue:1) shows everything about a specific task.
+
+### Task Header
+
+The header displays:
+
+- **Entity thumbnail**: Preview of the asset/shot
+- **Entity name**: What you're working on
+- **Task type**: The discipline (colored badge)
+- **Current status**: Visual status indicator
+- **Assignees**: Avatar list of assigned artists
+- **Subscribe button**: Get notifications for task updates
+
+### Navigation
+
+Quickly navigate between related tasks:
+
+- **Up/Down arrows**: Previous/next task of same type
+- **Left/Right arrows**: Previous/next task type on same entity
+- **Back arrow**: Return to entity list
+
+## Working with Previews
+
+### Preview Player
+
+The main preview area shows:
+
+- Latest or selected preview version
+- Video playback controls (for video previews)
+- Image viewer (for still previews)
+- Annotation tools for feedback
+- Version selector dropdown
+
+### Uploading Previews
+
+Add work-in-progress or final renders:
+
+1. Drag and drop files onto the upload area
+2. Or click **Add Preview** to select files
+3. Supported formats:
+   - **Video**: MP4, MOV, WebM
+   - **Images**: PNG, JPG, EXR
+
+4. Add a comment describing the preview
+5. Select task status (WIP, Pending Review, etc.)
+6. Click **Confirm** to upload
+
+<Note>
+Previews process in the background. Large files may take time to encode for web playback.
+</Note>
+
+### Multiple Previews
+
+You can attach multiple files to one comment:
+
+- Upload several angles or variations
+- Compare different versions side-by-side
+- All previews link to the same comment
+
+### Preview Versions
+
+Each upload creates a new revision:
+
+- Versions number automatically (v1, v2, v3...)
+- Select versions from the dropdown
+- Previous versions remain accessible
+- Annotations saved per version
+
+### Setting Main Preview
+
+Managers can set which preview represents the entity:
+
+1. Select the preview version
+2. Click **Set as Main Preview**
+3. This thumbnail shows in asset/shot lists
+
+Useful for setting approved final renders.
+
+## Adding Comments
+
+Comments document progress, ask questions, and provide feedback.
+
+### Creating Comments
+
+To add a comment:
+
+1. Type in the comment field at the bottom
+2. Optionally attach files or previews
+3. Select task status if it changed
+4. Click **Comment** or press Ctrl+Enter
+
+### Comment Features
+
+**Rich Text**: Format comments with:
+- **Bold**, *italic*, and `code` formatting
+- Bullet lists and numbered lists
+- Links to external resources
+
+**Mentions**: Tag team members with `@name` to notify them
+
+**Task Links**: Reference other tasks with syntax like `#animation` or `#modeling`
+
+**Timecodes**: For video previews, reference specific frames:
+```
+v3@00:15 - Check the timing here
+```
+
+Clicking timecodes jumps the preview to that frame.
+
+**Checklists**: Add task lists within comments:
+```
+- [ ] Fix lighting on face
+- [x] Update hand animation
+- [ ] Add final polish
+```
+
+Check items off as you complete them.
+
+### Comment Types
+
+**Status Comments**: When you change the task status, it creates a status change marker in the timeline.
+
+**Preview Comments**: Comments with attached preview files show thumbnails and version info.
+
+**Reply Comments**: Reply to existing comments to keep discussions threaded.
+
+### Comment Actions
+
+Depending on your role, you can:
+
+- **Edit**: Modify your own comments (or any as Manager)
+- **Delete**: Remove comments permanently
+- **Pin**: Highlight important comments at the top
+- **Acknowledge**: Mark that you've seen/read a comment
+- **Reply**: Add threaded responses
+- **Duplicate**: Copy comment text to create similar feedback
+
+### Attachments
+
+Attach reference files to comments:
+
+- PDFs, images, documents
+- Drag and drop onto comment field
+- Attachments download via links in comments
+- Managers can delete attachments
+
+## Annotations and Feedback
+
+Draw directly on previews to give visual feedback.
+
+### Drawing Tools
+
+The annotation toolbar provides:
+
+- **Pencil**: Freehand drawing
+- **Rectangle**: Draw boxes
+- **Arrow**: Point to specific areas
+- **Text**: Add text labels
+- **Eraser**: Remove annotations
+
+### Creating Annotations
+
+1. Select a drawing tool
+2. Draw on the preview
+3. Annotations save automatically
+4. Each version has separate annotations
+
+### Annotation Features
+
+- **Colors**: Choose line colors
+- **Stroke width**: Adjust thickness
+- **Undo/Redo**: Fix mistakes
+- **Clear all**: Remove all annotations
+- **Frame-based**: For videos, annotations stick to specific frames
+
+### Extract Annotation Snapshots
+
+Include annotation screenshots in comments:
+
+1. Draw annotations on preview
+2. Click **Add Annotation Snapshots** in comment area
+3. Kitsu captures annotated frames
+4. Snapshots attach to your comment
+
+Great for archived feedback.
+
+## Task Information
+
+The info panel shows task metadata:
+
+### Time Tracking
+
+- **Estimation**: Expected time to complete (in days)
+- **Duration**: Actual time spent
+- **Retake Count**: Number of revision rounds
+
+### Dates
+
+- **Start Date**: When work began
+- **Due Date**: Expected completion
+- **End Date**: Actual completion
+- **Done Date**: When marked as final
+
+### Edit Task Data
+
+Managers and assigned artists can update:
+
+- Estimation and time spent
+- Start and due dates
+- Task status
+- Assignees
+
+## Task Status Workflow
+
+Tasks progress through statuses:
+
+### Common Status Flow
+
+1. **TODO**: Not started
+2. **WIP**: Work in progress
+3. **Pending Review**: Submitted for approval
+4. **Approved**: Final sign-off
+
+Your production may have custom statuses like:
+
+- **Retake**: Needs revisions
+- **Client Review**: External approval
+- **On Hold**: Paused temporarily
+
+### Changing Status
+
+Update task status:
+
+- From the comment section (status dropdown)
+- By uploading a preview with new status
+- Via the task list in assets/shots
+
+Status changes create timeline markers.
+
+### Status Automations
+
+Productions can configure automatic status changes:
+
+- When all upstream tasks complete
+- Based on comment patterns
+- When specific users approve
+
+Check with your production manager for configured automations.
+
+## Task Assignees
+
+### Who Can Work on Tasks
+
+Tasks can be assigned to:
+
+- Individual artists
+- Multiple people (collaborative tasks)
+- Unassigned (available for anyone)
+
+### Assignment Permissions
+
+- **Assigned artists**: Can comment and change status
+- **Supervisors**: Can assign/unassign and provide feedback
+- **Managers**: Full control over all tasks
+- **Clients**: Can view and comment (if granted access)
+
+### Subscribe to Tasks
+
+Not assigned but want notifications?
+
+1. Click the **Subscribe** button
+2. You'll receive notifications for:
+   - New comments
+   - Status changes
+   - New previews
+
+## Playlists from Tasks
+
+Create a quick playlist to review surrounding shots:
+
+1. Click the **Playlist** icon (for shot tasks)
+2. Kitsu creates a temporary playlist with:
+   - Previous shot in sequence
+   - Current shot
+   - Next shot in sequence
+
+Useful for reviewing shot continuity.
+
+## Best Practices
+
+### Commenting
+
+- Be specific and constructive
+- Use timecodes for video feedback
+- Include reference images when helpful
+- @mention relevant team members
+- Keep threads focused on single topics
+
+### Preview Uploads
+
+- Upload at key milestones
+- Include work-in-progress for early feedback
+- Name files descriptively
+- Use consistent resolution/format
+- Add comments explaining changes
+
+### Status Management
+
+- Update status when you start work
+- Set to "Pending Review" when ready
+- Don't mark "Approved" yourself (supervisor does this)
+- Add comments when changing status
+
+### Time Tracking
+
+- Log time regularly (daily or weekly)
+- Be honest about estimates vs. actuals
+- Data helps improve future scheduling
+- Include all work (not just "hands-on-keyboard" time)
+
+### Annotations
+
+- Use sparingly for clear feedback
+- Combine with text comments
+- Extract snapshots for important notes
+- Different colors for different note types
+
+## Keyboard Shortcuts
+
+- **Ctrl/Cmd + Enter**: Submit comment
+- **Escape**: Close modals
+- **Space**: Play/pause video preview
+- **Arrow Keys**: Navigate frame-by-frame (video)
+- **J/K/L**: Rewind/pause/forward (video)
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Assets" icon="cube" href="/features/assets">
+    View all tasks for an asset
+  </Card>
+  <Card title="Shots" icon="video" href="/features/shots">
+    View all tasks for a shot
+  </Card>
+  <Card title="Playlists" icon="play" href="/features/playlists">
+    Review multiple tasks together
+  </Card>
+</CardGroup>

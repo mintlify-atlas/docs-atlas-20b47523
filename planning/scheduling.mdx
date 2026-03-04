@@ -1,0 +1,315 @@
+---
+title: Production Scheduling
+description: Plan and track production schedules with task assignments, milestones, and timeline management
+---
+
+## Overview
+
+Kitsu's production scheduling system helps you plan and manage timelines for animation, VFX, and game production projects. Organize tasks by type, allocate resources, and track progress across your entire production pipeline.
+
+<Info>
+Scheduling is available at both the production level and team level, allowing for comprehensive planning and individual artist management.
+</Info>
+
+## Production Schedule
+
+The Production Schedule provides a high-level view of your project's task types, their duration, and assignments across entities.
+
+### Viewing the Schedule
+
+Access the production schedule from:
+- **Main Navigation** → **Schedule**
+- Set production start and end dates to define the overall timeline
+- Adjust zoom levels (week, 1, 2, 3) to view different time granularities
+
+### Schedule Modes
+
+#### Preview Mode
+Plan and adjust schedules before committing them:
+- Create multiple schedule versions for comparison
+- Modify task assignments and timelines
+- Apply schedule versions to production when ready
+
+```javascript
+// Schedule mode options
+const modeOptions = [
+  { label: 'Preview', value: 'prev' },
+  { label: 'Real', value: 'real' }
+]
+```
+
+#### Real Mode
+View actual production progress:
+- Display real start dates from task data
+- Show completion dates for finished tasks
+- Track current progress against planned schedules
+- Read-only view (cannot edit in this mode)
+
+### Schedule Versions
+
+Create multiple schedule versions to explore different planning scenarios:
+
+1. **Create New Version**
+   - Click the calendar plus icon
+   - Name your version (e.g., "Optimistic Timeline", "With Buffer")
+   - Set initial dates and assignments
+
+2. **Lock Versions**
+   - Lock approved versions to prevent accidental changes
+   - Locked versions remain viewable but not editable
+
+3. **Apply to Production**
+   - Select a version in preview mode
+   - Click "Apply to Production"
+   - Confirm to update all task assignments and dates
+
+<Warning>
+Applying a schedule version to production updates all task dates and assignments. This action cannot be undone.
+</Warning>
+
+### Task Type Organization
+
+Schedules are organized by task type and entity:
+
+#### For Feature Films
+- **Asset Tasks**: Organized by asset type (Character, Props, Environment)
+- **Shot Tasks**: Organized by sequence
+- Expandable hierarchy shows individual entities
+
+#### For TV Shows
+- **Episode-based**: Schedule tasks within episodes
+- **Multi-line Support**: View multiple assignments per task
+- Additional sequence-level organization
+
+### Assigning Tasks
+
+#### Bulk Assignment
+
+1. **Select Task Type**
+   - Click on a task type row or use the side panel
+   - Choose which task type to assign
+
+2. **Drag Entities**
+   - Drag asset types or sequences from the side panel
+   - Drop onto the schedule timeline
+   - Set start and end dates
+
+3. **Assign Team Members**
+   - Select team members from the filtered list
+   - Department filtering ensures appropriate assignments
+   - Set forced daily quotas if needed
+
+4. **Configure Assignment**
+   ```javascript
+   // Assignment parameters
+   {
+     startDate: '2024-01-15',
+     endDate: '2024-02-28',
+     assignees: ['person-id-1', 'person-id-2'],
+     forcedDailyQuota: 0.5, // Optional
+     unassign: false // Force unassign others
+   }
+   ```
+
+#### Individual Task Editing
+
+1. Click on a task bar in the expanded view
+2. Modify in the side panel:
+   - Start date
+   - Estimation (in man-days)
+   - Assigned team members
+3. End date automatically calculated from estimation
+
+### Estimation and Duration
+
+Kitsu links estimation to schedule duration:
+
+- **Estimation**: Set in man-days per task
+- **Auto-calculation**: End dates calculated based on:
+  - Start date
+  - Estimation in man-days
+  - Business days (excludes weekends)
+  - Personal days off
+
+```javascript
+// Estimated daily quota calculation
+const estimatedDailyQuota = 
+  nbEntities / nbBusinessDays / nbAssignees
+```
+
+### Schedule Export
+
+Export your schedule for external planning:
+- Click the **Export** button
+- Generates CSV with:
+  - Task types and entities
+  - Start and end dates
+  - Assigned team members
+  - Duration and milestones
+
+## Team Schedule
+
+The Team Schedule provides a person-centric view of task assignments.
+
+### Features
+
+#### Filter by Person
+- View all tasks assigned to specific team members
+- See individual workload and timeline
+- Identify scheduling conflicts and gaps
+
+#### Filter by Department & Studio
+- **Department**: View tasks for specific departments (e.g., Modeling, Animation)
+- **Studio**: Filter by studio location for distributed teams
+- **Production**: Filter tasks from specific productions
+
+#### Unassigned Tasks Panel
+
+1. **View Unassigned Work**
+   - Click "Unassigned Tasks" button
+   - See all tasks without assignees
+   - Filter by production and task type
+
+2. **Drag-and-Drop Assignment**
+   - Drag tasks from the unassigned panel
+   - Drop onto a person's timeline
+   - Automatically assigns and sets dates
+
+3. **Load More**
+   - Paginated loading for large task lists
+   - Shows total count of unassigned tasks
+
+### Expanding Person Timelines
+
+Click on a person to expand their task list:
+- Tasks sorted by start date, production, and name
+- Shows full entity path and task type
+- Color-coded by task type
+- Editable start/end dates and estimation
+
+### Days Off Integration
+
+The team schedule respects personal days off:
+- Automatically adjusts task end dates
+- Avoids scheduling on weekends
+- Accounts for holidays and personal time off
+- Accurate workload calculation
+
+## Best Practices
+
+### Planning Workflow
+
+1. **Set Production Dates**
+   - Define overall start and end dates
+   - Account for holidays and studio closures
+
+2. **Create Schedule Version**
+   - Work in preview mode initially
+   - Create named versions for different scenarios
+
+3. **Assign Task Types**
+   - Start with high-level task type scheduling
+   - Set realistic durations based on team capacity
+
+4. **Distribute Workload**
+   - Use team schedule to balance assignments
+   - Check for overallocation
+   - Ensure even distribution across team members
+
+5. **Review and Adjust**
+   - Compare actual vs. planned progress
+   - Update estimations based on velocity
+   - Adjust future schedules accordingly
+
+6. **Apply to Production**
+   - Lock approved schedule version
+   - Apply to update all task assignments
+
+### Avoiding Common Issues
+
+<Warning>
+**Overallocation**: Check team schedule to ensure no person has overlapping tasks or unrealistic daily quotas.
+</Warning>
+
+<Tip>
+**Use Daily Quotas**: Set forced daily quotas to maintain consistent progress across parallel tasks.
+</Tip>
+
+<Info>
+**Department Permissions**: Only supervisors and managers can edit schedules. Artists see read-only views.
+</Info>
+
+### Tracking Progress
+
+- Regularly switch to Real mode to compare planned vs. actual
+- Use timesheet data to validate estimations
+- Adjust remaining work based on actual velocity
+- Update schedule versions as the production evolves
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| **Click + Drag** | Move task dates |
+| **Shift + Click** | Select multiple tasks |
+| **Scroll** | Navigate timeline horizontally |
+
+## Integration with Other Features
+
+### Quotas
+Schedule assignments affect [quota tracking](/planning/quota-management) calculations for measuring artist productivity.
+
+### Timesheets
+[Timesheet data](/planning/timesheets) provides actual time spent, which helps refine future schedule estimations.
+
+### Budget
+Schedule duration impacts [budget calculations](/planning/budget) for personnel costs.
+
+## Technical Details
+
+### Data Model
+
+Schedule items store:
+```javascript
+{
+  task_type_id: 'uuid',
+  object_id: 'asset-type-id or sequence-id',
+  start_date: '2024-01-15',
+  end_date: '2024-02-28',
+  for_entity: 'Asset' | 'Shot',
+  // Loaded dynamically when expanded
+  children: [...tasks]
+}
+```
+
+### Schedule Versioning
+
+Versioned schedules are separate entities:
+- Reference version uses production's default task dates
+- Custom versions store separate `schedule_version_task` records
+- Applying a version copies dates back to main tasks
+
+### Business Day Calculation
+
+The system automatically calculates business days:
+- Skips weekends (Saturday/Sunday)
+- Excludes organization-wide days off
+- Accounts for personal days off when set
+- Ensures accurate duration estimates
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Quota Management" icon="chart-line" href="/planning/quota-management">
+    Track artist productivity and output metrics
+  </Card>
+  <Card title="Timesheets" icon="clock" href="/planning/timesheets">
+    Record and analyze actual time spent on tasks
+  </Card>
+  <Card title="Budget" icon="dollar-sign" href="/planning/budget">
+    Plan and track production costs
+  </Card>
+  <Card title="Tasks" icon="check-square" href="/essentials/tasks">
+    Learn about task management fundamentals
+  </Card>
+</CardGroup>

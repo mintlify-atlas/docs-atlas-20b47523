@@ -1,0 +1,412 @@
+---
+title: Playlists
+description: Build review sessions, organize dailies, and share work with clients and stakeholders
+---
+
+Playlists let you organize assets and shots into review sessions for feedback, approvals, and presentations. They're essential for dailies, client reviews, and team reviews.
+
+## What are Playlists?
+
+A playlist is a curated collection of:
+
+- **Shots** or **Assets** (not mixed)
+- **Specific preview versions** for each item
+- **Organized order** for review flow
+- **Annotations** and feedback on each preview
+
+Playlists support:
+
+- Team dailies and reviews
+- Client presentations
+- Director/supervisor feedback sessions
+- Milestone showcases
+- Department-specific reviews
+
+## The Playlists Page
+
+The playlists page (~/workspace/source/src/components/pages/Playlist.vue:1) has two main areas:
+
+### Playlist List (Left Sidebar)
+
+Shows all playlists for the current production:
+
+- Thumbnail from first item
+- Playlist name
+- Last updated date
+- Task type filter (if applicable)
+- Color-coded by task type
+
+**Sort Options**:
+- **Updated At**: Most recently modified first
+- **Created At**: Newest playlists first
+- **Name**: Alphabetically
+
+Click **New Playlist** to create one.
+
+### Playlist Player (Main Area)
+
+Displays the selected playlist:
+
+- Preview player with playback controls
+- Entity filmstrip showing all items
+- Navigation and organization tools
+- Add/remove entity controls
+
+## Creating Playlists
+
+<Note>
+Only Managers and Supervisors can create playlists.
+</Note>
+
+### New Playlist
+
+To create a playlist:
+
+1. Click **New Playlist** button
+2. Fill in details:
+   - **Name**: Descriptive title (e.g., "Week 12 Animation Dailies")
+   - **Entity Type**: Asset or Shot
+   - **Task Type** (optional): Filter to specific department
+   - **For Client**: Make it client-visible
+   - **For All**: Available across all episodes (TV shows)
+
+3. Click **Confirm**
+
+The playlist opens, ready to add items.
+
+### Auto-Generated Playlists
+
+Quickly build playlists with smart filters:
+
+**Build Daily** (Today's submissions):
+- Finds shots/assets with previews uploaded today
+- For the selected task type (if set)
+- Adds in sorted order
+
+**Build Weekly** (This week's work):
+- Includes all pending reviews from the week
+- Useful for end-of-week reviews
+
+**Add Episode** (TV Shows):
+- Adds all shots from current episode
+- In sequence/shot order
+
+**Add Movie** (Films):
+- Adds all shots in the production
+- Useful for full movie reviews
+
+**Add Sequence**:
+- Click the button next to a sequence name
+- Adds all shots from that sequence
+
+## Adding Items to Playlists
+
+### Manual Selection
+
+With a playlist open:
+
+1. Click **Show Add Entities**
+2. The entity list appears below
+3. Click any shot/asset to add it
+4. Already-added items show with purple border
+5. Scroll to load more items
+
+### Search and Filter
+
+Find specific items to add:
+
+```
+seq010 anim=wfa
+```
+
+Filters shots in SEQ010 where Animation is "Waiting for Approval".
+
+Click **Add Selection** to add all filtered results.
+
+### Drag and Drop
+
+Drag entities from the add list into the filmstrip:
+
+1. Drag an entity thumbnail
+2. Drop between existing items
+3. Or drop at the end to append
+
+### Sequence/Bulk Add
+
+For shots, click **Add Sequence** next to sequence names to add all shots in that sequence at once.
+
+## Organizing Playlists
+
+### Reorder Items
+
+Change the review order:
+
+1. Drag items in the filmstrip
+2. Drop where you want them
+3. Order saves automatically
+
+### Remove Items
+
+Remove items you don't need:
+
+1. Hover over item in filmstrip
+2. Click the **X** button
+3. Confirm removal
+
+Note: This removes from playlist, not from production.
+
+### Change Preview Version
+
+Select which version to show:
+
+1. Click item in filmstrip
+2. Preview loads in player
+3. Use version dropdown to select different preview
+4. Playlist updates to show selected version
+
+Useful for comparing revisions or showing specific versions.
+
+## Playlist Player Features
+
+### Video Playback
+
+For video previews:
+
+- **Play/Pause**: Spacebar or click button
+- **Seek**: Drag timeline scrubber
+- **Frame Step**: Arrow keys
+- **Speed**: Playback speed control
+- **Loop**: Repeat current preview
+
+### Navigation
+
+- **Filmstrip**: Click any item to jump to it
+- **Previous/Next**: Arrow buttons or keyboard
+- **Auto-advance**: Automatically play next item
+
+### Full Screen
+
+Click the fullscreen button for distraction-free viewing.
+
+### Annotations
+
+Draw on previews during review:
+
+1. Select drawing tool (pencil, rectangle, arrow, text)
+2. Draw on the preview
+3. Annotations save to the preview file
+4. Visible to everyone viewing this preview
+
+See [Tasks](/features/tasks) for detailed annotation features.
+
+## Playlist Types
+
+### By Entity Type
+
+**Shot Playlists**:
+- Review cut/sequence flow
+- Check continuity
+- Show progress to director/client
+
+**Asset Playlists**:
+- Character lineup reviews
+- Prop approvals
+- Environment showcases
+
+**Sequence Playlists** (for Sequence tasks):
+- Review entire sequences
+- Check edit flow
+
+### By Task Type
+
+Filter playlists to specific departments:
+
+- **Animation Dailies**: Only animation tasks
+- **Lighting Review**: Only lighting tasks
+- **Comp Review**: Only compositing
+
+Click the task type filter in playlist settings.
+
+### Client Playlists
+
+Mark playlists as **For Client**:
+
+- Different visual style (purple)
+- Can be shared externally
+- Client users can view and comment
+- Typically final/approved work only
+
+## Playlist Settings
+
+### Edit Playlist
+
+Click the settings icon to change:
+
+- Playlist name
+- Entity type (can't change once items added)
+- Task type filter
+- Client visibility
+- For All setting (TV shows)
+
+### Delete Playlist
+
+Click delete to remove permanently.
+
+<Warning>
+Deleting a playlist is permanent. All playlist-specific data (order, selected versions) is lost. The shots/assets and previews themselves are not affected.
+</Warning>
+
+## Build Jobs
+
+For very large playlists, Kitsu can generate downloadable video files:
+
+### Create Build
+
+1. Click **Build** in playlist settings
+2. Choose options:
+   - **Full build**: Concatenate all previews
+   - **Individual files**: Separate video per item
+
+3. Job starts in background
+4. Download link appears when ready
+
+### Build Status
+
+Build jobs show:
+
+- **Running**: Processing
+- **Done**: Ready to download
+- **Failed**: Error occurred
+
+Click the download icon on completed jobs.
+
+## Review Workflows
+
+### Daily Reviews
+
+1. Create playlist: "Daily - [Date]"  
+2. Use **Build Daily** to auto-populate
+3. Reorder by priority
+4. Present in team meeting
+5. Add verbal feedback as annotations/comments
+6. Artists address feedback
+
+### Client Reviews
+
+1. Create **For Client** playlist
+2. Add only approved shots
+3. Order narratively (story order)
+4. Annotate key points for client
+5. Share playlist link
+6. Collect client feedback in comments
+
+### Supervisor Reviews
+
+1. Create task-type specific playlist (e.g., "Animation - Week 12")
+2. Add all WFA (Waiting for Approval) items
+3. Review systematically
+4. Annotate issues directly
+5. Update task statuses (Approved/Retake)
+6. Export annotations for artists
+
+## Sharing Playlists
+
+Share playlists for review:
+
+### Internal Sharing
+
+All team members can access playlists for their production. Simply share the URL.
+
+### External Sharing
+
+For clients or stakeholders:
+
+1. Mark playlist as **For Client**
+2. Share the playlist URL
+3. Client users (with accounts) can:
+   - View all previews
+   - Add comments
+   - Draw annotations
+   - See task info
+
+## Playlist Sorting
+
+Sort playlists in the list:
+
+- **Updated At**: Most recent activity first
+- **Created At**: Newest playlists
+- **Name**: Alphabetically
+
+Persists across sessions.
+
+## Task Type Filtering
+
+Filter the playlist list:
+
+1. Select task type from dropdown
+2. Only shows playlists for that task type
+3. Or "All" to show everything
+
+Useful when you have many playlists.
+
+## Best Practices
+
+### Naming Playlists
+
+Use clear, descriptive names:
+
+- Include date: "2024-03-15 Animation Dailies"
+- Include department: "Lighting Review - Week 12"
+- Include purpose: "Client Review - Milestone 3"
+- TV shows: "Ep05 - Layout Review"
+
+### Organization
+
+- Create playlists regularly (daily/weekly)
+- Delete old playlists after review
+- Keep client playlists separate
+- Archive important milestone playlists
+
+### Review Process
+
+- Review in story order when possible
+- Address critical issues first
+- Take notes during review
+- Follow up after with task updates
+- Communicate feedback clearly
+
+### Performance
+
+- Large playlists (100+ items) may load slowly
+- Consider splitting into smaller playlists
+- Use build jobs for very large reviews
+- Close unused playlists
+
+### Annotations
+
+- Use different colors for different note types
+- Combine with text comments for clarity
+- Be specific with placement
+- Extract snapshots for archival
+
+## Keyboard Shortcuts
+
+- **Space**: Play/pause
+- **Left/Right Arrows**: Previous/next item
+- **Up/Down Arrows**: Frame-by-frame (video)
+- **F**: Fullscreen
+- **Escape**: Exit fullscreen
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Tasks" icon="check-square" href="/features/tasks">
+    Update task status from reviews
+  </Card>
+  <Card title="Shots" icon="video" href="/features/shots">
+    Build shot playlists
+  </Card>
+  <Card title="Assets" icon="cube" href="/features/assets">
+    Build asset playlists
+  </Card>
+</CardGroup>

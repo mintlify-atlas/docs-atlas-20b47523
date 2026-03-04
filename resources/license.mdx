@@ -1,0 +1,282 @@
+---
+title: 'License'
+description: 'Kitsu licensing information and terms'
+icon: 'scale-balanced'
+---
+
+## License Overview
+
+Kitsu is free and open source software licensed under the **GNU Affero General Public License version 3.0 (AGPL-3.0)**.
+
+<Info>
+  **What does this mean for you?**
+  
+  You are free to use, modify, and distribute Kitsu, even for commercial purposes, as long as you comply with the license terms.
+</Info>
+
+## Quick Summary
+
+### You Are Free To:
+
+<CardGroup cols={2}>
+  <Card title="Use" icon="check">
+    Use Kitsu for any purpose, including commercial projects
+  </Card>
+  <Card title="Study" icon="book-open">
+    Study how the software works and adapt it to your needs
+  </Card>
+  <Card title="Share" icon="share-nodes">
+    Distribute copies to help others
+  </Card>
+  <Card title="Modify" icon="code">
+    Modify the software and distribute your modifications
+  </Card>
+</CardGroup>
+
+### Your Responsibilities:
+
+<Steps>
+  <Step title="Share Source Code">
+    If you distribute Kitsu or modified versions, you must make the source code available under the same AGPL-3.0 license.
+  </Step>
+  
+  <Step title="Preserve License">
+    Include the original license and copyright notices in your distributions.
+  </Step>
+  
+  <Step title="Document Changes">
+    Clearly mark any modifications you make to the software.
+  </Step>
+  
+  <Step title="Network Use Clause">
+    If you run a modified version on a network server, you must make the source code available to users who interact with it.
+  </Step>
+</Steps>
+
+## The AGPL-3.0 License
+
+### Key Provisions
+
+<AccordionGroup>
+  <Accordion title="Freedom to Use">
+    You may run the program for any purpose, without restrictions on who can use it or what they can use it for.
+  </Accordion>
+
+  <Accordion title="Freedom to Study and Modify">
+    You have access to the source code and can modify it to suit your needs. The source code is a prerequisite for this freedom.
+  </Accordion>
+
+  <Accordion title="Freedom to Redistribute">
+    You can distribute copies of the original software to help others, with or without charge.
+  </Accordion>
+
+  <Accordion title="Freedom to Distribute Modifications">
+    You can distribute your modified versions, so the whole community can benefit from your improvements.
+  </Accordion>
+
+  <Accordion title="Network Server Requirement (The 'Affero' Clause)">
+    If you run a modified version of Kitsu on a server and let others interact with it there, you must make the modified source code available to those users.
+    
+    This is the key difference between AGPL and GPL - it closes the "SaaS loophole" by requiring source code disclosure even when the software is only accessed over a network.
+  </Accordion>
+</AccordionGroup>
+
+### Copyright Notice
+
+```
+Kitsu - Production Management Software (user interface)
+Copyright (C) CGWire
+Author: Frank Rousseau <frank@cg-wire.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+```
+
+## Common Questions
+
+<AccordionGroup>
+  <Accordion title="Can I use Kitsu in my studio without sharing my modifications?">
+    **Yes**, if you only use it internally and don't distribute it to others or provide access over a network to users outside your organization.
+    
+    However, if you run a modified version as a service accessible to external users (e.g., clients, contractors), you must make your modifications available under AGPL-3.0.
+  </Accordion>
+
+  <Accordion title="Can I sell Kitsu or modified versions?">
+    **Yes**, you can charge for distributing Kitsu or modified versions. However, recipients must receive the source code and the same freedoms you received under AGPL-3.0.
+  </Accordion>
+
+  <Accordion title="Can I keep my custom plugins/extensions private?">
+    This depends on how they're implemented:
+    
+    - If they're separate programs that communicate with Kitsu through its API, they may not need to be AGPL.
+    - If they're integrated into Kitsu's codebase or form a combined work, they must be AGPL.
+    
+    When in doubt, consult with a legal professional.
+  </Accordion>
+
+  <Accordion title="What if I only make small modifications?">
+    The size of modifications doesn't matter. If you distribute modified versions or run them on a network server, you must make the source code available under AGPL-3.0.
+  </Accordion>
+
+  <Accordion title="Can I integrate Kitsu with proprietary software?">
+    Yes, you can integrate Kitsu with proprietary software through its API. API integration typically doesn't create a derived work, so your proprietary software doesn't need to be AGPL.
+  </Accordion>
+</AccordionGroup>
+
+## Compliance Guidelines
+
+### If You Distribute Kitsu
+
+<Steps>
+  <Step title="Include License">
+    Include the full AGPL-3.0 license text with your distribution.
+  </Step>
+  
+  <Step title="Provide Source Code">
+    Make the complete source code available, including any modifications you've made.
+  </Step>
+  
+  <Step title="Document Changes">
+    Clearly indicate what changes you've made and when.
+  </Step>
+  
+  <Step title="Preserve Notices">
+    Keep all copyright and license notices intact.
+  </Step>
+</Steps>
+
+### If You Run Kitsu as a Network Service
+
+<Steps>
+  <Step title="Original Version">
+    If you run the unmodified version, no additional action needed beyond what the license requires.
+  </Step>
+  
+  <Step title="Modified Version">
+    If you run a modified version accessible to users over a network:
+    
+    - Provide a way for users to access the modified source code
+    - Include installation instructions
+    - Make it prominently available (e.g., link in the UI)
+  </Step>
+</Steps>
+
+## Full License Text
+
+The complete GNU Affero General Public License v3.0 is available in:
+
+- The `LICENSE` file in the Kitsu repository
+- [GNU AGPL-3.0 official text](https://www.gnu.org/licenses/agpl-3.0.html)
+- [Kitsu GitHub repository](https://github.com/cgwire/kitsu/blob/main/LICENSE)
+
+<Card title="View Full License" icon="file-contract" href="https://github.com/cgwire/kitsu/blob/main/LICENSE">
+  Read the complete AGPL-3.0 license text on GitHub
+</Card>
+
+## Why AGPL?
+
+CGWire chose the AGPL-3.0 license to ensure that:
+
+1. **Community Benefits**: Improvements made by anyone benefit the entire community
+2. **Transparency**: Users can see exactly what the software does
+3. **Network Protection**: The "Affero" clause prevents the SaaS loophole
+4. **Freedom**: Studios maintain freedom to use and modify the software
+5. **Collaboration**: Encourages open collaboration and shared improvements
+
+## Contribution License
+
+By contributing to Kitsu, you agree to license your contributions under the AGPL-3.0 license. All contributions must follow the [C4 contract](https://rfc.zeromq.org/spec:42/C4).
+
+See the [Contributing Guide](/resources/community#code-contributions) for more information.
+
+## Third-Party Licenses
+
+Kitsu uses various third-party open source libraries, each with their own licenses:
+
+<AccordionGroup>
+  <Accordion title="Vue.js and Ecosystem">
+    - Vue.js: MIT License
+    - Vuex: MIT License
+    - Vue Router: MIT License
+  </Accordion>
+  
+  <Accordion title="Build Tools">
+    - Vite: MIT License
+    - ESLint: MIT License
+    - Prettier: MIT License
+  </Accordion>
+  
+  <Accordion title="UI Libraries">
+    - Chart.js: MIT License
+    - FullCalendar: MIT License
+    - Fabric.js: MIT License (custom fork)
+  </Accordion>
+  
+  <Accordion title="Other Dependencies">
+    See `package.json` for a complete list of dependencies and their respective licenses.
+  </Accordion>
+</AccordionGroup>
+
+All third-party licenses are compatible with AGPL-3.0.
+
+## Commercial Support
+
+While Kitsu is free software, CGWire offers commercial support and services:
+
+- Professional support contracts
+- Custom development
+- Training and consulting
+- Hosted solutions
+
+<Card title="CGWire Services" icon="briefcase" href="https://cg-wire.com">
+  Learn about professional support options
+</Card>
+
+## Disclaimer
+
+<Warning>
+  **No Warranty**
+  
+  Kitsu is provided "as is" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability and fitness for a particular purpose.
+  
+  See the full license text for complete warranty disclaimers and limitations of liability.
+</Warning>
+
+<Note>
+  **Not Legal Advice**
+  
+  This page provides a general overview of the AGPL-3.0 license as it applies to Kitsu. It is not legal advice. For legal questions about license compliance, consult with a qualified legal professional.
+</Note>
+
+## Questions About Licensing?
+
+If you have questions about licensing or compliance:
+
+- Review the [full license text](https://www.gnu.org/licenses/agpl-3.0.html)
+- Check the [GNU AGPL FAQ](https://www.gnu.org/licenses/gpl-faq.html)
+- Ask on [Discord](https://discord.com/invite/VbCxtKN)
+- Contact CGWire directly for commercial licensing questions
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Contributing" icon="code-pull-request" href="/resources/community#code-contributions">
+    How to contribute to Kitsu
+  </Card>
+  <Card title="C4 Contract" icon="file-contract" href="https://rfc.zeromq.org/spec:42/C4">
+    Contribution guidelines
+  </Card>
+  <Card title="GitHub Repository" icon="github" href="https://github.com/cgwire/kitsu">
+    View the source code
+  </Card>
+  <Card title="GNU AGPL-3.0" icon="scale-balanced" href="https://www.gnu.org/licenses/agpl-3.0.html">
+    Official license text
+  </Card>
+</CardGroup>

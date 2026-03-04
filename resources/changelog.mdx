@@ -1,0 +1,238 @@
+---
+title: 'Changelog'
+description: 'Version history and release notes for Kitsu'
+icon: 'clock-rotate-left'
+---
+
+## Current Version
+
+<Info>
+  Current version: **1.0.15**
+  
+  For the most up-to-date changelog, visit the [GitHub Releases](https://github.com/cgwire/kitsu/releases) page.
+</Info>
+
+## Version 1.0.15 (Current)
+
+The current stable release of Kitsu.
+
+### Core Features
+
+- Production management for animation, VFX, and video game projects
+- Asset and shot tracking with customizable metadata
+- Task management and assignment system
+- Collaborative review and feedback tools
+- Team communication and notifications
+- Time tracking and production statistics
+- Customizable production pipelines
+
+### Technology Stack
+
+- Vue.js 3.5.13
+- Vuex 4.1.0 for state management
+- Vue Router 5.0.3
+- Vite 7.3.1 build system
+- Node.js 20.19+ required
+- npm 10+ required
+
+### Key Dependencies
+
+- FullCalendar for scheduling
+- Fabric.js for drawing and annotations
+- Chart.js for data visualization
+- Socket.io for real-time updates
+- Three.js for 3D model preview
+- ExcelJS for spreadsheet export
+
+## Getting Version Information
+
+To check your installed Kitsu version:
+
+```bash
+# View version in package.json
+cat package.json | grep version
+
+# Or check in the application UI
+# Look in Settings > About section
+```
+
+## Previous Versions
+
+For detailed information about previous versions and their changes, please visit:
+
+<Card title="GitHub Releases" icon="github" href="https://github.com/cgwire/kitsu/releases">
+  View complete release history with detailed changelogs for each version
+</Card>
+
+## Release Channels
+
+### Stable Releases
+
+Stable releases are thoroughly tested and recommended for production use. These are tagged versions on the main branch.
+
+```bash
+# Install a specific stable version
+npm install kitsu@1.0.15
+```
+
+### Development Branch
+
+The development branch contains the latest features but may be unstable:
+
+```bash
+# Clone development branch
+git clone -b main https://github.com/cgwire/kitsu.git
+```
+
+<Warning>
+  Development versions may contain bugs and breaking changes. Only use in non-production environments.
+</Warning>
+
+## Update Guide
+
+### Updating Kitsu
+
+To update to the latest version:
+
+<Steps>
+  <Step title="Backup Your Data">
+    Always backup your database and configuration before updating.
+  </Step>
+  
+  <Step title="Pull Latest Changes">
+    ```bash
+    git fetch origin
+    git checkout main
+    git pull origin main
+    ```
+  </Step>
+  
+  <Step title="Update Dependencies">
+    ```bash
+    npm install
+    ```
+  </Step>
+  
+  <Step title="Run Database Migrations">
+    Update the Zou API backend and run any necessary database migrations.
+  </Step>
+  
+  <Step title="Rebuild">
+    ```bash
+    npm run build
+    ```
+  </Step>
+  
+  <Step title="Restart Services">
+    Restart your web server and API backend to apply changes.
+  </Step>
+</Steps>
+
+## Breaking Changes
+
+### Node.js Requirements
+
+As of version 1.0.15:
+- Minimum Node.js version: 20.19
+- Minimum npm version: 10
+
+Older versions are no longer supported.
+
+### Vue.js 3 Migration
+
+Kitsu now uses Vue.js 3, which includes several breaking changes from Vue 2:
+- Composition API support
+- Updated component lifecycle
+- Different build system (Vite instead of Webpack)
+
+Custom plugins or extensions may need updates to remain compatible.
+
+## Deprecation Notices
+
+<Warning>
+  **Internet Explorer Support Dropped**
+  
+  Kitsu no longer supports Internet Explorer. Please use modern browsers:
+  - Chrome/Edge (latest)
+  - Firefox (latest)
+  - Safari (latest)
+</Warning>
+
+## Semantic Versioning
+
+Kitsu follows semantic versioning (semver):
+
+- **Major version** (1.x.x): Breaking changes that may require code modifications
+- **Minor version** (x.0.x): New features, backwards compatible
+- **Patch version** (x.x.15): Bug fixes and minor improvements
+
+## Security Updates
+
+Security updates are released as needed and announced through:
+- GitHub Security Advisories
+- Discord announcements
+- Release notes
+
+<Tip>
+  Subscribe to the [GitHub repository](https://github.com/cgwire/kitsu) to receive notifications about new releases and security updates.
+</Tip>
+
+## Roadmap
+
+To see what's planned for future versions, check out:
+
+<CardGroup cols={2}>
+  <Card title="Roadmap" icon="map" href="/resources/roadmap">
+    View planned features and improvements
+  </Card>
+  <Card title="Feature Requests" icon="lightbulb" href="https://cgwire.canny.io/">
+    Vote on and suggest new features
+  </Card>
+</CardGroup>
+
+## Contributing to Releases
+
+Want to contribute to the next release?
+
+1. Check [GitHub Issues](https://github.com/cgwire/kitsu/issues) for open tasks
+2. Review [feature requests](https://cgwire.canny.io/) for ideas
+3. Follow the [contribution guidelines](/resources/community#code-contributions)
+4. Submit pull requests with your improvements
+
+All contributions following the [C4 contract](https://rfc.zeromq.org/spec:42/C4) are welcome!
+
+## Release Notes Format
+
+When viewing detailed release notes on GitHub, look for:
+
+- **New Features**: New capabilities added to Kitsu
+- **Improvements**: Enhancements to existing features
+- **Bug Fixes**: Issues resolved in this version
+- **Breaking Changes**: Changes that may require action
+- **Dependencies**: Updated third-party packages
+- **Documentation**: Updates to guides and references
+
+## Docker Images
+
+Docker images are published for each release:
+
+```bash
+# Pull latest stable version
+docker pull cgwire/cgwire:latest
+
+# Pull specific version
+docker pull cgwire/cgwire:1.0.15
+```
+
+<Card title="Docker Hub" icon="docker" href="https://hub.docker.com/r/cgwire/cgwire">
+  View all available Docker images and tags
+</Card>
+
+## Support
+
+For questions about releases or updates:
+
+- Ask on [Discord](https://discord.com/invite/VbCxtKN)
+- Check the [FAQ](/resources/faq)
+- Review [troubleshooting guide](/resources/troubleshooting)
+- Open an issue on [GitHub](https://github.com/cgwire/kitsu/issues)

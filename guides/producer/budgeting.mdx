@@ -1,0 +1,611 @@
+---
+title: Budget and Resource Tracking
+description: Monitor costs, track time, and manage production resources effectively
+---
+
+## Overview
+
+Effective budget management is critical for production profitability and sustainability. Kitsu provides tools for tracking time, analyzing costs, and monitoring resource utilization to keep productions on budget.
+
+## Understanding Production Costs
+
+### Cost Components
+
+Production costs typically include:
+
+**Labor Costs**:
+- Artist salaries and rates
+- Supervisor and management time
+- Overtime and premium hours
+- Freelancer/contractor fees
+
+**Overhead**:
+- Studio rent and utilities
+- Equipment and software licenses
+- Administrative staff
+- General operational costs
+
+**Direct Costs**:
+- Render farm usage
+- External services (mocap, scanning, etc.)
+- Asset purchases
+- Reference materials
+
+<Note>
+Kitsu primarily tracks time-based costs (labor). Other cost categories may be tracked in external financial systems and correlated with Kitsu data.
+</Note>
+
+## Time Tracking
+
+### Timesheet System
+
+Kitsu's timesheet feature provides:
+
+- **Individual time logging**: Artists track hours per task
+- **Aggregated reporting**: Roll up time by task, person, department
+- **Estimation comparison**: Actual vs. planned time
+- **Cost calculation**: Time × rates = labor cost
+
+### Accessing Timesheet Data
+
+As a producer, view team timesheets:
+
+1. Go to **Timesheets** from main navigation
+2. Select production (or all productions)
+3. Choose time period:
+   - Day: Detailed daily tracking
+   - Week: Weekly summaries
+   - Month: Monthly rollups
+   - Year: Annual overview
+4. Filter by:
+   - Production
+   - Studio (for multi-studio setups)
+   - Department
+   - Person
+
+### Timesheet Views
+
+**Day View**:
+- See each person's daily hours
+- Drill into specific task time
+- Identify data entry issues (missing time logs)
+
+**Week View**:
+- Total hours per person per week
+- Compare to expected work hours (40, 45, etc.)
+- Spot overtime patterns
+
+**Month View**:
+- Monthly capacity utilization
+- Track against project schedules
+- Calculate monthly labor costs
+
+<Tip>
+Regularly review timesheet data to ensure artists are logging time consistently. Missing time logs lead to inaccurate cost tracking.
+</Tip>
+
+## Estimation vs. Actual Analysis
+
+### Task Estimations
+
+When tasks are created, they include estimated duration:
+
+- Set by supervisors or producers
+- Based on historical data or expert judgment
+- Guides scheduling and resource planning
+- Provides cost forecasting baseline
+
+### Actual Time Tracking
+
+As work progresses:
+
+- Artists log actual time spent via timesheets
+- Kitsu tracks duration on each task
+- Accumulates as task progresses
+- Compares to original estimation
+
+### Variance Analysis
+
+Compare estimated vs. actual:
+
+**Under Estimate** (actual > estimate):
+- Task took longer than planned
+- May indicate:
+  - Optimistic estimation
+  - Scope creep
+  - Technical challenges
+  - Artist inexperience
+  - Unclear requirements
+
+**Over Estimate** (actual < estimate):
+- Task completed faster than planned
+- May indicate:
+  - Conservative estimation
+  - Efficient workflows
+  - Experienced artist
+  - Simpler than anticipated
+
+### Using Variance Data
+
+Learn from variance:
+
+1. **Identify patterns**
+   - Which task types are consistently over/under?
+   - Which departments estimate accurately?
+   - Are estimates improving over time?
+
+2. **Refine future estimates**
+   - Use actual data from similar tasks
+   - Adjust estimation guidelines
+   - Factor in known variables (complexity, etc.)
+
+3. **Budget forecasting**
+   - Apply variance factors to remaining work
+   - Predict likely final costs
+   - Request budget adjustments if needed
+
+<Note>
+Accurate estimation improves with practice and data. Track variance systematically to build estimation expertise.
+</Note>
+
+## Cost Calculation
+
+### Labor Rates
+
+To calculate labor costs from time:
+
+```
+Cost = Time × Rate
+```
+
+**Hourly Rate Example**:
+```
+Task: Character modeling
+Time: 40 hours logged
+Artist rate: $50/hour
+Cost: 40 × $50 = $2,000
+```
+
+**Daily Rate Example**:
+```
+Task: Shot animation
+Time: 5 days logged (8 hours/day = 40 hours)
+Artist rate: $400/day
+Cost: 5 × $400 = $2,000
+```
+
+### Rate Management
+
+<Warning>
+Kitsu doesn't store individual salary data for privacy. Cost calculations are typically done by exporting time data and processing in financial systems.
+</Warning>
+
+Approaches to rate management:
+
+**Average Rates**:
+- Use department average rates
+- Calculate blended costs
+- Simpler but less precise
+
+**Role-Based Rates**:
+- Junior artist rate
+- Mid-level artist rate
+- Senior artist rate
+- Supervisor rate
+- More accurate
+
+**Individual Rates**:
+- Actual person-specific rates
+- Most accurate
+- Requires secure financial system integration
+
+### Cost Reporting
+
+Generate cost reports:
+
+1. **Export timesheet data** from Kitsu
+2. **Process in spreadsheet or financial system**
+   - Apply rates to time
+   - Calculate costs per task, asset, shot
+   - Aggregate by production, department, etc.
+3. **Generate budget reports**
+   - Actual costs to date
+   - Projected costs to completion
+   - Variance vs. budget
+
+## Budget Forecasting
+
+### Calculating Projected Costs
+
+Estimate total production cost:
+
+```
+Projected Cost = Actual Cost (to date) + Estimated Remaining Cost
+```
+
+**Step-by-Step**:
+
+<Steps>
+  <Step title="Sum actual costs">
+    Time logged × rates for all completed and in-progress work
+  </Step>
+  
+  <Step title="Estimate remaining work">
+    - Sum estimations for not-started tasks
+    - Factor in variance from completed work
+    - Example: If tasks average 20% over estimate, apply 1.2× multiplier
+  </Step>
+  
+  <Step title="Calculate remaining cost">
+    Estimated remaining hours × average rates
+  </Step>
+  
+  <Step title="Add components">
+    Actual cost + Remaining cost = Total projected cost
+  </Step>
+  
+  <Step title="Compare to budget">
+    Is projected cost within budget? If not, what actions are needed?
+  </Step>
+</Steps>
+
+### Earned Value Analysis
+
+More sophisticated approach:
+
+**Key Metrics**:
+- **Planned Value (PV)**: Budgeted cost of work scheduled
+- **Earned Value (EV)**: Budgeted cost of work performed
+- **Actual Cost (AC)**: Actual cost of work performed
+
+**Performance Indicators**:
+- **Cost Variance**: EV - AC (negative = over budget)
+- **Schedule Variance**: EV - PV (negative = behind schedule)
+- **Cost Performance Index**: EV / AC (< 1.0 = over budget)
+- **Schedule Performance Index**: EV / PV (< 1.0 = behind schedule)
+
+<Tip>
+Earned value analysis provides early warning of budget and schedule issues, allowing corrective action before problems become severe.
+</Tip>
+
+## Quota and Productivity
+
+### Quota Tracking
+
+Kitsu's quota feature tracks:
+
+- Tasks completed per day/week/month
+- Compared to targets or historical averages
+- Team productivity trends
+- Capacity planning data
+
+### Accessing Quota Reports
+
+1. Go to **Quota** page in production menu
+2. Select date range and granularity
+3. View completion charts:
+   - Tasks per day
+   - By task type
+   - By team member
+   - Cumulative progress
+
+### Using Quota Data
+
+**Forecasting Completion**:
+```
+Remaining tasks: 200
+Current rate: 10 tasks/week
+Weeks to completion: 200 / 10 = 20 weeks
+```
+
+**Capacity Planning**:
+```
+Target completion: 15 tasks/week
+Current rate: 10 tasks/week
+Gap: 5 tasks/week
+Action: Add resources or extend timeline
+```
+
+**Productivity Trends**:
+- Is team speeding up (learning curve)?
+- Slowing down (fatigue, complexity increasing)?
+- Maintaining steady pace?
+
+Adjust plans accordingly.
+
+## Resource Utilization
+
+### Team Capacity
+
+Calculate available capacity:
+
+```
+Weekly Capacity Example:
+Team: 8 artists
+Hours/week each: 40 hours
+Total: 320 hours/week
+
+Minus overhead (meetings, etc.): 15%
+Productive capacity: 272 hours/week
+```
+
+### Utilization Rate
+
+Measure how effectively capacity is used:
+
+```
+Utilization = Actual Hours Logged / Available Hours
+```
+
+**Example**:
+```
+Available capacity: 272 hours/week
+Actual hours logged: 245 hours
+Utilization: 245 / 272 = 90%
+```
+
+**Healthy Utilization**:
+- **70-85%**: Good sustainable pace, room for overhead
+- **85-95%**: High productivity, some risk of burnout
+- **95-100%**: Unsustainable, no buffer for issues
+- **> 100%**: Overtime, burnout risk, quality concerns
+
+<Warning>
+Sustained > 90% utilization often leads to burnout, quality issues, and eventual productivity decline. Aim for 75-85% for long-term health.
+</Warning>
+
+### Multi-Project Allocation
+
+For teams working on multiple productions:
+
+1. **Track time by production**
+   - Timesheets link hours to specific productions
+   - See how capacity is split
+
+2. **Analyze allocation**
+   - Is distribution matching priorities?
+   - Are some productions under-resourced?
+   - Is switching between projects causing inefficiency?
+
+3. **Optimize assignments**
+   - Dedicate people to single projects when possible
+   - Group related work to minimize context switching
+   - Balance workload across productions
+
+## Budget Reporting
+
+### Status Reports
+
+Regular budget status updates should include:
+
+**Current Status**:
+- Budget allocated
+- Spent to date (actual costs)
+- Committed (scheduled but not yet spent)
+- Remaining budget
+
+**Forecast**:
+- Projected total cost
+- Expected variance vs. budget
+- Confidence level
+
+**Analysis**:
+- Key drivers of variance
+- Risks and mitigation plans
+- Opportunities for savings
+
+### Dashboard Metrics
+
+Key performance indicators (KPIs):
+
+- **Burn rate**: Cost per week/month
+- **Budget consumed**: Percentage of budget spent
+- **Schedule consumed**: Percentage of timeline complete
+- **Cost performance index**: Efficiency of spend
+- **Estimated at completion**: Projected final cost
+
+### Stakeholder Reporting
+
+Tailor reports for audience:
+
+**Executive/Client**:
+- High-level budget status
+- On budget / over budget / under budget
+- Major variances and explanations
+- Forecast and risks
+
+**Production Management**:
+- Detailed cost breakdown
+- Department/task type analysis
+- Resource utilization
+- Variance drivers and trends
+
+**Department Leads**:
+- Their department's budget and costs
+- Time tracking compliance
+- Productivity metrics
+- Resource needs
+
+## Cost Control Strategies
+
+### Proactive Measures
+
+<AccordionGroup>
+  <Accordion title="Accurate estimation">
+    - Use historical data
+    - Involve team in estimation
+    - Include buffer for unknowns
+    - Refine estimates as you learn
+  </Accordion>
+  
+  <Accordion title="Scope management">
+    - Define clear requirements
+    - Control scope creep
+    - Change request process
+    - Prioritize must-haves vs. nice-to-haves
+  </Accordion>
+  
+  <Accordion title="Resource optimization">
+    - Right-size assignments (junior vs. senior)
+    - Minimize idle time
+    - Efficient workflows and tools
+    - Reduce rework through quality processes
+  </Accordion>
+  
+  <Accordion title="Regular monitoring">
+    - Track actuals vs. budget weekly
+    - Investigate variances immediately
+    - Forecast frequently
+    - Adjust proactively
+  </Accordion>
+</AccordionGroup>
+
+### Reactive Measures
+
+When over budget:
+
+**Reduce Scope**:
+- Cut non-essential tasks
+- Simplify complex elements
+- Defer nice-to-have features
+
+**Increase Efficiency**:
+- Streamline workflows
+- Reduce iteration cycles
+- Improve tool performance
+- Address bottlenecks
+
+**Adjust Resources**:
+- Use lower-cost resources for appropriate tasks
+- Reduce team size (if schedule allows)
+- Outsource selectively
+
+**Extend Timeline**:
+- If budget is time-based, extending schedule spreads costs
+- May reduce pressure and improve quality
+- Requires client/stakeholder agreement
+
+## Exporting Financial Data
+
+### CSV Exports
+
+Export timesheet data:
+
+1. Go to **Timesheets** page
+2. Click **Export** button
+3. Select date range and filters
+4. Choose format (CSV recommended for data processing)
+5. Download file
+
+CSV includes:
+- Person name
+- Task details
+- Date
+- Hours logged
+- Production and task type
+
+### Processing Exports
+
+In spreadsheet software:
+
+1. **Import CSV**
+2. **Add rate column**
+   - Lookup rates by person or role
+3. **Calculate costs**
+   - Cost = Hours × Rate
+4. **Aggregate**
+   - Pivot tables by production, task type, person, etc.
+5. **Analyze and report**
+
+### Integration with Accounting Systems
+
+For automated processing:
+
+- Use Kitsu API to extract data programmatically
+- Build integration scripts
+- Feed directly into financial/ERP systems
+- Automate regular reporting
+
+<Note>
+API access requires technical setup. Consult Kitsu documentation and your IT team for integration development.
+</Note>
+
+## Best Practices
+
+<Steps>
+  <Step title="Establish budget baseline">
+    Create realistic initial budget with contingency (10-20%)
+  </Step>
+  
+  <Step title="Track time consistently">
+    Ensure entire team logs time accurately and regularly
+  </Step>
+  
+  <Step title="Monitor weekly">
+    Review budget status every week, don't wait for month-end
+  </Step>
+  
+  <Step title="Investigate variances">
+    Understand why actuals differ from plan, learn from it
+  </Step>
+  
+  <Step title="Forecast continuously">
+    Update projected costs as actual data comes in
+  </Step>
+  
+  <Step title="Communicate transparently">
+    Share budget status with team and stakeholders
+  </Step>
+  
+  <Step title="Take corrective action early">
+    Address budget issues when small, before they become crises
+  </Step>
+  
+  <Step title="Document lessons learned">
+    Improve future budgeting based on actual results
+  </Step>
+</Steps>
+
+## Advanced Topics
+
+### Budget Modeling
+
+- Build spreadsheet models of production costs
+- Scenario analysis (optimistic/pessimistic/realistic)
+- Sensitivity testing (what if rates increase 10%?)
+- Monte Carlo simulation for risk analysis
+
+### Profitability Analysis
+
+```
+Profit = Revenue - Total Costs
+Profit Margin = Profit / Revenue
+```
+
+Track:
+- Direct labor costs
+- Overhead allocation
+- Total production cost
+- Compare to contract value
+- Calculate margin
+
+### Multi-Production Portfolio
+
+Managing multiple productions:
+
+- Aggregate budget tracking
+- Cross-production resource allocation
+- Portfolio-level profitability
+- Studio capacity planning
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Production Overview" icon="tv" href="/guides/producer/production-overview">
+    Set up and configure production structure
+  </Card>
+  
+  <Card title="Scheduling" icon="calendar" href="/guides/producer/scheduling">
+    Create schedules and manage production timelines
+  </Card>
+</CardGroup>

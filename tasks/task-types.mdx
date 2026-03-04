@@ -1,0 +1,164 @@
+---
+title: 'Task Types'
+description: 'Configure and manage task types for your production pipeline'
+icon: 'layer-group'
+---
+
+## Overview
+
+Task types define the different stages of work in your production pipeline. Each task type represents a specific step (such as Modeling, Animation, or Compositing) that entities need to go through during production.
+
+<Note>
+Task types can be configured for different entity types: Assets, Shots, Sequences, Episodes, and Edits.
+</Note>
+
+## Creating Task Types
+
+### From the Task Types Library
+
+1. Navigate to **Settings** > **Task Types**
+2. Click **New task type**
+3. Configure the following fields:
+   - **Name**: The display name for the task type
+   - **Dedicated to**: Choose which entity type this applies to (Asset, Shot, Episode, Sequence, or Edit)
+   - **Department**: Assign to a department for supervisor access control
+   - **Description**: Add details about what this task involves
+   - **Color**: Set a color for visual identification
+   - **Priority**: Define the order in the production pipeline
+   - **Allow timelog**: Enable time tracking for this task type
+
+### Task Type Configuration
+
+**Type Categories**
+
+Task types are organized by entity type:
+- **Assets**: Modeling, Rigging, Texturing, Shading, etc.
+- **Shots**: Layout, Animation, FX, Lighting, Compositing, etc.
+- **Sequences**: Editorial tasks at sequence level
+- **Episodes**: Episode-level production tasks
+- **Edits**: Edit assembly and finishing tasks
+
+**Priority Settings**
+
+The priority field determines:
+- Display order in production views
+- Default workflow sequence
+- Task navigation order
+
+You can reorder task types by dragging them in the task type list.
+
+## Managing Task Types
+
+### Editing Task Types
+
+Click on any task type in the library to modify:
+- Name and description
+- Department assignment
+- Color coding
+- Pipeline priority
+- Timelog settings
+
+### Archiving Task Types
+
+To archive a task type:
+1. Click the delete icon on the task type row
+2. Confirm the archival
+
+Archived task types:
+- Are not deleted from existing tasks
+- Won't appear when creating new tasks
+- Can be viewed in the **Archived** tab
+- Can be restored if needed
+
+## Task Type Usage
+
+### Creating Tasks
+
+Once task types are configured, you can create tasks:
+
+**Bulk Creation**
+1. Navigate to the entity view (Assets or Shots)
+2. Select entities
+3. Click **Add tasks**
+4. Choose task types to create
+
+**Individual Creation**
+1. Open an entity detail page
+2. Click **Add task**
+3. Select the task type
+
+### Filtering by Task Type
+
+In production views, you can:
+- Filter columns by task type
+- Show/hide specific task types
+- Sort by task type priority
+- Search for tasks by type
+
+## Department Integration
+
+Task types can be assigned to departments for:
+
+**Access Control**
+- Department supervisors can only manage tasks in their department
+- Filters tasks shown to supervisors based on department
+
+**Team Organization**
+- Groups tasks by functional area
+- Helps with workload distribution
+- Enables department-specific reporting
+
+## Task Type Workflows
+
+### Pipeline Dependencies
+
+You can configure task type relationships:
+- **Tasks Before**: Define prerequisite task types
+- **Tasks After**: Define downstream task types
+
+This enables:
+- Automatic schedule propagation
+- Dependency visualization in Gantt charts
+- Workflow validation
+
+### Import/Export
+
+Task type configurations can be:
+- **Exported** as CSV for backup or template creation
+- **Imported** to copy configurations between productions
+- Shared across projects in your organization
+
+<Info>
+Task types are organization-wide settings that apply to all productions, ensuring consistency across your pipeline.
+</Info>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use consistent naming">
+    Maintain standard task type names across productions for consistency and reporting.
+  </Accordion>
+  
+  <Accordion title="Set meaningful priorities">
+    Order task types to match your actual production pipeline flow.
+  </Accordion>
+  
+  <Accordion title="Use color coding effectively">
+    Choose distinct colors for quick visual identification in production views.
+  </Accordion>
+  
+  <Accordion title="Assign departments appropriately">
+    Link task types to departments to enable proper access control and reporting.
+  </Accordion>
+</AccordionGroup>
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Task Status" icon="traffic-light" href="/tasks/task-status">
+    Configure status workflows for tasks
+  </Card>
+  <Card title="Assignments" icon="users" href="/tasks/assignments">
+    Learn how to assign tasks to artists
+  </Card>
+</CardGroup>

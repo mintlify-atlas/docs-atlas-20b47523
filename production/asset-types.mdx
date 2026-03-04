@@ -1,0 +1,341 @@
+---
+title: Asset Types
+description: Create and manage asset type categories for organizing production assets
+icon: shapes
+---
+
+Asset types categorize your production assets, helping teams organize and manage different kinds of content like characters, props, sets, and effects.
+
+## Understanding Asset Types
+
+Asset types are global definitions that can be used across multiple productions. They define:
+
+- **Category names** (e.g., "Character", "Prop", "Set")
+- **Short names** for compact displays
+- **Associated task types** (optional - which tasks apply to this asset type)
+- **Descriptions** for team reference
+
+<Info>
+  Asset types are created at the **system level** and then enabled per production in production settings.
+</Info>
+
+## Common Asset Types
+
+Typical asset types used in animation and VFX productions:
+
+| Asset Type | Description | Common Uses |
+|------------|-------------|-------------|
+| **Character** | People, creatures, animals | Main cast, background characters |
+| **Prop** | Objects and items | Weapons, furniture, handheld items |
+| **Set** | Environments and locations | Interiors, exteriors, landscapes |
+| **FX** | Effects elements | Particles, simulations, magic effects |
+| **Vehicle** | Transportation | Cars, ships, aircraft |
+| **Camera** | Camera rigs and setups | Virtual cameras, camera moves |
+
+## Creating Asset Types
+
+Only **Admin** users can create asset types at the system level.
+
+<Steps>
+  <Step title="Access Asset Types Library">
+    Navigate to **Settings** → **Asset Types** to access the asset types library.
+  </Step>
+  
+  <Step title="Click New Asset Type">
+    Click the **New Asset Type** button in the top right.
+  </Step>
+  
+  <Step title="Enter Asset Type Details">
+    Fill in the asset type information:
+    
+    - **Name**: Full descriptive name (e.g., "Character")
+    - **Short Name**: Abbreviated version (e.g., "CHAR", "CH")
+    - **Description**: Optional explanation of what this type includes
+    - **Task Types**: Select which task types apply (optional)
+  </Step>
+  
+  <Step title="Save the Asset Type">
+    Click **Confirm** to create the asset type. It's now available for all productions.
+  </Step>
+</Steps>
+
+### Asset Type Fields
+
+<ResponseField name="Name" type="string" required>
+  The full name of the asset type, displayed in lists and forms.
+</ResponseField>
+
+<ResponseField name="Short Name" type="string" required>
+  A brief identifier, typically 2-4 characters, used in:
+  - Asset naming conventions
+  - Compact list views
+  - File exports
+</ResponseField>
+
+<ResponseField name="Description" type="text">
+  Additional details about this asset type for team reference.
+</ResponseField>
+
+<ResponseField name="Task Types" type="multi-select">
+  Optionally specify which task types are relevant for this asset type.
+  
+  - If specified: Only listed task types appear when creating tasks for assets of this type
+  - If empty: All task types are available (more flexible)
+</ResponseField>
+
+## Assigning Task Types
+
+You can associate specific task types with an asset type to streamline workflows.
+
+### When to Specify Task Types
+
+<AccordionGroup>
+  <Accordion title="Specialized Asset Workflows">
+    Some asset types have unique pipelines:
+    
+    Example: Camera assets might only need "Layout" and "Animation" tasks, not "Modeling" or "Texturing".
+  </Accordion>
+  
+  <Accordion title="Preventing User Error">
+    Limit available tasks to prevent team members from creating irrelevant tasks.
+    
+    Example: FX assets shouldn't have "Rigging" tasks.
+  </Accordion>
+  
+  <Accordion title="Enforcing Pipeline Standards">
+    Ensure consistent task creation across the production.
+  </Accordion>
+</AccordionGroup>
+
+### When to Leave Task Types Empty
+
+<AccordionGroup>
+  <Accordion title="Flexible Workflows">
+    If different assets of the same type might need different tasks.
+  </Accordion>
+  
+  <Accordion title="Evolving Pipelines">
+    If your pipeline is still being defined or frequently changes.
+  </Accordion>
+  
+  <Accordion title="Simple Productions">
+    For smaller projects where all assets follow similar workflows.
+  </Accordion>
+</AccordionGroup>
+
+## Editing Asset Types
+
+<Steps>
+  <Step title="Locate the Asset Type">
+    Find the asset type in the Asset Types library list.
+  </Step>
+  
+  <Step title="Click Edit">
+    Click the **Edit** button (pencil icon) next to the asset type.
+  </Step>
+  
+  <Step title="Modify Details">
+    Update the name, short name, description, or task types.
+  </Step>
+  
+  <Step title="Save Changes">
+    Click **Confirm** to apply changes across all productions.
+  </Step>
+</Steps>
+
+<Warning>
+  Editing an asset type affects **all productions** using that type. Changes to the short name may impact naming conventions.
+</Warning>
+
+## Archiving Asset Types
+
+Instead of deleting asset types, you can archive them to keep historical data intact.
+
+### Active vs. Archived
+
+The Asset Types library has two tabs:
+
+- **Active**: Currently available asset types
+- **Archived**: Deprecated asset types no longer in use
+
+### Archiving an Asset Type
+
+<Steps>
+  <Step title="Edit the Asset Type">
+    Click the Edit button for the asset type you want to archive.
+  </Step>
+  
+  <Step title="Mark as Archived">
+    Toggle the archive status in the edit modal.
+  </Step>
+  
+  <Step title="Confirm">
+    Save the changes. The asset type moves to the Archived tab.
+  </Step>
+</Steps>
+
+Archived asset types:
+- Cannot be added to new productions
+- Remain visible in productions already using them
+- Preserve historical asset data
+- Can be restored by un-archiving
+
+## Using Asset Types in Productions
+
+After creating asset types globally, enable them per production:
+
+<Steps>
+  <Step title="Open Production Settings">
+    Navigate to **Production Settings** → **Asset Types** tab.
+  </Step>
+  
+  <Step title="Add Asset Types">
+    Select asset types from the dropdown and click **Add**.
+  </Step>
+  
+  <Step title="Create Assets">
+    When creating assets, you'll now see only the enabled asset types.
+  </Step>
+</Steps>
+
+<Tip>
+  You can enable different asset types for different productions based on their specific needs.
+</Tip>
+
+## Asset Type Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Keep Names Clear" icon="tag">
+    Use intuitive names that everyone on the team will understand. Avoid ambiguous or overlapping categories.
+  </Card>
+  
+  <Card title="Standardize Short Names" icon="code">
+    Establish a convention for short names (all caps, length limit) and stick to it consistently.
+  </Card>
+  
+  <Card title="Don't Over-Categorize" icon="sitemap">
+    Too many asset types creates confusion. Start with broad categories and subdivide only if necessary.
+  </Card>
+  
+  <Card title="Document Your Structure" icon="book">
+    Maintain documentation about what belongs in each asset type, especially for edge cases.
+  </Card>
+</CardGroup>
+
+## Naming Conventions
+
+Establish clear naming patterns using asset types:
+
+```
+[AssetType]_[Name]_[Variant]
+```
+
+Examples:
+- `CH_Hero_Main` (Character - Hero - Main variant)
+- `PR_Sword_Broken` (Prop - Sword - Broken variant)
+- `SET_Castle_Interior` (Set - Castle - Interior)
+- `FX_Explosion_Large` (FX - Explosion - Large scale)
+
+<Info>
+  Kitsu doesn't enforce naming conventions, but consistent patterns help with:
+  - Searching and filtering
+  - File organization
+  - Pipeline integration
+  - Export and delivery
+</Info>
+
+## Exporting Asset Types
+
+You can export the asset types library to CSV:
+
+1. Click the **Export** button in the Asset Types page
+2. The export includes:
+   - Type name
+   - Short name
+   - Description
+   - Associated task types
+3. Use exports for documentation or migration planning
+
+## Integration with Assets
+
+Asset types affect several areas:
+
+### Asset Creation
+
+- Asset type is required when creating an asset
+- Determines available task types (if specified)
+- Affects default naming patterns
+
+### Asset Lists
+
+- Filter assets by type
+- Group assets by type
+- Color-code by type (optional)
+
+### Task Creation
+
+- If task types are specified for an asset type, only those tasks can be created
+- If not specified, all production task types are available
+
+### Reports and Statistics
+
+- Group metrics by asset type
+- Compare progress across types
+- Identify bottlenecks per type
+
+## Example Asset Type Structure
+
+A typical animation production might use:
+
+<AccordionGroup>
+  <Accordion title="Character (CH)">
+    **Task Types**: Modeling, Texturing, Rigging, Grooming
+    
+    Used for all character models including main cast and background characters.
+  </Accordion>
+  
+  <Accordion title="Prop (PR)">
+    **Task Types**: Modeling, Texturing, Rigging (optional)
+    
+    Objects that characters interact with or that appear in scenes.
+  </Accordion>
+  
+  <Accordion title="Set (SET)">
+    **Task Types**: Modeling, Texturing, Layout, Lighting
+    
+    Environments where action takes place.
+  </Accordion>
+  
+  <Accordion title="FX (FX)">
+    **Task Types**: FX, Simulation, Compositing
+    
+    Particle systems, simulations, and effects elements.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Asset type not appearing in production">
+    **Solution**: Add the asset type in Production Settings → Asset Types tab.
+  </Accordion>
+  
+  <Accordion title="Can't create certain tasks for assets">
+    **Check**: The asset type's task type restrictions. Edit the asset type to add more task types or remove restrictions.
+  </Accordion>
+  
+  <Accordion title="Too many asset types to manage">
+    **Solution**: Archive unused types and consolidate similar categories. Keep only actively-used types in the Active tab.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Production Settings" icon="gear" href="/production/production-settings">
+    Enable asset types in your production
+  </Card>
+  <Card title="Creating Assets" icon="cube" href="/assets/creating-assets">
+    Learn how to create and manage assets
+  </Card>
+</CardGroup>

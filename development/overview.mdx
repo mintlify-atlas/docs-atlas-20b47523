@@ -1,0 +1,166 @@
+---
+title: 'Development Overview'
+description: 'Get started with Kitsu development and understand the project structure'
+icon: 'code'
+---
+
+## About Kitsu Development
+
+Kitsu is a production management software built with modern web technologies. The frontend is written in JavaScript (ES6+) using the Vue.js framework, extended with Vuex for state management and Vue Router for routing.
+
+## Technology Stack
+
+Kitsu leverages a comprehensive set of modern web technologies:
+
+### Core Framework
+- **Vue.js 3.5.13** - Progressive JavaScript framework for building user interfaces
+- **Vuex 4.1.0** - Centralized state management pattern and library
+- **Vue Router 5.0.3** - Official router for Vue.js
+
+### Build Tools
+- **Vite 7.3.1** - Next generation frontend tooling
+- **Node.js >=20.19** - JavaScript runtime (required)
+- **npm >=10** - Package manager
+
+### UI & Visualization
+- **Bulma 0.3.1** - Modern CSS framework
+- **FullCalendar 6.1.20** - Calendar and scheduling library
+- **Chart.js 4.4.5** - Data visualization
+- **Fabric.js** - Canvas library for annotations and drawing
+- **Three.js 0.182.0** - 3D graphics library
+
+### Media & File Handling
+- **Wavesurfer.js 7.11.1** - Audio waveform visualization
+- **ExcelJS 4.4.0** - Excel file generation
+- **File-saver 2.0.5** - Client-side file saving
+- **PapaParse 5.5.3** - CSV parser
+
+### Real-time Communication
+- **Socket.io-client 4.8.3** - Real-time bidirectional event-based communication
+- **Superagent 10.3.0** - HTTP request library
+
+## Project Structure
+
+```
+src/
+├── assets/          # Static assets (icons, illustrations, backgrounds)
+├── components/      # Vue components
+│   ├── cells/       # Table cell components
+│   ├── layouts/     # Layout components
+│   ├── lists/       # List components
+│   ├── mixins/      # Reusable component mixins
+│   ├── modals/      # Modal dialog components
+│   ├── pages/       # Page components
+│   ├── previews/    # Preview/player components
+│   ├── sides/       # Sidebar components
+│   ├── tops/        # Top bar components
+│   └── widgets/     # Reusable widget components
+├── directives/      # Vue custom directives
+├── lib/             # Utility libraries and helpers
+├── locales/         # Internationalization files
+├── router/          # Vue Router configuration
+├── store/           # Vuex store
+│   ├── api/         # API client modules
+│   └── modules/     # Vuex store modules
+└── main.js          # Application entry point
+```
+
+## Development Scripts
+
+The project includes several npm scripts for development and maintenance:
+
+<CodeGroup>
+```bash Development Server
+npm run dev
+```
+
+```bash Build for Production
+npm run build
+```
+
+```bash Run Tests
+npm run test
+```
+
+```bash Lint Code
+npm run lint
+```
+
+```bash Auto-fix Linting Issues
+npm run lint:fix
+```
+
+```bash Format Code
+npm run format
+```
+</CodeGroup>
+
+## Architecture Principles
+
+Kitsu follows a clear architectural pattern:
+
+### URL Routing
+- Routes define the main context and navigation structure
+- Configured in `src/router/routes.js`
+- Uses Vue Router for client-side routing
+
+### Component-Based Views
+- Views are described in components through HTML, CSS, and JavaScript
+- Components are organized by functionality (pages, modals, widgets, etc.)
+- Reusable components live in specialized directories
+
+### State Management
+- Shared state is stored in Vuex stores
+- State changes happen through mutations (synchronous)
+- Actions handle asynchronous operations (API calls, etc.)
+- Getters provide computed access to state
+
+### Data Flow
+1. **Components** dispatch **actions**
+2. **Actions** make API calls and commit **mutations**
+3. **Mutations** update the **state**
+4. **Getters** expose state to **components**
+
+<Tip>
+Local component state should be used when possible. Vuex creates performance overhead and should only be used for truly shared state.
+</Tip>
+
+## Key Concepts
+
+### Vuex Modules
+
+Kitsu uses a modular Vuex architecture with dedicated stores for:
+- **assets** - Asset management
+- **shots** - Shot management  
+- **tasks** - Task and comment management
+- **people** - Team member data
+- **productions** - Production/project data
+- **files** - File and preview management
+- And many more...
+
+### API Client
+
+The API client (`src/store/api/client.js`) provides a wrapper around Superagent with:
+- Automatic error handling
+- Authentication checks (401 redirects)
+- Promise-based and callback-based methods
+- File upload support with progress tracking
+
+### Real-time Updates
+
+Kitsu uses Socket.io for real-time collaboration:
+- Event-based updates
+- Integrated with Vuex store
+- Automatic reconnection handling
+
+## Getting Help
+
+If you need assistance:
+- Join the [Kitsu Community Discord](https://discord.com/invite/VbCxtKN)
+- Check the [Vue.js documentation](https://vuejs.org/guide/)
+- Review the [Vuex documentation](https://vuex.vuejs.org)
+- Read the [Vue Router documentation](https://router.vuejs.org)
+
+<Card title="Next Steps" icon="arrow-right" href="/development/environment-setup">
+  Set up your local development environment
+</Card>

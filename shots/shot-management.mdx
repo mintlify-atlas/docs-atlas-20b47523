@@ -1,0 +1,483 @@
+---
+title: 'Shot Management'
+description: 'Create, organize, and track shots throughout your production'
+icon: 'film'
+---
+
+The Shot Management interface in Kitsu provides a comprehensive view of all shots in your production, with powerful tools for organization, batch operations, and progress tracking.
+
+## Overview
+
+Shot management includes:
+
+- **Hierarchical organization**: Shots organized by episodes and sequences
+- **Task tracking**: View and manage tasks for all shots
+- **Metadata management**: Custom fields and shot-specific data
+- **Bulk operations**: Create, edit, or delete multiple shots at once
+- **Import/Export**: CSV and EDL support for shot data
+- **Search and filtering**: Advanced query system for finding shots
+
+## Shot List View
+
+The main shot list displays shots in a table format with:
+
+### Default Columns
+
+- **Thumbnail**: Preview image for the shot
+- **Sequence**: Sequence the shot belongs to
+- **Name**: Shot identifier
+- **Description**: Shot description (if present)
+- **Frame count**: Number of frames in the shot
+- **Task columns**: Status for each task type
+
+### Additional Metadata
+
+Optional columns include:
+
+- **Frame In/Out**: Timecode or frame numbers
+- **FPS**: Frames per second
+- **Resolution**: Shot resolution (e.g., 1920x1080)
+- **Time Spent**: Actual time worked on the shot
+- **Estimation**: Estimated time for completion
+- **Custom Metadata**: Production-specific fields
+
+## Creating Shots
+
+<Tabs>
+  <Tab title="Single Shot">
+    <Steps>
+      <Step title="Open Shot Manager">
+        Click the "Manage" button to open the shot management modal.
+      </Step>
+      
+      <Step title="Select Sequence">
+        Choose the sequence where you want to add the shot.
+      </Step>
+      
+      <Step title="Enter Shot Details">
+        Provide:
+        - Shot name (e.g., "010", "020")
+        - Description (optional)
+        - Frame count
+        - Frame in/out (optional)
+      </Step>
+      
+      <Step title="Create Shot">
+        Click "Create" to add the shot to the production.
+      </Step>
+    </Steps>
+  </Tab>
+  
+  <Tab title="Multiple Shots">
+    <Steps>
+      <Step title="Open Shot Manager">
+        Click the "Manage" button.
+      </Step>
+      
+      <Step title="Batch Create">
+        Enter multiple shot names separated by commas:
+        ```
+        010, 020, 030, 040
+        ```
+      </Step>
+      
+      <Step title="Set Common Properties">
+        Set properties that apply to all shots (optional).
+      </Step>
+      
+      <Step title="Create All">
+        All shots are created at once with auto-generated IDs.
+      </Step>
+    </Steps>
+  </Tab>
+  
+  <Tab title="CSV Import">
+    <Steps>
+      <Step title="Prepare CSV File">
+        Format your CSV with columns:
+        - Episode (for TV shows)
+        - Sequence
+        - Name
+        - Description
+        - Nb Frames
+        - Frame In/Out (optional)
+      </Step>
+      
+      <Step title="Import">
+        Click the import button and select your CSV file.
+      </Step>
+      
+      <Step title="Review and Confirm">
+        Review the parsed data and confirm to create shots.
+      </Step>
+    </Steps>
+  </Tab>
+  
+  <Tab title="EDL Import">
+    <Steps>
+      <Step title="Prepare EDL File">
+        Export an EDL file from your editing software (Premiere, Avid, etc.).
+      </Step>
+      
+      <Step title="Import EDL">
+        Click the EDL import button and select your file.
+      </Step>
+      
+      <Step title="Configure Naming">
+        Choose naming convention:
+        - Use EDL clip names
+        - Match case sensitivity
+      </Step>
+      
+      <Step title="Confirm">
+        Kitsu creates shots with frame counts from the EDL.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Note>
+  When creating shots, tasks are automatically created based on the production's task types and the sequence's workflow configuration.
+</Note>
+
+## Editing Shots
+
+### Edit Single Shot
+
+<Steps>
+  <Step title="Select Shot">
+    Click on a shot in the list to select it.
+  </Step>
+  
+  <Step title="Edit Inline or Modal">
+    - Click directly on editable fields to modify them inline
+    - Or click the edit button to open the full edit modal
+  </Step>
+  
+  <Step title="Update Fields">
+    Modify shot properties:
+    - Name
+    - Description
+    - Frame count
+    - Frame in/out
+    - Metadata
+  </Step>
+  
+  <Step title="Save">
+    Changes are saved automatically.
+  </Step>
+</Steps>
+
+### Inline Editing
+
+Many fields support inline editing:
+
+- **Description**: Click to edit the description text
+- **Frame Count**: Click to modify frame numbers
+- **Metadata**: Click to edit custom metadata values
+
+### Auto-Calculate Frame Count
+
+Kitsu can automatically calculate frame counts from Frame In/Out:
+
+- Set Frame In and Frame Out values
+- Frame count is calculated as: `Frame Out - Frame In + 1`
+- Works in reverse: change Frame Out when Frame In changes
+
+## Shot Operations
+
+### Set Frames from Previews
+
+<Warning>
+  This feature requires shots to have video previews uploaded.
+</Warning>
+
+Automatically set frame counts based on preview durations:
+
+<Steps>
+  <Step title="Select Task Type">
+    Choose which task type's previews to use (e.g., "Layout", "Animation").
+  </Step>
+  
+  <Step title="Extract Frame Counts">
+    Kitsu reads the duration from uploaded video previews.
+  </Step>
+  
+  <Step title="Update Shots">
+    Frame counts are updated for all shots with previews.
+  </Step>
+</Steps>
+
+### Bulk Thumbnail Upload
+
+Upload thumbnails for multiple shots:
+
+<Steps>
+  <Step title="Open Upload Modal">
+    Click the "Import Thumbnails" button.
+  </Step>
+  
+  <Step title="Match Images to Shots">
+    - Upload multiple image files
+    - Kitsu matches images to shots by filename
+  </Step>
+  
+  <Step title="Review Matches">
+    Verify that images are matched correctly.
+  </Step>
+  
+  <Step title="Upload">
+    Thumbnails are set as previews for matched shots.
+  </Step>
+</Steps>
+
+## Deleting Shots
+
+<Warning>
+  Deleting shots with tasks will cancel them instead of permanently deleting.
+</Warning>
+
+### Delete Single Shot
+
+1. Select the shot
+2. Click the delete button
+3. Confirm the deletion
+
+### Behavior
+
+- **No tasks**: Shot is permanently deleted
+- **With tasks**: Shot is canceled (marked as canceled but not deleted)
+- **Canceled shots**: Shown with a strike-through in the list
+
+### Restore Canceled Shots
+
+To restore a canceled shot:
+
+1. Select the canceled shot
+2. Click the restore button
+3. Shot and its tasks are reactivated
+
+## Search and Filtering
+
+### Quick Search
+
+The search field supports:
+
+- **Shot names**: Type shot number or name
+- **Sequence names**: Filter by sequence
+- **Episode names**: Filter by episode (TV shows)
+- **Task status**: e.g., `anim=wip` for animation work in progress
+
+### Advanced Filters
+
+Build complex queries:
+
+```
+e01 s010 anim=wip
+```
+
+This finds shots in episode 1, sequence 010, with animation tasks in WIP status.
+
+### Filter Builder
+
+Use the filter builder for complex queries:
+
+1. Click the filter icon
+2. Add conditions:
+   - Task status
+   - Assignees
+   - Metadata values
+   - Frame count ranges
+3. Combine with AND/OR logic
+4. Apply filter
+
+### Saved Searches
+
+<Steps>
+  <Step title="Create Search">
+    Build your search query in the search field.
+  </Step>
+  
+  <Step title="Save Search">
+    Click the save icon and name your search.
+  </Step>
+  
+  <Step title="Reuse Search">
+    Access saved searches from the query list for quick filtering.
+  </Step>
+</Steps>
+
+## Display Options
+
+<CardGroup cols={2}>
+  <Card title="Big Thumbnails" icon="image">
+    Toggle larger preview thumbnails for better visual identification.
+  </Card>
+  
+  <Card title="Contact Sheet" icon="grid">
+    View multiple frames from each shot in a grid layout.
+  </Card>
+  
+  <Card title="Show Assignations" icon="users">
+    Display assignee avatars for each task.
+  </Card>
+  
+  <Card title="Show Infos" icon="info-circle">
+    Toggle visibility of metadata columns.
+  </Card>
+</CardGroup>
+
+## Task Management
+
+### Create Tasks
+
+Add new task types to shots:
+
+<Steps>
+  <Step title="Open Task Creation">
+    Click "Create Tasks" button.
+  </Step>
+  
+  <Step title="Select Task Type">
+    Choose the task type to create.
+  </Step>
+  
+  <Step title="Choose Scope">
+    Apply to all shots or only selected shots.
+  </Step>
+  
+  <Step title="Create">
+    Tasks are created for the specified shots.
+  </Step>
+</Steps>
+
+### Delete All Tasks
+
+<Warning>
+  This operation cannot be undone. Use with caution.
+</Warning>
+
+Delete all tasks of a specific type:
+
+1. Click the delete icon in the task column header
+2. Choose to delete for all shots or selected shots
+3. Type the task type name to confirm
+4. Confirm deletion
+
+## Sorting
+
+Sort shots by clicking column headers:
+
+- **Name**: Alphanumeric sorting
+- **Sequence**: Group by sequence
+- **Frame count**: Numerical sorting
+- **Task status**: Sort by task status priority
+- **Time spent**: Sort by production time
+- **Custom metadata**: Sort by metadata values
+
+<Tip>
+  Click the column header multiple times to toggle between ascending and descending order.
+</Tip>
+
+## Export Options
+
+### CSV Export
+
+Export shot data to CSV:
+
+1. Apply any filters you want
+2. Click the export button
+3. CSV includes:
+   - All visible columns
+   - Current filter results
+   - Task statuses and assignees
+
+### Format
+
+The exported CSV includes:
+
+```csv
+Episode,Sequence,Name,Description,Frames,Frame In,Frame Out,Anim,Comp,...
+E01,S010,010,"Hero walks in",120,1001,1120,WIP,TODO,...
+```
+
+## TV Show Features
+
+<Accordion title="Episode Management">
+  For TV shows, shots are organized by episodes:
+  
+  - Switch between episodes using the episode selector
+  - Each episode has its own shot list
+  - "Main Pack" contains shots not in specific episodes
+  - "All Episodes" view shows shots across all episodes
+</Accordion>
+
+<Accordion title="Episode Filtering">
+  When working with TV shows:
+  
+  - Select an episode to view only its shots
+  - Search works within the current episode
+  - Filters apply to the current episode
+  - Export respects episode selection
+</Accordion>
+
+## Keyboard Shortcuts
+
+<ResponseField name="Click" type="Select shot">
+  Select a single shot
+</ResponseField>
+
+<ResponseField name="Ctrl/Cmd + Click" type="Multi-select">
+  Add or remove shots from selection
+</ResponseField>
+
+<ResponseField name="Shift + Click" type="Range select">
+  Select a range of shots
+</ResponseField>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Naming Conventions">
+    Use consistent shot naming across sequences:
+    - Padding: 010, 020, 030 (not 10, 20, 30)
+    - Sequential numbering
+    - Leave gaps for potential additions
+  </Accordion>
+  
+  <Accordion title="Frame Counts">
+    Keep frame counts accurate:
+    - Update when shots are revised
+    - Use EDL import for accurate timing
+    - Calculate from Frame In/Out when available
+  </Accordion>
+  
+  <Accordion title="Metadata Management">
+    Use custom metadata for:
+    - Location information
+    - Complexity ratings
+    - Special requirements
+    - Reference links
+  </Accordion>
+  
+  <Accordion title="Regular Reviews">
+    Periodically review shot lists:
+    - Remove obsolete shots
+    - Update descriptions
+    - Verify frame counts
+    - Check task completeness
+  </Accordion>
+</AccordionGroup>
+
+## Permissions
+
+- **Viewers**: Read-only access
+- **Artists**: Read-only access
+- **Managers**: Can create, edit, and delete shots
+- **Admins**: Full access to all features
+
+<Card title="Related Topics" icon="link">
+  - [Sequences](/shots/sequences) - Learn about sequence organization
+  - [Breakdown](/assets/breakdown) - Cast assets to your shots
+  - [Tasks](/production/tasks) - Learn about task management
+</Card>

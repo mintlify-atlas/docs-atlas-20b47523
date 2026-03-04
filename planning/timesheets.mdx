@@ -1,0 +1,393 @@
+---
+title: Timesheets
+description: Track and analyze time spent on tasks with detailed reporting and export capabilities
+---
+
+## Overview
+
+Timesheets in Kitsu provide comprehensive time tracking and reporting for production teams. Monitor actual time spent on tasks, analyze productivity, and generate reports for billing, budgeting, and performance analysis.
+
+<Info>
+Timesheet data is automatically collected from task time logs and aggregated for easy analysis at various detail levels.
+</Info>
+
+## Accessing Timesheets
+
+Navigate to timesheets from:
+- **Main Navigation** → **Timesheets**
+- View time spent across all people and productions
+- Filter by production, studio, year, and month
+
+## Detail Levels
+
+Timesheets can be viewed at different granularities:
+
+### Day View
+
+Most detailed level showing daily time entries:
+- Select year and month to view
+- Shows time spent each day of the month
+- Ideal for daily standup reviews
+- Verify time entries are being logged consistently
+
+### Week View
+
+Weekly aggregation for mid-level analysis:
+- Select year to view all weeks
+- Aggregates time by week number
+- Good for weekly reviews and sprint planning
+- Compare productivity across weeks
+
+### Month View
+
+Monthly totals for broader trends:
+- Select year to view all months
+- Monthly time spent aggregates
+- Useful for monthly reporting
+- Track progress over production lifecycle
+
+### Year View
+
+Annual overview for long-term analysis:
+- View entire year at a glance
+- Yearly totals per person
+- Compare year-over-year productivity
+- High-level production analysis
+
+## Time Units
+
+View time in different units based on your needs:
+
+### Hours
+```javascript
+unitOptions: [
+  { label: 'Hour', value: 'hour' },
+  { label: 'Day', value: 'day' }
+]
+```
+
+- **Hours**: Precise time tracking (e.g., 7.5 hours)
+- **Days**: Man-day calculations based on organization hours per day (default: 8 hours = 1 day)
+
+## Filtering Options
+
+### By Production
+
+Filter timesheets for specific productions:
+- Select "All" to see studio-wide time
+- Choose specific production for project analysis
+- Compare time allocation across productions
+
+### By Studio
+
+For multi-studio organizations:
+- Filter by studio location
+- Analyze distributed team productivity
+- Compare efficiency across studios
+
+### By Date Range
+
+- **Year**: Select which year to analyze
+- **Month**: Available in day view for specific month analysis
+- Date ranges automatically adjust based on detail level
+
+## Person Details
+
+Click on any person's timesheet entry to view detailed breakdown:
+
+### Side Panel Information
+
+1. **Person Overview**
+   - Name and avatar
+   - Total time for selected period
+   - Day off count (if applicable)
+
+2. **Task Breakdown**
+   - List of all tasks worked on
+   - Time spent per task
+   - Production and entity information
+   - Task type and department
+
+3. **Days Off**
+   - Number of days off in the period
+   - Helps explain gaps in time tracking
+
+### Task Details
+
+Each task shows:
+```javascript
+{
+  full_name: 'Asset / Character / Modeling',
+  duration: 240, // minutes
+  man_days: 0.5,
+  production: productionObject,
+  department: departmentObject,
+  type_name: 'Modeling',
+  type_color: '#3273DC'
+}
+```
+
+## Time Aggregation
+
+### How Time is Calculated
+
+Timesheet data comes from task time logs:
+
+1. **Time Logs**: Artists log time when adding comments or using time tracking
+2. **Aggregation**: System aggregates by:
+   - Person
+   - Production (optional)
+   - Studio (optional)
+   - Time period (day/week/month/year)
+3. **Display**: Shows in selected unit (hours or days)
+
+### Aggregated Time Spents
+
+The system loads aggregated data efficiently:
+```javascript
+loadAggregatedPersonTimeSpents({
+  personId: 'person-uuid',
+  detailLevel: 'day', // or 'week', 'month', 'year'
+  year: 2024,
+  month: 3,
+  productionId: 'production-uuid', // optional
+  studioId: 'studio-uuid' // optional
+})
+```
+
+## Export Options
+
+### Export Timesheet
+
+Generate CSV reports of current timesheet view:
+
+1. Click **Export** button
+2. Downloads CSV file with:
+   - Person names
+   - Time spent per period
+   - Totals and subtotals
+   - Formatted based on current filters
+
+**Filename format**: `timesheet_[detail]_[year]_[month].csv`
+
+Example:
+```csv
+Person,Day 1,Day 2,Day 3,...,Total
+John Smith,8.0,7.5,8.0,...,160.0
+Jane Doe,8.0,8.0,6.5,...,155.5
+```
+
+### Export All Time Spents
+
+<Note>
+**Admin Only**: Full time spent export is available only to administrators.
+</Note>
+
+Export raw time logs for detailed analysis:
+- Click **Export Lines** button
+- Downloads `time-spents.csv` with all time entries
+- Includes:
+  - Person
+  - Task
+  - Date
+  - Duration
+  - Comments
+  - Production details
+
+## Timesheet Analysis
+
+### Identifying Issues
+
+#### Missing Time Entries
+
+Spot team members not logging time:
+- Look for blank entries in the timesheet grid
+- Check for irregular patterns (e.g., only logging on Fridays)
+- Cross-reference with task activity
+
+#### Overwork Detection
+
+Identify potential burnout:
+- Look for consistently high daily hours (>9-10 hours)
+- Check for weekend time entries
+- Monitor for sustained overtime
+
+<Warning>
+Consistent overtime is often a sign of unrealistic estimations or insufficient resources, not increased productivity.
+</Warning>
+
+#### Time Distribution
+
+Analyze how time is distributed:
+- Compare time across productions
+- Check department utilization
+- Identify bottlenecks and underutilized resources
+
+### Comparing to Estimations
+
+Use timesheet data to validate schedule estimations:
+
+1. **Export Timesheet** for a completed period
+2. Compare actual time vs. estimated time
+3. Calculate variance:
+   ```javascript
+   variance = (actual - estimated) / estimated * 100
+   ```
+4. Use variance to adjust future estimations
+
+## Integration with Other Features
+
+### Schedule
+
+Timesheet data informs [schedule planning](/planning/scheduling):
+- Actual time validates estimation accuracy
+- Historical data improves future schedule estimates
+- Real mode schedule uses actual start/end dates
+
+### Quotas
+
+Time spent affects [quota calculations](/planning/quota-management):
+- Quotas measure output per unit time
+- Timesheet data provides the time denominator
+- Helps identify efficiency trends
+
+### Budget
+
+Timesheet hours impact [budget tracking](/planning/budget):
+- Actual time converts to cost using daily rates
+- Compare budgeted vs. actual costs
+- Track burn rate and remaining budget
+
+## Best Practices
+
+### Consistent Time Logging
+
+<Tip>
+Encourage team members to log time daily, ideally when adding task comments. This ensures accurate and timely data.
+</Tip>
+
+1. **Daily Habit**: Log time at end of each day
+2. **Task Comments**: Add time when commenting on tasks
+3. **Accuracy**: Round to nearest 15-30 minutes
+4. **Completeness**: Account for all work time, including meetings
+
+### Regular Reviews
+
+- **Daily**: Check that team is logging time
+- **Weekly**: Review team timesheet in week view
+- **Monthly**: Analyze trends and compare to budgets
+- **Yearly**: Long-term productivity and capacity planning
+
+### Time Tracking Policies
+
+Establish clear policies:
+
+1. **What to Track**
+   - All task work
+   - Meetings related to tasks
+   - Reviews and feedback
+
+2. **What Not to Track**
+   - Personal breaks (already accounted in 8-hour day)
+   - General overhead (unless specific overhead tasks exist)
+
+3. **Rounding**
+   - Round to nearest 15 or 30 minutes
+   - Be consistent across the team
+
+### Handling Missing Data
+
+When time entries are missing:
+- Contact team member directly
+- Check if work was done (e.g., task comments without time)
+- Update retroactively if needed
+- For long gaps, may need to estimate based on task completion
+
+## Technical Details
+
+### Data Model
+
+Timesheet view aggregates from:
+```javascript
+// Time spent entries
+{
+  person_id: 'uuid',
+  task_id: 'uuid',
+  date: '2024-03-15',
+  duration: 240, // minutes
+  created_at: 'timestamp'
+}
+```
+
+Aggregated to:
+```javascript
+// Timesheet structure
+{
+  'person-id': {
+    '2024-03-15': 480, // day view
+    '2024-W11': 2400,  // week view
+    '2024-03': 9600,   // month view
+    '2024': 115200     // year view
+  }
+}
+```
+
+### Performance Optimization
+
+Timesheets use server-side aggregation:
+- Database queries aggregate time spents efficiently
+- Results cached based on filters
+- Large datasets paginated in person detail view
+
+### Time Conversion
+
+Minutes to days calculation:
+```javascript
+function minutesToDays(organisation, minutes) {
+  const hoursPerDay = organisation.hours_by_day || 8
+  return minutes / 60 / hoursPerDay
+}
+```
+
+## Reporting Workflows
+
+### Weekly Team Report
+
+1. Set detail level to **Week**
+2. Select current year
+3. Filter by production if needed
+4. Export timesheet
+5. Review in team meeting
+
+### Monthly Billing
+
+1. Set detail level to **Month**
+2. Select specific production
+3. Export timesheet in **Hours**
+4. Calculate costs using person rates
+5. Generate invoice
+
+### Quarterly Review
+
+1. Set detail level to **Month**
+2. Select year and quarter months
+3. Filter by department/studio
+4. Compare to budgets and quotas
+5. Identify trends and adjust plans
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Scheduling" icon="calendar" href="/planning/scheduling">
+    Plan production timelines and task assignments
+  </Card>
+  <Card title="Quota Management" icon="chart-line" href="/planning/quota-management">
+    Measure productivity and output
+  </Card>
+  <Card title="Budget" icon="dollar-sign" href="/planning/budget">
+    Convert time to costs and track budgets
+  </Card>
+  <Card title="Tasks" icon="check-square" href="/essentials/tasks">
+    Learn about task time logging
+  </Card>
+</CardGroup>

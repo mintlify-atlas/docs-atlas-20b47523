@@ -1,0 +1,352 @@
+---
+title: 'Troubleshooting'
+description: 'Solutions to common issues and problems with Kitsu'
+icon: 'wrench'
+---
+
+## Installation Issues
+
+### Node.js Version Mismatch
+
+<AccordionGroup>
+  <Accordion title="Error: Node.js version is too old">
+    **Problem:** You're running an incompatible version of Node.js.
+    
+    **Solution:**
+    ```bash
+    # Check your current Node.js version
+    node --version
+    
+    # Kitsu requires Node.js >= 20.19
+    # Install nvm (Node Version Manager) if you don't have it
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    
+    # Install and use the correct Node.js version
+    nvm install 20
+    nvm use 20
+    ```
+  </Accordion>
+
+  <Accordion title="Error: npm version is too old">
+    **Problem:** You're running an incompatible version of npm.
+    
+    **Solution:**
+    ```bash
+    # Check your current npm version
+    npm --version
+    
+    # Update npm to version 10 or higher
+    npm install -g npm@latest
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Dependency Installation Problems
+
+<AccordionGroup>
+  <Accordion title="npm install fails with errors">
+    **Problem:** Dependency installation fails or shows errors.
+    
+    **Solution:**
+    ```bash
+    # Clear npm cache
+    npm cache clean --force
+    
+    # Remove node_modules and package-lock.json
+    rm -rf node_modules package-lock.json
+    
+    # Reinstall dependencies
+    npm install
+    ```
+    
+    If the issue persists, ensure you have the correct Node.js and npm versions installed.
+  </Accordion>
+
+  <Accordion title="Fabric.js installation issues">
+    **Problem:** Custom Fabric.js dependency fails to install.
+    
+    **Solution:**
+    
+    Kitsu uses a custom fork of Fabric.js (`cgwire/fabric.js`). Ensure you have:
+    - Git installed on your system
+    - Access to GitHub
+    - Proper network connectivity
+    
+    ```bash
+    # Verify git is installed
+    git --version
+    
+    # Try installing the specific package
+    npm install cgwire/fabric.js
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Build and Development Issues
+
+<AccordionGroup>
+  <Accordion title="Development server won't start">
+    **Problem:** `npm run dev` fails or the development server doesn't start.
+    
+    **Solution:**
+    1. Check if another process is using the port:
+       ```bash
+       # Check if port 8080 is in use
+       lsof -i :8080
+       ```
+    
+    2. Kill the process or change the port in Vite configuration
+    
+    3. Verify all dependencies are installed:
+       ```bash
+       npm install
+       ```
+    
+    4. Check for error messages in the console output
+  </Accordion>
+
+  <Accordion title="Build fails with memory errors">
+    **Problem:** Build process fails with JavaScript heap out of memory errors.
+    
+    **Solution:**
+    ```bash
+    # Increase Node.js memory limit
+    export NODE_OPTIONS="--max-old-space-size=4096"
+    
+    # Then run the build
+    npm run build
+    ```
+  </Accordion>
+
+  <Accordion title="Vite build warnings about dependencies">
+    **Problem:** Warnings about missing dependencies or peer dependencies.
+    
+    **Solution:**
+    
+    These warnings are often harmless but can be resolved by:
+    ```bash
+    # Install peer dependencies
+    npm install --legacy-peer-deps
+    ```
+    
+    Or update to the latest package versions compatible with your setup.
+  </Accordion>
+</AccordionGroup>
+
+## Runtime Issues
+
+<AccordionGroup>
+  <Accordion title="White screen or blank page">
+    **Problem:** Application loads but shows a white/blank screen.
+    
+    **Solution:**
+    1. Check browser console for JavaScript errors (F12)
+    2. Verify the API backend (Zou) is running and accessible
+    3. Check CORS settings if API is on a different domain
+    4. Clear browser cache and reload
+    5. Try in incognito/private mode to rule out extension conflicts
+  </Accordion>
+
+  <Accordion title="Cannot connect to API">
+    **Problem:** Frontend cannot connect to the Zou API backend.
+    
+    **Solution:**
+    1. Verify Zou API is running:
+       ```bash
+       # Check API health endpoint
+       curl http://localhost:5000/api/
+       ```
+    
+    2. Check API URL configuration in Kitsu settings
+    3. Verify network connectivity
+    4. Check CORS configuration on the API server
+    5. Review browser console for specific error messages
+  </Accordion>
+
+  <Accordion title="Authentication issues">
+    **Problem:** Cannot log in or session expires immediately.
+    
+    **Solution:**
+    1. Clear browser cookies and local storage
+    2. Verify API authentication endpoints are working
+    3. Check time synchronization (JWT tokens are time-sensitive)
+    4. Review API logs for authentication errors
+    5. Ensure database connection is working properly
+  </Accordion>
+</AccordionGroup>
+
+## Browser Compatibility Issues
+
+<AccordionGroup>
+  <Accordion title="Features not working in certain browsers">
+    **Problem:** Some features don't work in specific browsers.
+    
+    **Solution:**
+    
+    Kitsu is built with modern web technologies. Ensure you're using:
+    - Chrome/Edge (latest versions)
+    - Firefox (latest versions)
+    - Safari (latest versions)
+    
+    Update your browser to the latest version. Internet Explorer is not supported.
+  </Accordion>
+
+  <Accordion title="Video or 3D model preview not working">
+    **Problem:** Media files don't preview correctly.
+    
+    **Solution:**
+    1. Verify browser supports the file format
+    2. Check if WebGL is enabled (for 3D models):
+       - Visit: chrome://gpu/ or about:support in Firefox
+    3. Update graphics drivers
+    4. Try a different browser
+    5. Check console for specific errors
+  </Accordion>
+</AccordionGroup>
+
+## Performance Issues
+
+<AccordionGroup>
+  <Accordion title="Slow application performance">
+    **Problem:** Application is slow or unresponsive.
+    
+    **Solution:**
+    1. Check browser extensions (disable ad blockers temporarily)
+    2. Clear browser cache and cookies
+    3. Check network performance to API server
+    4. Review browser console for warnings
+    5. Monitor system resources (RAM, CPU)
+    6. Close unnecessary browser tabs
+  </Accordion>
+
+  <Accordion title="Large file uploads failing">
+    **Problem:** Cannot upload large files.
+    
+    **Solution:**
+    1. Check file size limits in API configuration
+    2. Verify nginx/proxy timeout settings
+    3. Check upload limits in PHP/server configuration
+    4. Monitor network for stability
+    5. Try uploading smaller batches
+  </Accordion>
+</AccordionGroup>
+
+## Testing Issues
+
+<AccordionGroup>
+  <Accordion title="Unit tests failing">
+    **Problem:** Tests fail when running `npm test`.
+    
+    **Solution:**
+    ```bash
+    # Clean install dependencies
+    rm -rf node_modules package-lock.json
+    npm install
+    
+    # Run tests with verbose output
+    npm test -- --reporter=verbose
+    ```
+    
+    Check the specific test output for details on what's failing.
+  </Accordion>
+
+  <Accordion title="Vitest configuration errors">
+    **Problem:** Vitest shows configuration errors.
+    
+    **Solution:**
+    1. Ensure jsdom is installed: `npm install -D jsdom`
+    2. Check vitest.config.js for syntax errors
+    3. Verify test file patterns in configuration
+    4. Update Vitest to latest version if needed
+  </Accordion>
+</AccordionGroup>
+
+## Docker Issues
+
+<AccordionGroup>
+  <Accordion title="Docker container won't start">
+    **Problem:** CGWire Docker image fails to start.
+    
+    **Solution:**
+    ```bash
+    # Check Docker is running
+    docker --version
+    docker ps
+    
+    # Pull latest image
+    docker pull cgwire/cgwire:latest
+    
+    # Check logs for errors
+    docker logs <container_id>
+    ```
+  </Accordion>
+
+  <Accordion title="Cannot access Kitsu in Docker">
+    **Problem:** Container runs but cannot access the application.
+    
+    **Solution:**
+    1. Verify port mapping: `-p 80:80` or configured ports
+    2. Check firewall settings
+    3. Access via http://localhost or configured host
+    4. Review Docker logs for startup errors
+    5. Ensure all required services started in container
+  </Accordion>
+</AccordionGroup>
+
+## Database Issues
+
+<AccordionGroup>
+  <Accordion title="Database connection errors">
+    **Problem:** Cannot connect to PostgreSQL database.
+    
+    **Solution:**
+    1. Verify PostgreSQL is running
+    2. Check connection credentials in Zou configuration
+    3. Test database connectivity:
+       ```bash
+       psql -h localhost -U postgres -d kitsu
+       ```
+    4. Review database logs
+    5. Check network/firewall settings
+  </Accordion>
+
+  <Accordion title="Migration errors">
+    **Problem:** Database migrations fail.
+    
+    **Solution:**
+    1. Backup your database first
+    2. Check migration logs for specific errors
+    3. Ensure database user has proper permissions
+    4. Verify database schema compatibility
+    5. Contact support if migrations are corrupted
+  </Accordion>
+</AccordionGroup>
+
+## Getting More Help
+
+If these solutions don't resolve your issue:
+
+<CardGroup cols={2}>
+  <Card title="Community Support" icon="discord" href="/resources/community">
+    Ask for help on Discord
+  </Card>
+  <Card title="Report a Bug" icon="bug" href="https://github.com/cgwire/kitsu/issues">
+    Open an issue on GitHub
+  </Card>
+  <Card title="FAQ" icon="circle-question" href="/resources/faq">
+    Check frequently asked questions
+  </Card>
+  <Card title="Documentation" icon="book" href="https://kitsu.cg-wire.com">
+    Browse the official documentation
+  </Card>
+</CardGroup>
+
+<Tip>
+  When asking for help, always include:
+  - Kitsu version (from package.json)
+  - Node.js and npm versions
+  - Operating system
+  - Browser and version
+  - Error messages from console
+  - Steps to reproduce the issue
+</Tip>

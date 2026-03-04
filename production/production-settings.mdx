@@ -1,0 +1,319 @@
+---
+title: Production Settings
+description: Configure and manage production-wide settings in Kitsu
+icon: sliders
+---
+
+Production settings allow managers to configure how their production operates, from basic parameters to advanced automation rules.
+
+## Accessing Production Settings
+
+To access production settings:
+
+1. Select your production from the production dropdown
+2. Click the **Settings** icon or navigate to Settings in the menu
+3. You'll see multiple tabs for different configuration areas
+
+<Warning>
+  Production settings are only accessible to users with **Manager** or **Admin** roles.
+</Warning>
+
+## Settings Tabs
+
+The production settings page is organized into several tabs:
+
+### Parameters
+
+Basic production information and technical specifications.
+
+### Brief
+
+Production brief and description for team reference.
+
+### Task Status
+
+Manage which task statuses are available in this production.
+
+### Board Settings
+
+Configure kanban board display and behavior.
+
+### Task Types
+
+Control which task types are enabled for the production.
+
+### Asset Types
+
+Define which asset types can be used in this production.
+
+### Status Automations
+
+Set up rules to automatically change task statuses based on conditions.
+
+### Backgrounds
+
+Manage preview background images for the production.
+
+## Parameters Configuration
+
+The Parameters tab contains the core production settings:
+
+### Basic Information
+
+<ResponseField name="Name" type="string" required>
+  The production's display name shown throughout Kitsu.
+</ResponseField>
+
+<ResponseField name="Code" type="string">
+  A short identifier for the production (useful for file naming and exports).
+</ResponseField>
+
+<ResponseField name="Start Date" type="date">
+  When production work begins.
+</ResponseField>
+
+<ResponseField name="End Date" type="date">
+  Target completion date for the production.
+</ResponseField>
+
+<ResponseField name="Type" type="select">
+  Production type: Short, Feature Film, TV Show, or Asset Library.
+  
+  <Warning>
+    Changing from TV Show to another type will affect episode/sequence management.
+  </Warning>
+</ResponseField>
+
+### Technical Specifications
+
+<ResponseField name="FPS" type="number">
+  Frame rate for the production (e.g., 24, 25, 30, 60). Maximum value is 60.
+</ResponseField>
+
+<ResponseField name="Ratio" type="string">
+  Aspect ratio (e.g., "16:9", "2.39:1", "4:3").
+</ResponseField>
+
+<ResponseField name="Resolution" type="string">
+  Output resolution (e.g., "1920x1080", "3840x2160", "4K").
+</ResponseField>
+
+### Access and Permissions
+
+<ResponseField name="Isolate Clients" type="boolean" default="false">
+  When enabled, client users only see entities and tasks assigned to them. Useful for controlling what external reviewers can access.
+</ResponseField>
+
+<ResponseField name="Allow Preview Downloads" type="boolean" default="false">
+  Enable or disable the ability to download preview files from this production.
+</ResponseField>
+
+### Automation Settings
+
+<ResponseField name="Automate Preview Selection" type="boolean" default="false">
+  Automatically set the latest uploaded preview as the main preview for an entity.
+</ResponseField>
+
+<ResponseField name="Publish Default for Artists" type="boolean" default="false">
+  Make "Publish" the default status when artists submit work (instead of "Work In Progress").
+</ResponseField>
+
+### Quality Control
+
+<ResponseField name="Max Retakes" type="number" default="0">
+  Maximum number of retakes allowed per task. Set to 0 for unlimited retakes.
+</ResponseField>
+
+### Homepage
+
+<ResponseField name="Homepage" type="select">
+  Choose what page team members see when they access this production:
+  - **Assets**: Assets list
+  - **Shots**: Shots list
+  - **Todos**: Personal task list
+  - **Schedule**: Production schedule
+</ResponseField>
+
+## Managing Task Statuses
+
+Task statuses represent the different states a task can be in.
+
+<Steps>
+  <Step title="View Current Statuses">
+    Switch to the **Task Status** tab to see which statuses are enabled for this production.
+  </Step>
+  
+  <Step title="Add a Task Status">
+    1. Select a status from the dropdown (shows only statuses not yet added)
+    2. Click the **Add** button
+    3. The status is now available for tasks in this production
+  </Step>
+  
+  <Step title="Reorder Statuses">
+    Click and drag the grip icon to reorder statuses. The order determines:
+    - How statuses appear in dropdowns
+    - The visual flow on kanban boards
+    - Priority in reports and statistics
+  </Step>
+  
+  <Step title="Remove a Status">
+    Click the **Remove** button next to a status to disable it for this production.
+    
+    <Warning>
+      You cannot remove a status that is currently used by tasks. Reassign those tasks first.
+    </Warning>
+  </Step>
+</Steps>
+
+### Task Status Attributes
+
+Each task status has several attributes displayed in the settings:
+
+- **Name**: Full status name
+- **Short Name**: Abbreviated version (shown as colored badge)
+- **Is Done**: Marks the task as completed
+- **Is Retake**: Indicates the task needs revision
+- **Artist Allowed**: Artists can set this status themselves
+- **Client Allowed**: Clients can set this status (for approval workflows)
+
+## Managing Asset Types
+
+Control which asset types are available in your production.
+
+<Steps>
+  <Step title="Navigate to Asset Types Tab">
+    Click on the **Asset Types** tab in production settings.
+  </Step>
+  
+  <Step title="Add an Asset Type">
+    1. Select an asset type from the dropdown
+    2. Click **Add**
+    3. The asset type is now available when creating assets
+  </Step>
+  
+  <Step title="Remove an Asset Type">
+    Click **Remove** next to an asset type to disable it for this production.
+    
+    <Note>
+      Removing an asset type doesn't delete existing assets of that type, but prevents creating new ones.
+    </Note>
+  </Step>
+</Steps>
+
+If no specific asset types are selected, all asset types in the system are available.
+
+## Managing Task Types
+
+Task types represent different kinds of work in your pipeline.
+
+### Adding Task Types
+
+The Task Types tab allows you to:
+
+- Add task types to the production
+- Set priorities for task types
+- Remove task types that aren't needed
+- Configure which entity types each task type applies to
+
+### Task Type Priority
+
+The priority order determines:
+
+- Column order in asset/shot lists
+- Display order in task creation dialogs
+- Sorting in reports and exports
+
+## Status Automations
+
+Status automations automatically change task statuses based on conditions.
+
+### Common Automation Use Cases
+
+<AccordionGroup>
+  <Accordion title="Downstream Dependencies">
+    Automatically set dependent tasks to "Ready" when upstream tasks are completed.
+    
+    Example: When Animation is Done → set Lighting to Ready
+  </Accordion>
+  
+  <Accordion title="Approval Workflows">
+    Change status based on approval or rejection.
+    
+    Example: When client rejects → set status to Retake
+  </Accordion>
+  
+  <Accordion title="Pipeline Gates">
+    Enforce pipeline stages.
+    
+    Example: Don't allow Compositing to start until all other tasks are Done
+  </Accordion>
+</AccordionGroup>
+
+## Background Images
+
+Add background images for the preview player:
+
+1. Navigate to the **Backgrounds** tab
+2. Upload background images
+3. Set a default background for the production
+4. Backgrounds will appear as options in the preview player
+
+<Tip>
+  Use different backgrounds to help reviewers see how content looks in various contexts (light/dark, different environments).
+</Tip>
+
+## Production Avatar
+
+Upload a production image/logo:
+
+1. Go to the **Parameters** tab
+2. Click **Upload File** under the Picture section
+3. Select an image (.png, .jpg, or .jpeg)
+4. Click **Save** to apply changes
+
+The production avatar appears:
+- In the production selector dropdown
+- On the production homepage
+- In production lists
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Start Simple" icon="seedling">
+    Begin with minimal task statuses and types. Add more as needed rather than overwhelming your team with options.
+  </Card>
+  
+  <Card title="Match Your Pipeline" icon="diagram-project">
+    Configure task types and statuses to reflect how your team actually works, not an idealized workflow.
+  </Card>
+  
+  <Card title="Test Automations" icon="flask">
+    Test status automations on a small set of tasks before rolling them out production-wide.
+  </Card>
+  
+  <Card title="Document Decisions" icon="book">
+    Use the Brief tab to document important production conventions and decisions for team reference.
+  </Card>
+</CardGroup>
+
+## Exporting Production Data
+
+You can export production information for backup or analysis:
+
+- Asset lists with metadata
+- Shot lists with task statuses
+- Task assignments and time tracking
+- Production statistics
+
+Exports are available from the respective entity list pages (Assets, Shots, etc.).
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Asset Types Management" icon="shapes" href="/production/asset-types">
+    Learn how to create and manage asset types globally
+  </Card>
+  <Card title="Task Status Configuration" icon="circle-check" href="/admin/task-status">
+    Set up task statuses at the system level
+  </Card>
+</CardGroup>

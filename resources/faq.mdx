@@ -1,0 +1,164 @@
+---
+title: 'Frequently Asked Questions'
+description: 'Common questions about Kitsu installation, usage, and troubleshooting'
+icon: 'circle-question'
+---
+
+## General Questions
+
+<AccordionGroup>
+  <Accordion title="What is Kitsu?">
+    Kitsu is a web application that allows you to collaborate on creative productions and manage your deliveries. It improves communication between all stakeholders in animation, VFX, and video game studios, leading to better results and faster shipping.
+    
+    More than 300 studios around the world use Kitsu for their projects.
+  </Accordion>
+
+  <Accordion title="Who develops Kitsu?">
+    Kitsu is developed by CGWire, a company based in France that helps animation and VFX studios collaborate better through efficient tooling.
+    
+    Visit [cg-wire.com](https://cg-wire.com) for more information.
+  </Accordion>
+
+  <Accordion title="Is Kitsu open source?">
+    Yes, Kitsu is open source software licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). This means you can freely use, modify, and distribute it according to the license terms.
+  </Accordion>
+
+  <Accordion title="How many studios use Kitsu?">
+    More than 300 studios around the world use Kitsu for their creative productions.
+  </Accordion>
+</AccordionGroup>
+
+## Installation Questions
+
+<AccordionGroup>
+  <Accordion title="What are the system requirements for Kitsu?">
+    Kitsu requires:
+    - Node.js version 20.19 or higher
+    - npm version 10 or higher
+    
+    For production deployments, you'll also need the Zou API backend and a PostgreSQL database.
+  </Accordion>
+
+  <Accordion title="Can I try Kitsu without installing it?">
+    Yes, you can download the [trial Docker image](https://hub.docker.com/r/cgwire/cgwire) which provides a complete pre-configured Kitsu environment.
+  </Accordion>
+
+  <Accordion title="How do I install Kitsu for development?">
+    To install the development environment:
+    
+    1. Clone the repository from GitHub
+    2. Install dependencies with `npm install`
+    3. Run the development server with `npm run dev`
+    
+    For detailed instructions, refer to the [Development Environment](/development) guide.
+  </Accordion>
+
+  <Accordion title="Do I need to install the Zou API separately?">
+    Yes, Kitsu is the frontend interface. You'll need to install and configure the Zou API backend separately to have a fully functional system. The Zou API handles data management and business logic.
+  </Accordion>
+</AccordionGroup>
+
+## Usage Questions
+
+<AccordionGroup>
+  <Accordion title="What types of projects can I manage with Kitsu?">
+    Kitsu is designed for creative productions including:
+    - Animation projects
+    - VFX (Visual Effects) productions
+    - Video game development
+    - Any collaborative creative project requiring asset and task management
+  </Accordion>
+
+  <Accordion title="Can I customize Kitsu for my studio's workflow?">
+    Yes, Kitsu is highly customizable. You can:
+    - Define custom task types and statuses
+    - Create custom metadata fields
+    - Configure production pipelines to match your workflow
+    - Extend functionality through the API
+  </Accordion>
+
+  <Accordion title="Does Kitsu support multiple projects?">
+    Yes, Kitsu supports managing multiple projects simultaneously. You can switch between projects and manage different production pipelines for each.
+  </Accordion>
+
+  <Accordion title="Can I integrate Kitsu with other tools?">
+    Yes, Kitsu provides a comprehensive REST API that allows integration with other tools in your pipeline, including DCCs (Digital Content Creation tools), render farms, and custom scripts.
+  </Accordion>
+</AccordionGroup>
+
+## Technical Questions
+
+<AccordionGroup>
+  <Accordion title="What technologies does Kitsu use?">
+    Kitsu is built with:
+    - JavaScript (ES6+)
+    - Vue.js 3 framework
+    - Vuex for state management
+    - Vite for build tooling
+  </Accordion>
+
+  <Accordion title="How do I contribute to Kitsu?">
+    There are many ways to contribute:
+    - Report bugs on [GitHub Issues](https://github.com/cgwire/kitsu/issues)
+    - Submit feature requests on [Canny](https://cgwire.canny.io/)
+    - Contribute code via pull requests
+    - Help with translations on [POEditor](https://poeditor.com/join/project?hash=fpUejpWDVo)
+    - Improve documentation
+    
+    See the [Contributing Guide](/resources/community#contributing) for more details.
+  </Accordion>
+
+  <Accordion title="Where can I find the API documentation?">
+    The API documentation is available in the [API Reference](/api-reference) section. It covers all available endpoints for managing projects, assets, tasks, and more.
+  </Accordion>
+
+  <Accordion title="Is there a plugin system for Kitsu?">
+    While Kitsu doesn't have a formal plugin system, you can extend functionality through:
+    - The REST API for integrations
+    - Custom modifications to the source code (it's open source)
+    - Feature requests through the community
+  </Accordion>
+</AccordionGroup>
+
+## Support Questions
+
+<AccordionGroup>
+  <Accordion title="Where can I get help with Kitsu?">
+    You can get help through:
+    - [Discord Community](https://discord.com/invite/VbCxtKN) for community support
+    - [GitHub Issues](https://github.com/cgwire/kitsu/issues) for bug reports
+    - [Documentation](https://kitsu.cg-wire.com/) for guides and references
+    - Professional support from CGWire
+  </Accordion>
+
+  <Accordion title="Is there professional support available?">
+    Yes, CGWire offers professional support and services for studios. Contact them through [cg-wire.com](https://cg-wire.com) for more information.
+  </Accordion>
+
+  <Accordion title="How do I report a bug?">
+    To report a bug:
+    1. Check if it's already reported in [GitHub Issues](https://github.com/cgwire/kitsu/issues)
+    2. If not, create a new issue with:
+       - A clear description of the problem
+       - Steps to reproduce
+       - Expected vs actual behavior
+       - Your environment details (browser, OS, Kitsu version)
+  </Accordion>
+
+  <Accordion title="Can I request new features?">
+    Yes, feature requests are welcome on the [Canny platform](https://cgwire.canny.io/). You can also vote for existing feature requests to help prioritize development.
+  </Accordion>
+</AccordionGroup>
+
+## Need More Help?
+
+If you can't find the answer to your question here, check out:
+
+<CardGroup cols={2}>
+  <Card title="Troubleshooting" icon="wrench" href="/resources/troubleshooting">
+    Solutions to common issues and problems
+  </Card>
+  <Card title="Community" icon="users" href="/resources/community">
+    Join the Kitsu community for support and discussion
+  </Card>
+</CardGroup>

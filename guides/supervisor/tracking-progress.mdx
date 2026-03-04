@@ -1,0 +1,527 @@
+---
+title: Tracking Production Progress
+description: Monitor task completion, identify bottlenecks, and keep production on schedule
+---
+
+## Overview
+
+Tracking production progress is essential for hitting deadlines and maintaining quality. Kitsu provides multiple views and tools to monitor status, identify issues early, and make data-driven decisions.
+
+## Production Dashboard
+
+### Accessing Production Overview
+
+Navigate to your production from the main menu to access:
+
+- **Assets**: All production assets organized by type
+- **Shots**: Shot breakdown by sequence and episode
+- **Task Status**: Visual grid showing completion across task types
+- **Statistics**: Production-wide metrics and progress
+
+### Task Status Grid
+
+The main assets and shots pages display a grid where:
+
+- **Rows** = Individual assets/shots
+- **Columns** = Task types (Modeling, Rigging, Animation, etc.)
+- **Cells** = Status color for each task
+
+**Color Coding**:
+- **Gray**: Not started / Todo
+- **Blue**: Work in progress
+- **Purple**: Waiting for approval / Pending
+- **Orange**: Retake needed
+- **Green**: Approved / Complete
+- **Red**: Blocked / Issues
+
+<Tip>
+Get a quick production overview by scanning the color grid. Lots of gray means work hasn't started; lots of orange means issues need addressing.
+</Tip>
+
+## Filtering and Views
+
+### Production Filters
+
+Narrow your view with filters:
+
+- **By Asset Type**: Props, Characters, Environments, etc.
+- **By Episode**: For episodic productions
+- **By Sequence**: Group shots logically
+- **By Task Status**: Show only specific statuses
+- **By Assignee**: See work for specific artists
+
+### Search Functionality
+
+Quickly find specific items:
+
+- Search by name (asset/shot code)
+- Filter by metadata (complexity, priority, etc.)
+- Combine filters for precise queries
+- Save custom searches for reuse
+
+### Column Visibility
+
+Customize which task columns you see:
+
+1. Click the column visibility menu
+2. Toggle task types on/off
+3. Focus on your department's tasks
+4. Adjust based on production phase
+
+## Progress Statistics
+
+### Entity-Level Stats
+
+At the top of asset/shot pages, see:
+
+- **Total entities**: Count of assets or shots
+- **Completion percentage**: Overall progress
+- **Task counts** by status
+- **Estimated vs. actual** time
+
+### Task-Level Breakdown
+
+For each task type column:
+
+- Click the column header
+- View statistics modal
+- See status distribution
+- Track approval rates
+
+### Production Metrics
+
+Access detailed analytics:
+
+- **Quota page**: Daily/weekly completion rates
+- **Time spent**: Aggregated hours by task type
+- **Estimation accuracy**: Planned vs. actual
+- **Bottleneck identification**: Tasks taking longest
+
+<Note>
+Production metrics help you spot trends, like consistently underestimated task types or departments running behind.
+</Note>
+
+## Tracking by Task Type
+
+### Department Progress
+
+Monitor progress for your specific area:
+
+1. Filter to your task type (e.g., Animation)
+2. Review status distribution
+3. Identify tasks needing attention
+4. Check for overdue items
+
+### Task Status Breakdown
+
+For your task type, track:
+
+- **Not started**: How much work is queued
+- **In progress**: Currently active tasks
+- **Pending review**: Your review queue
+- **Retakes**: Issues to follow up on
+- **Approved**: Completed work
+
+### Common Patterns to Watch
+
+**Red Flags**:
+- Many tasks stuck in retake status
+- Low approval rate (lots of iterations)
+- Tasks not progressing over time
+- Overdue tasks piling up
+
+**Green Lights**:
+- Steady progression through statuses
+- High first-pass approval rate
+- Tasks completing on or ahead of schedule
+- Balanced workload across artists
+
+## Schedule Management
+
+### Viewing Schedules
+
+Access the **Schedule** page to see:
+
+- Gantt-style timeline view
+- Tasks plotted by start and due dates
+- Dependencies between tasks
+- Milestones and deadlines
+
+### Schedule Types
+
+Kitsu supports different schedule views:
+
+1. **Main Schedule**: Production-wide timeline
+2. **Asset Type Schedules**: Modeling, rigging, etc.
+3. **Sequence Schedules**: Shot progression
+4. **Department Schedules**: Team-specific views
+
+### Schedule Items
+
+Each schedule item shows:
+
+- Task type and entity
+- Planned duration (from estimation)
+- Start and end dates
+- Current status
+- Assignee(s)
+
+### Identifying Schedule Issues
+
+Look for:
+
+- **Red bars**: Overdue tasks
+- **Compressed timelines**: Insufficient time for quality work
+- **Gaps**: Idle time or missing assignments
+- **Conflicts**: Overlapping critical tasks
+
+<Warning>
+Tasks showing as overdue need immediate attention. Review with the assigned artist and adjust deadlines or resources as needed.
+</Warning>
+
+## Milestones
+
+### What Are Milestones?
+
+Milestones mark important production dates:
+
+- Client review deadlines
+- Delivery dates
+- Production phase transitions
+- Internal review checkpoints
+
+### Creating Milestones
+
+<Steps>
+  <Step title="Go to Schedule page">
+    Access the production schedule view
+  </Step>
+  
+  <Step title="Click Add Milestone">
+    Opens the milestone creation form
+  </Step>
+  
+  <Step title="Set milestone details">
+    - Name (e.g., "Client Review #1")
+    - Date
+    - Description
+  </Step>
+  
+  <Step title="Save">
+    Milestone appears on schedule timeline
+  </Step>
+</Steps>
+
+### Tracking to Milestones
+
+Use milestones to:
+
+- Plan backwards from deadlines
+- Ensure tasks complete before milestone dates
+- Communicate progress to stakeholders
+- Identify at-risk deliverables
+
+## Using All Tasks View
+
+### Supervisor Task Overview
+
+Go to **All Tasks** from the main navigation:
+
+- See tasks across all productions
+- Filter by production, task type, status
+- View your team's entire workload
+- Identify tasks needing your review
+
+### Sorting Options
+
+Sort tasks by:
+
+- **Priority**: Address high-priority work first
+- **Due date**: Focus on upcoming deadlines
+- **Start date**: Plan task sequencing
+- **Status**: Group by approval needs
+- **Last comment**: Find recently updated tasks
+- **Estimation**: Identify large/small tasks
+
+### Custom Queries
+
+Create saved searches for:
+
+- "Waiting for my approval"
+- "Overdue in my department"
+- "High priority this week"
+- "Retakes needing follow-up"
+
+Access these quickly from the search dropdown.
+
+## Quota Tracking
+
+### What Is Quota?
+
+Quota represents expected task completion rates:
+
+- Tasks per day/week/month
+- Compared to actual completions
+- Shows team velocity
+- Helps forecast delivery dates
+
+### Accessing Quota Page
+
+From your production menu:
+
+1. Select **Quota**
+2. Choose date range (daily, weekly, monthly)
+3. View completion charts
+4. Compare to targets
+
+### Quota Metrics
+
+The quota page shows:
+
+- **Target**: Expected completions
+- **Actual**: Tasks completed
+- **Variance**: Ahead or behind schedule
+- **Trends**: Performance over time
+- **By task type**: Department breakdowns
+
+### Using Quota Data
+
+Quota helps you:
+
+- Forecast delivery dates based on current velocity
+- Identify if team needs more resources
+- Spot productivity trends (improving or declining)
+- Set realistic expectations with production
+
+<Tip>
+If quota shows consistent under-delivery, investigate root causes: Are estimations too optimistic? Is the team size adequate? Are there blockers?
+</Tip>
+
+## Time Tracking Analysis
+
+### Team Timesheets
+
+Access the **Timesheets** page to review:
+
+- Time logged by all team members
+- Daily, weekly, monthly views
+- Breakdown by production and task type
+- Compare estimated vs. actual hours
+
+### Identifying Estimation Issues
+
+Look for patterns:
+
+- **Consistently over**: Tasks taking much longer than estimated
+- **Consistently under**: Estimations are too conservative
+- **High variance**: Inconsistent scoping
+
+### Capacity Planning
+
+Use timesheet data to:
+
+- Calculate available team hours
+- Estimate completion dates
+- Identify overallocation
+- Plan future assignments
+
+**Example**:
+```
+Team size: 5 artists
+Available hours/week: 40 hours × 5 = 200 hours
+Remaining task estimations: 800 hours
+Estimated completion: 4 weeks
+```
+
+## Identifying Bottlenecks
+
+### Common Bottleneck Signs
+
+1. **Tasks stuck in same status** for extended periods
+2. **Reviewer backlog**: Many tasks waiting for approval
+3. **Dependency chains**: One delayed task blocking many others
+4. **Resource constraints**: Same person assigned to too many tasks
+5. **Technical issues**: Repeated retakes for same reason
+
+### Resolving Bottlenecks
+
+<AccordionGroup>
+  <Accordion title="Review backlog">
+    - Dedicate time for reviews daily
+    - Delegate review authority when possible
+    - Use batch review workflows
+    - Communicate expected review turnaround
+  </Accordion>
+  
+  <Accordion title="Dependency issues">
+    - Identify critical path tasks
+    - Prioritize blocking work
+    - Consider parallel workflows
+    - Communicate dependencies clearly
+  </Accordion>
+  
+  <Accordion title="Resource overload">
+    - Redistribute tasks
+    - Bring in additional help
+    - Reduce scope if possible
+    - Adjust deadlines
+  </Accordion>
+  
+  <Accordion title="Technical problems">
+    - Identify recurring issues
+    - Provide training or documentation
+    - Improve tools or pipelines
+    - Clarify standards and expectations
+  </Accordion>
+</AccordionGroup>
+
+## Reporting
+
+### Production Reports
+
+Generate reports for:
+
+- **Status reports**: Current state of all tasks
+- **Progress reports**: Completion over time
+- **Time reports**: Hours logged vs. estimated
+- **Team reports**: Individual artist productivity
+
+### Export Options
+
+Export data as:
+
+- **CSV**: For spreadsheet analysis
+- **PDF**: For presentation to stakeholders
+- **Screenshots**: Visual status snapshots
+
+Access exports from:
+
+- Assets/Shots pages (export icon)
+- Timesheets page
+- Quota page
+- Custom reports
+
+### Stakeholder Communication
+
+Use reports to:
+
+- Update production management
+- Communicate with clients
+- Track against contracts
+- Document production progress
+
+## Daily Supervisor Workflow
+
+Recommended daily routine:
+
+<Steps>
+  <Step title="Morning: Check overnight progress">
+    - Review task status changes
+    - Check completed work
+    - Read team comments
+  </Step>
+  
+  <Step title="Plan the day">
+    - Prioritize review queue
+    - Identify urgent tasks
+    - Check for blockers
+  </Step>
+  
+  <Step title="Review submissions">
+    - Approve or provide feedback
+    - Communicate clearly and promptly
+    - Update task statuses
+  </Step>
+  
+  <Step title="Monitor progress">
+    - Check schedule adherence
+    - Review quota numbers
+    - Identify any issues
+  </Step>
+  
+  <Step title="Support team">
+    - Answer questions
+    - Unblock artists
+    - Assign new work
+  </Step>
+  
+  <Step title="End of day: Plan tomorrow">
+    - Review upcoming deadlines
+    - Prepare assignments
+    - Note any concerns
+  </Step>
+</Steps>
+
+## Best Practices
+
+<Steps>
+  <Step title="Check status daily">
+    Regular monitoring prevents surprises
+  </Step>
+  
+  <Step title="Use multiple views">
+    Grid, schedule, quota - each provides different insights
+  </Step>
+  
+  <Step title="Track trends, not just snapshots">
+    Look at progress over time, not just current state
+  </Step>
+  
+  <Step title="Communicate proactively">
+    Share status with production and escalate issues early
+  </Step>
+  
+  <Step title="Adjust estimates">
+    Use actual data to improve future estimates
+  </Step>
+  
+  <Step title="Focus on bottlenecks">
+    Address blockers before they cascade
+  </Step>
+  
+  <Step title="Celebrate progress">
+    Recognize milestones and good work
+  </Step>
+</Steps>
+
+## Advanced Features
+
+### Custom Columns
+
+Add metadata columns to track:
+
+- Complexity rating
+- Client priority
+- Character/location tags
+- Custom production needs
+
+Filter and sort by these fields.
+
+### Task Dependencies
+
+Some installations support task dependencies:
+
+- Define which tasks must complete before others
+- Visualize dependency chains
+- Auto-update statuses based on dependencies
+
+### Automated Reports
+
+Set up automated reporting:
+
+- Daily status emails
+- Weekly progress summaries
+- Overdue task alerts
+- Milestone reminders
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Reviewing Work" icon="eye" href="/guides/supervisor/reviewing-work">
+    Review and approve artist submissions effectively
+  </Card>
+  
+  <Card title="Team Management" icon="users" href="/guides/supervisor/team-management">
+    Assign tasks and manage your team's workload
+  </Card>
+</CardGroup>

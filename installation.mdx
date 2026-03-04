@@ -1,0 +1,317 @@
+---
+title: Installation
+description: Complete installation guide for Kitsu, including Docker deployment and development environment setup with detailed configuration options.
+---
+
+# Installation
+
+This guide covers installing Kitsu for both production use and development. Choose the installation method that best fits your needs.
+
+## Docker installation (recommended)
+
+Docker provides the simplest way to run Kitsu with all dependencies pre-configured.
+
+### Prerequisites
+
+- [Docker >= 1.13](https://store.docker.com/search?type=edition&offering=community)
+- Port 80 available on your host machine (or configure a different port)
+
+### Basic setup
+
+Run the CGWire Docker image:
+
+```bash
+docker run -d --rm -p 80:80 --name cgwire cgwire/cgwire
+```
+
+Access Kitsu at `http://localhost` after the container starts (approximately 30 seconds).
+
+### Custom port configuration
+
+If port 80 is already in use, map to a different port:
+
+```bash
+docker run -d --rm -p 8080:80 --name cgwire cgwire/cgwire
+```
+
+Access Kitsu at `http://localhost:8080`.
+
+### Persistent data
+
+By default, data is stored inside the container. For production use, mount volumes to persist data:
+
+```bash
+docker run -d \
+  -p 80:80 \
+  --name cgwire \
+  -v kitsu-db:/var/lib/postgresql \
+  -v kitsu-storage:/opt/zou/storage \
+  cgwire/cgwire
+```
+
+<Warning>
+  Always use volume mounts for production deployments to prevent data loss when containers are recreated.
+</Warning>
+
+## Development environment
+
+Set up a local development environment to contribute to Kitsu or customize it for your studio.
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- **Node.js**: >= 20.19 ([Download](https://nodejs.org))
+- **npm**: >= 10 (comes with Node.js)
+- **Docker**: >= 1.13 (for the API backend)
+- **Git**: For cloning the repository
+
+<Note>
+  The specific version requirements come from the `engines` field in package.json:1:95. Using older versions may cause compatibility issues.
+</Note>
+
+### Installation steps
+
+<Steps>
+  <Step title="Start the API backend">
+    Run the CGWire Docker container to provide the API and database:
+
+    ```bash
+    docker run -d --rm -p 80:80 --name cgwire cgwire/cgwire
+    ```
+
+    This provides the Zou API that Kitsu connects to.
+  </Step>
+
+  <Step title="Configure environment variables">
+    Set up the API connection. The development server needs to know where to find the backend:
+
+    <CodeGroup>
+    ```bash macOS/Linux
+    export KITSU_API_TARGET=http://localhost/api
+    export KITSU_EVENT_TARGET=http://localhost/socket.io
+    ```
+
+    ```bash Docker Machine
+    export KITSU_API_TARGET=http://$(docker-machine ip)/api
+    export KITSU_EVENT_TARGET=http://$(docker-machine ip)/socket.io
+    ```
+
+    ```powershell Windows PowerShell
+    $env:KITSU_API_TARGET="http://localhost/api"
+    $env:KITSU_EVENT_TARGET="http://localhost/socket.io"
+    ```
+    </CodeGroup>
+
+    <Tip>
+      These environment variables are used by the Vite proxy configuration in vite.config.js:40-49 to forward API requests to the backend.
+    </Tip>
+  </Step>
+
+  <Step title="Clone the repository">
+    Get the Kitsu source code from GitHub:
+
+    ```bash
+    git clone https://github.com/cgwire/kitsu.git
+    cd kitsu
+    ```
+  </Step>
+
+  <Step title="Install dependencies">
+    Install all required npm packages:
+
+    ```bash
+    npm install
+    ```
+
+    This installs Vue.js, Vuex, Vite, and all other dependencies listed in package.json.
+  </Step>
+
+  <Step title="Start the development server">
+    Launch the Vite development server:
+
+    ```bash
+    npm run dev
+    ```
+
+    After a few seconds, Vite will start the development server at `http://127.0.0.1:8080`.
+
+    <Note>
+      The development server includes hot module replacement (HMR), so your changes will automatically reload in the browser as you edit files.
+    </Note>
+  </Step>
+</Steps>
+
+### Development server configuration
+
+The Vite development server is configured in `vite.config.js` with:
+
+- **Host**: 127.0.0.1
+- **Port**: 8080
+- **API proxy**: Forwards `/api` requests to the backend
+- **WebSocket proxy**: Forwards `/socket.io` for real-time updates
+
+### Available scripts
+
+The package.json defines several useful development commands:
+
+<CodeGroup>
+```bash Development server
+npm run dev
+```
+
+```bash Production build
+npm run build
+```
+
+```bash Preview production build
+npm run preview
+```
+
+```bash Run tests
+npm run test
+```
+
+```bash Lint code
+npm run lint
+```
+
+```bash Fix linting issues
+npm run lint:fix
+```
+
+```bash Format code
+npm run format
+```
+</CodeGroup>
+
+## Environment variables
+
+Kitsu uses environment variables for configuration:
+
+| Variable | Description | Default |
+|----------|-------------|----------|
+| `KITSU_API_TARGET` | Backend API endpoint URL | `http://127.0.0.1:5000` |
+| `KITSU_EVENT_TARGET` | WebSocket server URL for real-time events | `http://127.0.0.1:5001` |
+
+<Note>
+  These variables are only used during development. In production, the Kitsu frontend and Zou API are typically served from the same domain.
+</Note>
+
+## Architecture overview
+
+Kitsu follows a modern frontend architecture:
+
+- **Vue Router**: Manages URL routes and navigation
+- **Vuex stores**: Centralized state management with mutations and actions
+- **Components**: Reusable UI elements with HTML, CSS, and JavaScript
+- **WebSocket**: Real-time updates via Socket.io
+- **API client**: Superagent for HTTP requests to the Zou backend
+
+Key architectural principles:
+
+1. URL routes provide the main application context
+2. Shared state is stored in Vuex stores
+3. Mutations modify state synchronously
+4. Actions handle asynchronous operations (API calls, etc.)
+5. Components access state through getters
+6. Local UI state is managed within components
+
+## Troubleshooting
+
+### Port already in use
+
+**Problem**: Port 8080 is already occupied.
+
+**Solution**: Edit `vite.config.js` and change the port number:
+
+```javascript
+server: {
+  host: '127.0.0.1',
+  port: 3000, // Change to any available port
+  // ...
+}
+```
+
+### Cannot connect to API
+
+**Problem**: Frontend cannot reach the backend API.
+
+**Solution**: Verify the Docker container is running and check the environment variables:
+
+```bash
+# Check container status
+docker ps | grep cgwire
+
+# Verify environment variables
+echo $KITSU_API_TARGET
+echo $KITSU_EVENT_TARGET
+```
+
+### JavaScript required error
+
+**Problem**: Browser shows "JavaScript required" message.
+
+**Solution**: Ensure JavaScript is enabled in your browser. Kitsu is a single-page application that requires JavaScript to function.
+
+### Node version mismatch
+
+**Problem**: npm install fails due to Node.js version.
+
+**Solution**: Upgrade to Node.js >= 20.19:
+
+```bash
+# Check current version
+node --version
+
+# Install using nvm (recommended)
+nvm install 20.19
+nvm use 20.19
+```
+
+### Build errors after git pull
+
+**Problem**: Development server fails after updating code.
+
+**Solution**: Clean install dependencies:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+npm run dev
+```
+
+## Production deployment
+
+For production environments:
+
+1. **Use persistent volumes** for database and file storage
+2. **Configure backups** for your PostgreSQL database
+3. **Set up SSL/TLS** using a reverse proxy (nginx, Caddy, etc.)
+4. **Change default passwords** for all accounts
+5. **Configure email** for notifications and password resets
+6. **Monitor logs** for errors and performance issues
+
+<Warning>
+  The Docker quickstart is suitable for testing but requires additional configuration for production use. Consider database backups, SSL certificates, and security hardening.
+</Warning>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Contributing guide" icon="code-pull-request" href="https://github.com/cgwire/kitsu/blob/main/CONTRIBUTING.md">
+    Learn how to contribute code to Kitsu
+  </Card>
+  
+  <Card title="API documentation" icon="book" href="https://zou.cg-wire.com/api">
+    Explore the Zou API for integrations
+  </Card>
+  
+  <Card title="Community Discord" icon="discord" href="https://discord.com/invite/VbCxtKN">
+    Get help from the Kitsu community
+  </Card>
+  
+  <Card title="Feature requests" icon="lightbulb" href="https://cgwire.canny.io/">
+    Suggest new features on Canny
+  </Card>
+</CardGroup>

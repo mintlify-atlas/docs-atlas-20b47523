@@ -1,0 +1,157 @@
+---
+title: 'Asset Library'
+description: 'Share and manage reusable assets across multiple productions'
+icon: 'book-sparkles'
+---
+
+The Asset Library allows you to share assets across multiple productions in Kitsu. This feature enables teams to create a centralized repository of assets that can be reused in different projects, saving time and maintaining consistency.
+
+## Overview
+
+The Asset Library provides:
+
+- **Cross-production sharing**: Share assets between multiple productions
+- **Visual browsing**: View assets grouped by asset type with preview thumbnails
+- **Production filtering**: Filter shared assets by their source production
+- **Sorting options**: Sort by name, production, creation date, or last update
+- **Search functionality**: Quickly find specific assets
+
+## Accessing the Asset Library
+
+Navigate to the Asset Library from the main navigation menu. The library displays all shared assets across your organization.
+
+## Browsing Shared Assets
+
+### Asset Organization
+
+Assets in the library are automatically grouped by asset type (Characters, Props, Environments, etc.). Each group displays:
+
+- Asset type name
+- Number of assets in that category
+- Visual grid of asset thumbnails
+
+### Asset Information
+
+Each asset card shows:
+
+- Preview thumbnail (or placeholder if no preview is available)
+- Production avatar (indicating source production)
+- Asset name
+
+## Filtering and Searching
+
+<Steps>
+  <Step title="Filter by Production">
+    Use the production dropdown to filter assets by their source production. Select "All" to view assets from all productions.
+  </Step>
+  
+  <Step title="Search by Name">
+    Use the search field to find assets by name. The search is real-time and updates results as you type.
+  </Step>
+  
+  <Step title="Sort Results">
+    Choose from multiple sorting options:
+    - **Name**: Alphabetical order
+    - **Production**: Grouped by source production
+    - **Created At**: By creation date
+    - **Updated At**: Most recently updated first
+  </Step>
+</Steps>
+
+## Managing Shared Assets
+
+<Note>
+  Asset library management features are only available to managers and admins.
+</Note>
+
+### Adding Assets to the Library
+
+Managers can add assets to the shared library from the production asset page:
+
+<Steps>
+  <Step title="Select Assets">
+    Navigate to the production's asset page and select the assets you want to share.
+  </Step>
+  
+  <Step title="Share Assets">
+    Click the "Share" button and confirm to add the selected assets to the library.
+  </Step>
+  
+  <Step title="Verify">
+    The assets will now appear in the Asset Library and can be used in other productions.
+  </Step>
+</Steps>
+
+### Removing Assets from the Library
+
+To remove assets from the shared library:
+
+<Steps>
+  <Step title="Access Management Panel">
+    In the Asset Library, access the management panel in the sidebar.
+  </Step>
+  
+  <Step title="Select Assets to Remove">
+    Select the assets you want to remove from the library.
+  </Step>
+  
+  <Step title="Unshare">
+    Click the "Unshare" button to remove the assets from the library.
+  </Step>
+</Steps>
+
+<Warning>
+  Removing an asset from the library will not delete it from its original production, but it will no longer be available to other productions.
+</Warning>
+
+## Using Shared Assets
+
+Shared assets can be used in the [Breakdown](/assets/breakdown) tool to cast them in shots or other entities. When using shared assets:
+
+- Shared assets are marked with a distinct indicator
+- They maintain their original preview and data
+- Updates to the shared asset are reflected across all productions using it
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Asset Naming">
+    Use clear, descriptive names for shared assets to make them easy to find and identify across productions. Include asset type or category in the name if helpful.
+  </Accordion>
+  
+  <Accordion title="Preview Images">
+    Always add high-quality preview images to shared assets. This makes visual browsing much more effective.
+  </Accordion>
+  
+  <Accordion title="Asset Organization">
+    Keep asset types consistent across productions. This ensures proper grouping in the Asset Library.
+  </Accordion>
+  
+  <Accordion title="Production Attribution">
+    The production avatar on each asset helps teams quickly identify where an asset originated, which is useful for questions or updates.
+  </Accordion>
+</AccordionGroup>
+
+## Technical Details
+
+### Data Storage
+
+Shared assets maintain:
+
+- Original production reference
+- Asset type and metadata
+- Preview thumbnails
+- Creation and update timestamps
+- Casting relationships across productions
+
+### Permissions
+
+- **Viewers**: Can browse and search the Asset Library
+- **Artists**: Can browse and use shared assets in their work
+- **Managers**: Can add and remove assets from the library
+- **Admins**: Full access to library management
+
+<Card title="Related Topics" icon="link">
+  - [Breakdown](/assets/breakdown) - Cast shared assets in your shots
+  - [Asset Management](/production/assets) - Learn about creating and managing assets
+</Card>

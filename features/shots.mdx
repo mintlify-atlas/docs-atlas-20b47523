@@ -1,0 +1,360 @@
+---
+title: Shots
+description: Break down your sequences and track shot production from layout to final
+---
+
+Shots are the individual camera angles and scenes that make up your sequences. Kitsu helps you manage shots through every stage of production.
+
+## What are Shots?
+
+A shot represents a single camera setup in your production:
+
+- Organized into **sequences** (scenes or groups of related shots)
+- For TV shows, organized by **episodes** and sequences
+- Each shot has technical specs (frames, resolution, FPS)
+- Shots progress through tasks (Layout, Animation, Lighting, Compositing)
+
+## The Shots Page
+
+The Shots page displays all shots in the current production, organized by sequence.
+
+### Search and Filtering
+
+Find shots quickly using the search bar:
+
+```
+e01 s01 anim=wip
+```
+
+This finds shots in Episode 1, Sequence 1 where Animation is "WIP".
+
+**Filter Syntax**:
+
+- By sequence: Type the sequence name (e.g., `seq010`)
+- By episode: `e01` or episode name
+- By task status: `layout=wip`, `anim=approved`
+- Combine filters: `seq010 anim=wip lighting=todo`
+
+Use the **Filter Builder** for visual query construction.
+
+### Saved Searches
+
+Save complex queries:
+
+1. Build your search criteria
+2. Click the save icon
+3. Name your search
+4. Access it from the saved searches list
+
+Searches can be organized into filter groups and shared with your team.
+
+## Creating and Managing Shots
+
+<Note>
+Only Managers and Supervisors can create, edit, or delete shots.
+</Note>
+
+### The Manage Shots Modal
+
+Click **Manage Shots** to access the shot creation interface:
+
+**Create Episodes** (TV Shows only):
+- Add new episodes to your production
+- Set episode names and numbers
+
+**Create Sequences**:
+- Add sequences to episodes (or directly to the project)
+- Name sequences (e.g., "SEQ010", "Opening")
+
+**Create Shots**:
+- Bulk create shots with naming patterns
+- Example: `SH0010-SH0020` creates shots SH0010, SH0011...SH0020
+- Or create individual shots one at a time
+
+### Editing Shots
+
+Click a shot name to edit:
+
+- **Name**: Shot identifier
+- **Description**: Shot action or notes
+- **Nb Frames**: Length of the shot
+- **Frame In/Out**: Starting and ending frame numbers
+- **FPS**: Frames per second
+- **Resolution**: Output resolution (e.g., "1920x1080")
+- **Max Retakes**: Limit on revision rounds
+
+### Inline Editing
+
+Many fields can be edited directly in the shot list:
+
+- Click on nb_frames, description, or metadata fields
+- Changes save automatically
+- Frame In/Out updates recalculate Nb Frames
+
+## Shot Organization
+
+### By Sequence
+
+Shots group automatically by sequence. Click a sequence name to filter to only those shots.
+
+**Add Sequence to Playlist**: Click the button next to a sequence name to add all its shots to a playlist for review.
+
+### Sorting
+
+Sort shots by:
+
+- **Name** (shot number)
+- **Sequence** (groups by sequence, then by shot)
+- **Frame count**
+- **Task status**
+- **Time spent** or **estimation**
+- **Custom metadata**
+
+Click column headers to sort. The current sort displays in the sorting info bar.
+
+### Display Options
+
+Customize your view:
+
+- **Big Thumbnails**: Larger preview images
+- **Show Assignations**: Display assigned artists
+- **Show Infos**: Show technical data and metadata
+- **In/Out Timecode**: Display timecode instead of frames
+- **Department Filter**: Filter by department
+
+## Working with Tasks
+
+### Validation Columns
+
+Each shot row shows task status across the pipeline:
+
+- Click a task cell to view [task details](/features/tasks)
+- Status colors indicate progress
+- Avatars show assigned artists
+- Hover for task information
+
+### Creating Tasks
+
+Bulk create tasks:
+
+1. Select shots (use Shift+Click for ranges)
+2. Click **Create Tasks**
+3. Choose the task type (Layout, Animation, etc.)
+4. Select scope: all shots or selected only
+5. Click **Confirm**
+
+### Delete All Tasks
+
+Remove all tasks of a specific type:
+
+1. Click the column header menu (...)
+2. Select **Delete All Tasks**
+3. Type the task type name to confirm
+4. Choose all shots or selection only
+
+<Warning>
+Task deletion is permanent and removes all comments, previews, and time tracking data.
+</Warning>
+
+## Import and Export
+
+### CSV Import
+
+Import shots from spreadsheets:
+
+1. Click **Import**
+2. Upload your CSV file
+3. Map columns:
+   - Required: Sequence, Name
+   - Optional: Description, Nb Frames, Frame In, Frame Out, FPS, Resolution
+   - For TV shows: Include Episode column
+
+4. Review the import preview
+5. Click **Import** to create shots
+
+Existing shots update; new shots are created.
+
+### EDL Import
+
+Import shots from editing software:
+
+1. Click **Import EDL**
+2. Upload your EDL file
+3. Select naming convention:
+   - Match shot names
+   - Match sequence names
+   - Case sensitive or insensitive
+
+4. Kitsu creates/updates shots with:
+   - Frame In/Out from EDL timecodes
+   - Nb Frames calculated automatically
+
+### CSV Export
+
+Export your shot list:
+
+1. Click **Export**
+2. Kitsu generates a CSV with:
+   - Sequence and shot names
+   - Technical specs (frames, FPS, resolution)
+   - Metadata
+   - Task statuses and assignations
+   - Time tracking data
+
+Filename includes date, production, and episode (for TV shows).
+
+### Import Thumbnails
+
+Bulk upload shot thumbnails:
+
+1. Click **Import Thumbnails**
+2. Select image files
+3. Name files to match shots (e.g., `SH0010.jpg`)
+4. Kitsu matches and uploads automatically
+
+## Frame Management
+
+### Calculate Frames from Previews
+
+Automatically set Nb Frames from preview files:
+
+1. Click **Get Frames from Previews**
+2. Select which task type's previews to use
+3. Kitsu reads video duration and sets Nb Frames
+
+Useful after importing layout or animation previews.
+
+### Frame In and Frame Out
+
+When you set Frame In and Frame Out:
+
+- Nb Frames calculates automatically: `Frame Out - Frame In + 1`
+- Updating either In or Out recalculates Nb Frames
+- For paper productions, frame math is disabled
+
+## Shot History
+
+View how a shot has changed over time:
+
+1. Click the **History** icon on a shot
+2. See all edits with:
+   - What changed
+   - Who made the change
+   - When it occurred
+
+Useful for tracking technical spec changes.
+
+## Metadata and Custom Fields
+
+### Adding Metadata Descriptors
+
+Managers can add custom fields:
+
+1. Click **Add Metadata**
+2. Configure the field:
+   - Name and type
+   - Options for lists
+   - Default values
+
+3. Field appears for all shots
+
+### Editing Metadata
+
+Click metadata cells to edit values inline. Changes sync immediately.
+
+Use metadata for:
+
+- Complexity ratings
+- VFX requirements  
+- Location information
+- Special notes or flags
+
+## Shot Sequences
+
+Sequences group related shots:
+
+### Sequence Stats
+
+Click a sequence name to see:
+
+- Total shots in sequence
+- Combined frame count
+- Task completion status
+- Time spent and estimates
+
+Click **Add Sequence** next to a sequence to add all shots to a playlist.
+
+## Deleting and Restoring Shots
+
+### Soft Delete
+
+Deleting a shot with tasks marks it as **canceled**:
+
+- Hidden from normal views
+- Data preserved
+- Can be restored
+
+### Hard Delete
+
+Shots without tasks are permanently deleted.
+
+### Restore
+
+Restore canceled shots:
+
+1. Find the shot (appears faded)
+2. Click **Restore**
+3. Confirm restoration
+
+## Best Practices
+
+### Shot Naming
+
+- Use consistent padding: `SH0010` not `SH10`
+- Include sequence prefix: `SEQ010_SH0010`
+- Avoid special characters
+- Consider future shots when numbering
+
+### Frame Specifications
+
+- Set Nb Frames early for scheduling
+- Update as editorial changes
+- Use Frame In/Out for conform
+- Keep FPS consistent across production
+
+### Task Management
+
+- Create tasks for entire sequences at once
+- Assign artists by department
+- Set estimations for scheduling
+- Track time for productivity analysis
+
+### Sequence Organization
+
+- Group logically (by location, action, etc.)
+- Use consistent sequence naming
+- Keep sequences manageable (20-50 shots typical)
+- Break up very long sequences
+
+## Keyboard Shortcuts
+
+- **Shift + Click**: Select shot range
+- **Ctrl/Cmd + Click**: Toggle selection
+- **Escape**: Clear selection
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Tasks" icon="check-square" href="/features/tasks">
+    Update shot task status and add comments
+  </Card>
+  <Card title="Assets" icon="cube" href="/features/assets">
+    See which assets are used in shots
+  </Card>
+  <Card title="Playlists" icon="play" href="/features/playlists">
+    Build shot reviews and dailies
+  </Card>
+  <Card title="Scheduling" icon="calendar" href="/features/scheduling">
+    Plan shot production timeline
+  </Card>
+</CardGroup>

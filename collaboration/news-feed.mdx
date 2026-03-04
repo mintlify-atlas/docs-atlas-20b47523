@@ -1,0 +1,239 @@
+---
+title: News Feed
+description: Track production activity and team updates in real-time
+icon: newspaper
+---
+
+The News Feed provides a chronological timeline of all activity happening on your production, allowing teams to stay informed about progress, comments, and status changes.
+
+## Overview
+
+The Production News Feed displays recent activity organized by day, showing:
+
+- Task status changes
+- New comments and reviews
+- Preview file uploads
+- Task assignments
+- Validation updates
+
+All news entries are displayed in a timeline format with color-coded status indicators.
+
+## Filtering News
+
+### Basic Filters
+
+Filter the news feed using these options:
+
+<AccordionGroup>
+  <Accordion title="Task Type">
+    Filter news by specific task types (Animation, Modeling, Compositing, etc.) or view all task types.
+  </Accordion>
+  
+  <Accordion title="Task Status">
+    Filter by task status (Done, Work In Progress, Retake, etc.) to focus on specific validation states.
+  </Accordion>
+  
+  <Accordion title="Person">
+    Filter news by team member to see activity from specific artists or supervisors.
+  </Accordion>
+  
+  <Accordion title="Episode">
+    For TV shows, filter news by episode to focus on specific parts of your production.
+  </Accordion>
+</AccordionGroup>
+
+### Advanced Filters
+
+Click the filter icon to access additional options:
+
+- **Date Range**: Set start and end dates to view activity from specific time periods
+- **Preview Mode**: Toggle between viewing comments or preview files
+
+```javascript
+// News feed filtering parameters
+{
+  task_type_id: string,      // Filter by task type
+  task_status_id: string,    // Filter by validation status
+  person_id: string,         // Filter by team member
+  episode_id: string,        // Filter by episode (TV shows)
+  before: date,              // End date for date range
+  after: date,               // Start date for date range
+  only_preview: boolean      // Show only entries with previews
+}
+```
+
+## Preview Modes
+
+The news feed offers two display modes:
+
+### Comments Mode
+
+Shows news entries with:
+- Author avatar and name
+- Task type and validation status
+- Entity thumbnail and name
+- Timestamp
+- Comment text (when expanded)
+
+### Previews Mode
+
+Displays:
+- Preview player embedded in the timeline
+- Full preview playback with annotation support
+- Task information and validation status
+
+<Tip>
+  Use Comments Mode for quick scanning of activity, and switch to Previews Mode when you need to review submitted work.
+</Tip>
+
+## Timeline Features
+
+### Status Indicators
+
+Each news entry includes a colored dot showing the task status:
+
+- **Green**: Task marked as Done
+- **Red**: Task requires retakes
+- **Blue**: General activity or Work in Progress
+
+### Entity Information
+
+News entries display:
+- Production name (for studio-wide view)
+- Author profile picture
+- Task type badge
+- Validation status tag
+- Entity thumbnail
+- Full entity path (e.g., "Production / Shot 010")
+
+### Interactive Timeline
+
+Click any news entry to:
+- View full task details in the side panel
+- See all comments and history
+- Access entity and validation information
+
+## Real-Time Updates
+
+The news feed updates automatically when:
+
+<CardGroup cols={2}>
+  <Card title="New Comments" icon="message">
+    New comments appear at the top of the timeline as they're posted
+  </Card>
+  
+  <Card title="Status Changes" icon="arrows-rotate">
+    Task status updates are pushed in real-time
+  </Card>
+  
+  <Card title="Preview Uploads" icon="upload">
+    New preview files appear as soon as processing completes
+  </Card>
+  
+  <Card title="Task Updates" icon="check">
+    Related news entries update when tasks are modified
+  </Card>
+</CardGroup>
+
+## Infinite Scrolling
+
+The news feed loads entries in pages:
+
+- Initial load: 50 news entries (or 6 in preview mode)
+- Automatic loading as you scroll down
+- Smooth performance even with thousands of entries
+
+<Note>
+  The news feed maintains your scroll position and selected filters when navigating back from task details.
+</Note>
+
+## Task Panel
+
+Click any news entry to open the task panel on the right, showing:
+
+- Complete task information
+- Full comment history
+- Preview files and versions
+- Task metadata and assignees
+- Available actions (comment, validate, etc.)
+
+## Keyboard Navigation
+
+Navigate news entries efficiently:
+
+<Steps>
+  <Step title="Select Entry">
+    Use `Alt + Arrow Up/Down` to navigate between news entries
+  </Step>
+  
+  <Step title="View Task">
+    Press `Alt + Arrow` to select and open task details
+  </Step>
+  
+  <Step title="Quick Scanning">
+    Navigate up/down to quickly review recent activity
+  </Step>
+</Steps>
+
+## Studio vs Production View
+
+The news feed adapts based on context:
+
+### Production View
+
+When viewing a specific production:
+- Shows news only for that production
+- Filters by current episode (TV shows)
+- Displays production team members
+
+### Studio View
+
+When viewing from the studio level:
+- Shows news across all productions
+- Includes production name and avatar
+- Displays all studio personnel
+
+## Persistence
+
+Your news feed preferences are automatically saved:
+
+- Selected task type filter
+- Selected task status filter
+- Preview mode (comments vs previews)
+- Filter panel state (expanded/collapsed)
+
+<Tip>
+  Your filter settings persist across sessions, so you can return to your customized view anytime.
+</Tip>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Daily Check-ins">
+    Review the news feed each morning to catch up on overnight activity and team progress.
+  </Accordion>
+  
+  <Accordion title="Filter by Department">
+    Use task type filters to focus on your department's activity and avoid information overload.
+  </Accordion>
+  
+  <Accordion title="Track Retakes">
+    Filter by "Retake" status to quickly identify tasks that need attention.
+  </Accordion>
+  
+  <Accordion title="Monitor Progress">
+    Use date range filters to review weekly or monthly production velocity.
+  </Accordion>
+</AccordionGroup>
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Notifications" icon="bell" href="/collaboration/notifications">
+    Get personalized alerts for mentions and assignments
+  </Card>
+  
+  <Card title="Comments" icon="comments" href="/collaboration/comments">
+    Learn about commenting and feedback workflows
+  </Card>
+</CardGroup>

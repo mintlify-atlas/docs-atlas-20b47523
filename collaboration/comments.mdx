@@ -1,0 +1,403 @@
+---
+title: Comments
+description: Collaborate with your team through comments, mentions, replies, and feedback
+icon: comments
+---
+
+Comments are the primary communication tool in Kitsu, enabling teams to provide feedback, ask questions, and discuss work directly on tasks.
+
+## Adding Comments
+
+Add comments to any task with:
+
+- **Text feedback**: Written notes and instructions
+- **Status changes**: Update validation status while commenting
+- **Mentions**: Tag team members with @username
+- **Attachments**: Include images and files
+- **Checklists**: Create task lists within comments
+- **Replies**: Respond to existing comments
+
+<Note>
+  Comments on tasks create news feed entries and send notifications to relevant team members.
+</Note>
+
+## Comment Structure
+
+Each comment displays:
+
+### Header Information
+
+- **Validation status**: Color-coded tag showing task status
+- **Author avatar**: Profile picture of the commenter
+- **Author name**: Full name of the person who commented
+- **Timestamp**: Relative time ("2 hours ago") or absolute date
+
+### Content
+
+- **Comment text**: Formatted text with mention highlights
+- **Attachments**: Embedded images or file links
+- **Checklists**: Interactive task lists
+- **Replies**: Threaded conversation
+
+### Actions
+
+- **Like button**: Acknowledge comments with thumbs up
+- **Reply button**: Start a threaded conversation
+- **Menu**: Pin, edit, or delete (if permitted)
+
+## Mentions
+
+Mention team members to notify them:
+
+### People Mentions
+
+Type `@` to mention someone:
+
+```
+@john Can you review this animation?
+@sarah The modeling looks great!
+```
+
+- Autocomplete shows team members as you type
+- Mentioned users receive notifications
+- Mentions are highlighted in the comment
+
+### Department Mentions
+
+Mention entire departments:
+
+```
+@animation Please review before final render
+@lighting Ready for your pass
+```
+
+<Tip>
+  Department mentions notify all members of that department, making it easy to alert whole teams.
+</Tip>
+
+### Task Type Mentions
+
+Reference task types with `#`:
+
+```
+Waiting for #modeling to complete
+Depends on #rigging approval
+```
+
+## Replies
+
+Create threaded conversations:
+
+<Steps>
+  <Step title="Click Reply">
+    Click the "Reply" button under any comment
+  </Step>
+  
+  <Step title="Write Response">
+    Type your reply in the text area that appears
+  </Step>
+  
+  <Step title="Add Context">
+    Use mentions and attachments in replies
+  </Step>
+  
+  <Step title="Submit">
+    Click "Reply" or press `Ctrl+Enter` to submit
+  </Step>
+</Steps>
+
+### Reply Features
+
+- **Nested display**: Replies are indented under original comments
+- **Reply notifications**: Original commenter is notified
+- **Mention in replies**: Use `@mentions` to notify others
+- **Attachments**: Add files to replies
+- **Delete replies**: Authors and admins can delete
+
+## Attachments
+
+Add files to comments:
+
+### Supported Files
+
+<CardGroup cols={2}>
+  <Card title="Images" icon="image">
+    PNG, JPG, GIF - displayed inline
+  </Card>
+  
+  <Card title="Documents" icon="file">
+    PDF, TXT, DOC - shown as download links
+  </Card>
+  
+  <Card title="Archives" icon="file-zipper">
+    ZIP, RAR - available for download
+  </Card>
+  
+  <Card title="Other Files" icon="paperclip">
+    Any file type supported
+  </Card>
+</CardGroup>
+
+### Adding Attachments
+
+<Tabs>
+  <Tab title="Click Button">
+    Click the attachment icon and select files from your computer
+  </Tab>
+  
+  <Tab title="Drag & Drop">
+    Drag files directly onto the reply text area
+  </Tab>
+  
+  <Tab title="Paste">
+    Copy an image and paste it into the reply field
+  </Tab>
+</Tabs>
+
+<Warning>
+  Image attachments are displayed inline. Other file types appear as download links with paperclip icons.
+</Warning>
+
+## Checklists
+
+Create interactive task lists in comments:
+
+### Checklist Features
+
+- **Checkbox items**: Each item can be checked off
+- **Text descriptions**: Add notes to each item
+- **Timecodes**: Reference specific frames
+- **Real-time sync**: Updates save automatically
+- **Progress tracking**: See completion status
+
+### Using Checklists
+
+```
+✓ Fix character's left hand
+✓ Adjust lighting on background
+☐ Add motion blur
+☐ Final color correction
+```
+
+<Tip>
+  Checklists are perfect for providing detailed feedback with multiple points that artists can check off as they complete each item.
+</Tip>
+
+## Timecodes
+
+Reference specific frames in comments:
+
+### Adding Timecodes
+
+Type `@frame` to insert the current frame:
+
+```
+Issue at @frame - character's hand clips through table
+```
+
+- Automatically includes revision and frame number
+- Clickable to jump to that frame in preview player
+- Works in comments, replies, and checklists
+
+### Timecode Format
+
+```javascript
+// Timecode format
+⏱️ v3 - 00:01:24:15 (frame 2115)
+```
+
+Timecodes include:
+- Version/revision number
+- Timestamp (HH:MM:SS:FF)
+- Absolute frame number
+
+## Status Changes
+
+Update task status when commenting:
+
+### Status Indicator
+
+Comments show the validation status:
+
+- **Bold border**: Status was changed with this comment
+- **Thin border**: Status remained the same
+- **Color-coded**: Matches status color (green for done, red for retake)
+
+### Status Change Comments
+
+When changing status:
+
+```
+"Status changed to: Retake"
+"Status changed to: Done"
+```
+
+<Note>
+  Changing status while commenting creates a notification and news feed entry highlighting the status change.
+</Note>
+
+## Preview File Comments
+
+Comments with preview file uploads:
+
+### Revision Badge
+
+Comments with previews show:
+- **Revision number**: "Revision 3"
+- **Preview link**: Opens file in preview player
+- **Validation status**: Color dot (validated/rejected/neutral)
+
+### Publishing vs Commenting
+
+When uploading a preview:
+- **With status change**: "Published" and changed status
+- **Without status change**: "Commented on"
+
+## Comment Management
+
+### Pinning Comments
+
+Pin important comments:
+
+- Pinned comments appear with special border
+- Shows "PINNED" badge
+- Accessible to supervisors and managers
+
+### Editing Comments
+
+Edit your own comments:
+
+- Click menu icon (chevron down)
+- Select "Edit"
+- Update text and save
+- Shows "Edited by" indicator
+
+### Deleting Comments
+
+Delete comments (if permitted):
+
+- Own comments can be deleted
+- Admins can delete any comment
+- Confirmation required
+
+<Warning>
+  Deleting a comment also removes all its replies and cannot be undone.
+</Warning>
+
+## Acknowledgments (Likes)
+
+Show appreciation with likes:
+
+- **Thumbs up icon**: Click to acknowledge
+- **Counter**: Shows total acknowledgments
+- **Hover tooltip**: Lists who liked the comment
+- **Visual feedback**: Icon fills when you've liked
+
+## Client Comments
+
+Comments from clients are marked specially:
+
+- **"Comment from client" badge**: Highlighted in pink/red
+- **Copy icon**: Duplicate client comment to respond
+- **Visibility controls**: Respect client access permissions
+
+<Tip>
+  The copy icon on client comments makes it easy to quote their feedback in your response.
+</Tip>
+
+## Comment Formatting
+
+Comments support:
+
+### Automatic Formatting
+
+- **Mentions**: Highlighted in color
+- **URLs**: Clickable links
+- **Line breaks**: Preserved from input
+- **Timecodes**: Formatted and clickable
+
+### Special Characters
+
+- **Emojis**: Use emoji picker or type emoji
+- **Symbols**: All Unicode characters supported
+
+## Real-Time Updates
+
+Comments update live:
+
+<CardGroup cols={2}>
+  <Card title="New Comments" icon="plus">
+    Appear immediately when posted by team members
+  </Card>
+  
+  <Card title="New Replies" icon="reply">
+    Added to threads in real-time
+  </Card>
+  
+  <Card title="Status Changes" icon="arrows-rotate">
+    Task status updates reflected instantly
+  </Card>
+  
+  <Card title="Acknowledgments" icon="thumbs-up">
+    Like counts update as team members react
+  </Card>
+</CardGroup>
+
+## Keyboard Shortcuts
+
+Work faster with shortcuts:
+
+- `Ctrl+Enter`: Submit reply
+- Click timecode: Jump to frame
+- `@`: Open mention autocomplete
+- `#`: Open task type autocomplete
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Be Specific">
+    Use timecodes and checklists to give precise, actionable feedback.
+  </Accordion>
+  
+  <Accordion title="Mention Appropriately">
+    Only mention people who need to see the comment to avoid notification fatigue.
+  </Accordion>
+  
+  <Accordion title="Use Replies">
+    Keep conversations organized by replying to relevant comments instead of creating new top-level comments.
+  </Accordion>
+  
+  <Accordion title="Add Context">
+    Include relevant information and reference frames/versions to make feedback clear.
+  </Accordion>
+  
+  <Accordion title="Acknowledge Comments">
+    Use likes to show you've seen and agree with feedback without adding unnecessary comments.
+  </Accordion>
+  
+  <Accordion title="Update Status">
+    Change task status when commenting to keep the pipeline flowing.
+  </Accordion>
+</AccordionGroup>
+
+## Comment Permissions
+
+Access varies by role:
+
+- **Artists**: Comment on assigned tasks
+- **Supervisors**: Comment and pin on department tasks
+- **Managers**: Full comment access, can edit/delete
+- **Clients**: Limited to specific tasks and productions
+- **Admins**: Complete access to all comments
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Notifications" icon="bell" href="/collaboration/notifications">
+    Manage mention and reply notifications
+  </Card>
+  
+  <Card title="News Feed" icon="newspaper" href="/collaboration/news-feed">
+    See all comment activity in timeline view
+  </Card>
+</CardGroup>

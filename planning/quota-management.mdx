@@ -1,0 +1,429 @@
+---
+title: Quota Management
+description: Track artist productivity and output with flexible quota metrics and reporting
+---
+
+## Overview
+
+Quota Management in Kitsu helps you measure artist productivity by tracking completed work over time. Monitor quotas by task type or individual artist, analyze trends, and identify areas for improvement.
+
+<Info>
+Quotas are especially useful for shot-based tasks in animation and VFX, where you can measure frames, seconds, or shot counts completed per person per time period.
+</Info>
+
+## Accessing Quota Management
+
+Navigate to quotas from:
+- **Production Menu** → **Quota**
+- Available only for productions (not available at organization level)
+- Requires shot tasks to be meaningful
+
+## View Modes
+
+Quota tracking offers two primary views:
+
+### Task Types View
+
+Track quotas organized by task type:
+- Select a task type (e.g., Animation, Lighting)
+- View all artists working on that task type
+- Compare productivity across team members
+- Search and filter specific artists
+
+### Persons View
+
+Track quotas for individual artists:
+- Select a specific person
+- View their quotas across all assigned task types
+- Drill down to see specific shots completed
+- Monitor individual performance trends
+
+```javascript
+tabs: [
+  { name: 'tasktypes', label: 'Task Types' },
+  { name: 'persons', label: 'People' }
+]
+```
+
+## Detail Levels
+
+View quotas at different time granularities:
+
+### Day View
+Most detailed tracking:
+- Select year and month
+- Shows daily quota completion
+- Identify day-to-day variations
+- Spot specific high/low productivity days
+
+### Week View
+Weekly aggregation:
+- Select year
+- Shows weekly quota totals
+- Useful for sprint-based planning
+- Compare week-over-week performance
+
+### Month View
+Monthly summaries:
+- Select year
+- Shows monthly totals
+- Good for monthly reviews
+- Track long-term trends
+
+## Count Modes
+
+Choose how to measure quota output:
+
+### For Animation/VFX Productions
+
+#### Frames
+Count completed frames:
+- Based on shot `nb_frames` field
+- Most common metric for animation
+- Example: 150 frames completed in a day
+
+#### Seconds
+Count completed seconds of footage:
+- Converts frames to seconds using FPS
+- Useful for comparing across different frame rates
+- Example: 6.25 seconds at 24 FPS
+
+#### Count
+Simple shot count:
+- Number of shots completed
+- Useful when shots vary widely in complexity
+- Example: 3 shots completed
+
+### For Paper Productions
+
+#### Drawings
+Count completed drawings:
+- Based on shot `nb_frames` field
+- Metric for traditional animation
+- Tracks individual drawing completion
+
+#### Count
+Number of shots with drawings:
+- Shot-level completion tracking
+
+```javascript
+countModeOptions: [
+  { label: 'Frames', value: 'frames' },
+  { label: 'Seconds', value: 'seconds' },
+  { label: 'Count', value: 'count' }
+]
+```
+
+## Compute Modes
+
+Different methods for calculating when work counts toward quotas:
+
+### Weighted (Default)
+
+**When it counts**: Based on validation feedback date and status weight
+
+- Most sophisticated method
+- Weights partial completion based on task status
+- Example weights:
+  - Work in Progress (WIP): 0.25
+  - Pending Review: 0.5
+  - Approved: 1.0
+  - Retake: 0.0
+
+**Use case**: Get credit for work in progress, not just completed work
+
+### Feedback Date
+
+**When it counts**: When task receives any feedback (comment/validation)
+
+- Counts work when reviewed, regardless of outcome
+- Includes retakes and revisions
+- Good for measuring throughput including rework
+
+**Use case**: Track total review volume and iteration
+
+### Weighted Done (Default for Done)
+
+**When it counts**: When task is marked as done, weighted by done date
+
+- Similar to weighted, but only for completed tasks
+- Weights based on final completion
+- More conservative than weighted
+
+**Use case**: Track finalized work only
+
+### Done Date
+
+**When it counts**: When task is marked as done (approved status)
+
+- Binary: 0 until done, then full credit
+- Most conservative measure
+- Only counts fully completed work
+
+**Use case**: Track final deliverables and completed work
+
+```javascript
+computeModeOptions: [
+  { label: 'Weighted', value: 'weighted' },
+  { label: 'Feedback Date', value: 'feedback' },
+  { label: 'Weighted Done', value: 'weighteddone' },
+  { label: 'Done Date', value: 'done' }
+]
+```
+
+## Highlighting Quotas
+
+Identify exceptional performance with quota highlighting:
+
+1. Set **Max Quota** threshold
+2. Cells exceeding this value are highlighted
+3. Quickly spot high-productivity days/weeks
+4. Useful for recognizing top performers
+
+Example: Set max quota to 100 frames/day to highlight exceptional days
+
+## Viewing Quota Details
+
+### Person Detail Panel
+
+Click on a person's quota cell to see:
+
+1. **Shot Breakdown**
+   - List of shots completed in that period
+   - Shot name, sequence, and episode
+   - Frames/seconds/count per shot
+   - Task status and date
+
+2. **Summary Stats**
+   - Total for the period
+   - Count mode metric
+
+3. **Filtering**
+   - Filtered by task type (in task types view)
+   - Shows all relevant completions
+
+```javascript
+// Person quota shots
+[
+  {
+    shot_name: 'SQ01_SH010',
+    sequence_name: 'SQ01',
+    nb_frames: 48,
+    task_status_name: 'Approved',
+    validation_date: '2024-03-15'
+  },
+  ...
+]
+```
+
+## Search and Filtering
+
+### Task Types View
+
+**Search Field**: Filter artists by name
+- Type to filter the quota list
+- Shows only matching artists
+- Case-insensitive search
+
+### Persons View
+
+**Person Selector**: Choose specific team member
+- Dropdown of all team members
+- Artists only (non-managers) if logged in as artist
+- All team members for managers/supervisors
+
+## Exporting Quotas
+
+Generate reports for external analysis:
+
+1. Click **Export** button (download icon)
+2. Downloads CSV file:
+   - Filename: `quotas_[detail]_[year]_[month].csv`
+   - Current view and filters applied
+   - All quota data for visible people/periods
+
+Example CSV:
+```csv
+Person,2024-03-01,2024-03-02,2024-03-03,...,Total
+John Smith,120,145,98,...,3250
+Jane Doe,156,132,167,...,3580
+```
+
+## Quota Analysis
+
+### Performance Benchmarks
+
+Use quota data to establish benchmarks:
+
+1. **Average Quotas**: Calculate team average per period
+2. **Top Performers**: Identify consistently high quotas
+3. **Trends**: Track quotas over time (improving/declining)
+
+### Identifying Issues
+
+#### Low Quotas
+
+Possible causes:
+- Complex shots requiring more time
+- Technical issues or blockers
+- Insufficient skill level
+- Unrealistic quota expectations
+
+<Warning>
+Low quotas don't always indicate poor performance. Consider shot complexity and individual circumstances.
+</Warning>
+
+#### High Variance
+
+Inconsistent quotas may indicate:
+- Varying shot complexity
+- Interruptions and context switching
+- Uneven task distribution
+- Need for better planning
+
+#### Team Disparities
+
+Large differences between team members:
+- Skill level differences (junior vs. senior)
+- Different task complexities assigned
+- Training opportunities needed
+- Workload balancing required
+
+### Quota Trends
+
+Monitor trends over time:
+
+1. **Learning Curve**: New artists should show improving quotas
+2. **Consistency**: Experienced artists should have stable quotas
+3. **Production Phases**: Quotas may vary by production stage
+4. **Seasonal Patterns**: Account for holidays and vacation periods
+
+## Integration with Other Features
+
+### Schedule
+
+Quota data informs [schedule planning](/planning/scheduling):
+- Historical quotas help estimate future task duration
+- Average quotas guide realistic deadline setting
+- Identify who can handle complex vs. simple shots
+
+### Timesheets
+
+[Timesheet data](/planning/timesheets) provides context:
+- Quota per hour = Quotas / Time Spent
+- Identify efficiency (high quota with low time)
+- Spot time tracking issues (quota without time logged)
+
+### Budget
+
+Quota efficiency affects [budget planning](/planning/budget):
+- Higher quotas = lower cost per frame/shot
+- Factor efficiency into cost estimates
+- Identify cost-effective team compositions
+
+## Best Practices
+
+### Setting Realistic Expectations
+
+<Tip>
+Establish quota expectations based on historical data, not aspirational goals. Use averages from completed productions.
+</Tip>
+
+1. **Start with Data**: Analyze past productions
+2. **Account for Complexity**: Adjust for shot difficulty
+3. **Factor in Experience**: Different targets for junior vs. senior
+4. **Be Flexible**: Quotas are guides, not strict rules
+
+### Regular Reviews
+
+- **Daily**: Quick check for blockers (if quotas unexpectedly low)
+- **Weekly**: Review weekly quotas in team meetings
+- **Monthly**: Analyze trends and adjust estimates
+- **Per Production**: Post-mortem analysis for future planning
+
+### Using Quotas for Growth
+
+1. **Training Identification**: Low quotas may indicate training needs
+2. **Mentorship**: Pair low-quota artists with high-quota mentors
+3. **Process Improvement**: Identify bottlenecks affecting quotas
+4. **Recognition**: Celebrate consistent high performers
+
+### Avoiding Misuse
+
+<Warning>
+**Don't** use quotas as the sole performance metric. Consider quality, complexity, collaboration, and other factors.
+</Warning>
+
+- Quotas measure quantity, not quality
+- High quotas with low quality is not success
+- Context matters: complex shots take longer
+- Use quotas as one data point among many
+
+## Technical Details
+
+### Quota Calculation
+
+Quotas are calculated server-side:
+
+```javascript
+// Query parameters
+{
+  taskTypeId: 'uuid',
+  personId: 'uuid',
+  detailLevel: 'day', // or 'week', 'month'
+  year: 2024,
+  month: 3,
+  computeMode: 'weighted'
+}
+```
+
+Returns quota map:
+```javascript
+{
+  'person-id': {
+    '2024-03-15': 120, // frames/seconds/count
+    '2024-03-16': 145,
+    ...
+  }
+}
+```
+
+### Weighted Calculation
+
+Weighted mode uses task status weights:
+
+```javascript
+// Example weights
+const statusWeights = {
+  'wip': 0.25,
+  'waiting_for_approval': 0.5,
+  'approved': 1.0,
+  'retake': 0.0
+}
+
+const weightedQuota = shotFrames * statusWeight
+```
+
+### Performance Optimization
+
+- Quotas cached based on query parameters
+- Database indexes on task dates and status
+- Aggregation happens server-side
+- Only visible date ranges loaded
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Scheduling" icon="calendar" href="/planning/scheduling">
+    Use quota data to improve schedule estimates
+  </Card>
+  <Card title="Timesheets" icon="clock" href="/planning/timesheets">
+    Compare time spent to quota output
+  </Card>
+  <Card title="Budget" icon="dollar-sign" href="/planning/budget">
+    Factor quota efficiency into cost planning
+  </Card>
+  <Card title="Tasks" icon="check-square" href="/essentials/tasks">
+    Understand task statuses that affect quotas
+  </Card>
+</CardGroup>

@@ -1,0 +1,276 @@
+---
+title: Departments
+description: Organize your studio into departments and manage resource allocation
+---
+
+## Overview
+
+Departments help you organize your studio's workforce into logical teams based on their function, such as Modeling, Animation, Lighting, or Compositing. Departments can be linked to hardware and software resources for better resource management.
+
+## Accessing Departments
+
+Navigate to the **Departments** page from the main menu to view and manage all departments in your studio.
+
+## Department Tabs
+
+The Departments page is organized into four tabs:
+
+- **Active**: Currently active departments
+- **Archived**: Previously archived departments
+- **Linked Hardware**: View and manage hardware assignments by department
+- **Linked Software**: View and manage software license assignments by department
+
+## Creating a Department
+
+<Steps>
+  <Step title="Click New Department">
+    Click the **New departments** button in the top-right corner.
+  </Step>
+  
+  <Step title="Enter Department Details">
+    Fill in the department information:
+    - **Name**: Department name (e.g., "Animation", "Modeling", "Lighting")
+    - **Color**: Choose a color for visual identification
+  </Step>
+  
+  <Step title="Save">
+    Click **Confirm** to create the department.
+  </Step>
+</Steps>
+
+<Tip>
+  Use distinct colors for each department to make them easily identifiable in task lists and schedules.
+</Tip>
+
+## Editing Departments
+
+To modify an existing department:
+
+1. Click the **Edit** button next to the department
+2. Update the name or color
+3. Click **Confirm** to save changes
+
+## Archiving Departments
+
+Instead of deleting departments, you can archive them:
+
+1. Edit the department
+2. Check the **Archived** option
+3. Save the changes
+
+Archived departments:
+- No longer appear in the active list
+- Retain historical data
+- Can be unarchived if needed
+- Accessible via the "Archived" tab
+
+## Deleting Departments
+
+<Warning>
+  Deleting a department is permanent. Consider archiving instead to preserve historical data.
+</Warning>
+
+To delete a department:
+
+1. Click the **Delete** button next to the department
+2. Confirm the deletion
+3. The department will be permanently removed
+
+<Note>
+  You cannot delete departments that have active users assigned. Reassign users before deleting.
+</Note>
+
+## Department Colors
+
+Each department can have a unique color code:
+
+- Colors help visually distinguish departments in the interface
+- Choose colors that align with your studio's branding
+- Use contrasting colors for better visibility
+- Colors appear in task lists, schedules, and user profiles
+
+## Assigning Users to Departments
+
+Users are assigned to departments through the [User Management](/admin/user-management) page:
+
+1. Edit a user profile
+2. Select one or more departments from the department dropdown
+3. Save the changes
+
+<Info>
+  Users can belong to multiple departments, which is useful for team members who work across different areas.
+</Info>
+
+## Filtering by Department
+
+Throughout Kitsu, you can filter views by department:
+
+- **People Page**: Filter users by department
+- **Task Lists**: See tasks assigned to specific departments
+- **Reports**: Generate department-specific reports
+- **Timesheets**: Track time spent by department
+
+## Hardware Resource Management
+
+The **Linked Hardware** tab allows you to assign hardware resources to departments:
+
+### Linking Hardware to Departments
+
+<Steps>
+  <Step title="Navigate to Linked Hardware">
+    Click the **Linked Hardware** tab on the Departments page.
+  </Step>
+  
+  <Step title="Select Department">
+    Choose the department you want to assign hardware to.
+  </Step>
+  
+  <Step title="Link Hardware Items">
+    Select hardware items from the available list and link them to the department.
+  </Step>
+</Steps>
+
+### Benefits of Hardware Linking
+
+- Track which departments have access to specific equipment
+- Manage hardware allocation across teams
+- Plan resource distribution for new projects
+- Identify hardware bottlenecks
+
+### Unlinking Hardware
+
+To remove hardware from a department:
+
+1. Go to the **Linked Hardware** tab
+2. Find the hardware item in the department's list
+3. Click **Unlink** to remove the association
+
+## Software License Management
+
+The **Linked Software** tab manages software license allocation:
+
+### Linking Software Licenses
+
+<Steps>
+  <Step title="Navigate to Linked Software">
+    Click the **Linked Software** tab on the Departments page.
+  </Step>
+  
+  <Step title="Select Department">
+    Choose the department you want to assign licenses to.
+  </Step>
+  
+  <Step title="Link Licenses">
+    Select software licenses from the available list and link them to the department.
+  </Step>
+</Steps>
+
+### Software License Benefits
+
+- Track license distribution across departments
+- Ensure teams have required software access
+- Manage license compliance
+- Plan license purchases based on department needs
+- Optimize license utilization
+
+### Unlinking Software
+
+To remove software licenses from a department:
+
+1. Go to the **Linked Software** tab
+2. Find the software license in the department's list
+3. Click **Unlink** to remove the association
+
+## Exporting Department Data
+
+Export department information to CSV:
+
+1. Ensure you're on the **Active** tab
+2. Click the **Export** button
+3. Download the CSV file containing:
+   - Department type
+   - Department name
+   - Department color
+
+This export is useful for:
+- Backup purposes
+- Reporting to stakeholders
+- Integration with external systems
+- Documentation
+
+## Common Department Examples
+
+Typical departments in animation and VFX studios:
+
+<CardGroup cols={2}>
+  <Card title="Art Departments" icon="palette">
+    - Concept Art
+    - Modeling
+    - Texturing
+    - Rigging
+    - Animation
+  </Card>
+  
+  <Card title="Technical Departments" icon="code">
+    - Lighting
+    - Rendering
+    - Compositing
+    - Effects (FX/VFX)
+    - Technical Direction
+  </Card>
+  
+  <Card title="Production Departments" icon="clipboard">
+    - Production Management
+    - Coordination
+    - Editorial
+    - Asset Management
+  </Card>
+  
+  <Card title="Support Departments" icon="wrench">
+    - IT/Systems
+    - Pipeline Development
+    - Quality Control
+    - Administration
+  </Card>
+</CardGroup>
+
+## Department-Based Workflows
+
+Departments integrate with Kitsu's production pipeline:
+
+1. **Task Assignment**: Assign tasks to specific departments
+2. **Status Tracking**: Monitor department progress on projects
+3. **Resource Planning**: Allocate resources based on department needs
+4. **Time Tracking**: Record time spent by department
+5. **Quota Management**: Set production quotas per department
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Structure Your Departments">
+    - Align departments with your studio's organizational structure
+    - Keep department names clear and consistent
+    - Use department colors that match your studio's visual identity
+    - Create departments that reflect actual workflow divisions
+  </Accordion>
+  
+  <Accordion title="Resource Management">
+    - Regularly review hardware and software allocations
+    - Ensure critical departments have necessary resources
+    - Update resource links when equipment or licenses change
+    - Document department resource requirements
+  </Accordion>
+  
+  <Accordion title="Maintenance">
+    - Archive departments when no longer needed
+    - Review department assignments quarterly
+    - Keep department information up to date
+    - Export department data for backup
+  </Accordion>
+</AccordionGroup>
+
+## Related Pages
+
+- [User Management](/admin/user-management) - Assign users to departments
+- [Studios](/admin/studios) - Manage multi-studio organizations
+- [Task Types](/tasks/task-types) - Configure task types for departments

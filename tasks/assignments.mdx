@@ -1,0 +1,343 @@
+---
+title: 'Task Assignments'
+description: 'Assign tasks to artists and manage workload distribution'
+icon: 'users'
+---
+
+## Overview
+
+Task assignments connect work to team members. Proper assignment management ensures artists know what to work on, supervisors can track workload, and production stays on schedule.
+
+## Assigning Tasks
+
+### Single Task Assignment
+
+**From Task Detail View**
+1. Open a task by clicking on its status cell
+2. In the task sidebar, locate the **Assignees** section
+3. Click the **+** button or assignee avatar area
+4. Select one or more people from the dropdown
+5. Assigned users receive notifications immediately
+
+**From Production Grid**
+1. Click on a task cell in the production view
+2. The task info panel appears on the right
+3. Add assignees in the **Assignees** field
+
+### Bulk Assignment
+
+Assign multiple tasks at once:
+
+1. **Select tasks**:
+   - Click task cells while holding Ctrl/Cmd for individual selection
+   - Click and drag to select a range
+   - Use Shift+Click to select all tasks between two points
+
+2. **Assign to team member**:
+   - Right-click on selected tasks
+   - Choose **Assign to** from the context menu
+   - Select the person
+   - All selected tasks are assigned at once
+
+<Tip>
+You can select tasks across different entities but within the same task type for efficient bulk assignment.
+</Tip>
+
+### Multiple Assignees
+
+Tasks can have multiple assignees:
+- Share work between team members
+- Involve leads or supervisors for oversight
+- Enable collaborative workflows
+- All assignees receive notifications and can comment
+
+## Unassigning Tasks
+
+### Remove Individual Assignees
+
+**From Task Detail**
+1. Open the task
+2. Hover over the assignee avatar
+3. Click the **X** or unassign option
+4. Confirm removal
+
+**From List View**
+1. Select the task row
+2. In the assignees cell, click the avatar
+3. Choose **Unassign** from the menu
+
+### Bulk Unassignment
+
+1. Select multiple tasks
+2. Right-click and choose **Unassign**
+3. All selected tasks have assignees removed
+
+<Warning>
+Unassigning removes access for artists. They won't see the task in their personal todo list anymore.
+</Warning>
+
+## Assignment Workflows
+
+### By Department
+
+For department-based workflows:
+
+1. Filter tasks by department
+2. Select all tasks in a department's task type
+3. Assign to department team members
+4. Department supervisors can view and manage their team's tasks
+
+### By Task Type
+
+Pipeline-based assignment:
+
+1. Navigate to a task type view (e.g., Animation tasks)
+2. Sort by priority or due date
+3. Assign based on:
+   - Artist availability
+   - Skill specialization
+   - Current workload
+   - Sequence/episode assignments
+
+### Assignment Templates
+
+For recurring assignment patterns:
+
+1. Create tasks with task types
+2. Assign standard team members to each type
+3. Use bulk create and assign for new entities
+4. Adjust individual assignments as needed
+
+## Viewing Assignments
+
+### Artist View
+
+**Personal Todo List**
+
+Artists see their assigned tasks:
+- **My Tasks**: All tasks assigned to them
+- Filtered by status (TODO, WIP, etc.)
+- Sorted by priority and due date
+- Color-coded by task type
+
+Access via:
+- Main navigation > **Tasks**
+- User menu > **My Tasks**
+
+**Task Notifications**
+
+Artists receive notifications when:
+- Tasks are assigned to them
+- Task status changes
+- Comments are added
+- Due dates approach
+- Retakes are requested
+
+### Supervisor View
+
+**Team Workload**
+
+Supervisors can view:
+- All tasks in their department
+- Assignee distribution
+- Workload balance across the team
+- Unassigned tasks
+
+Filtering options:
+- By person
+- By task status  
+- By entity type
+- By due date
+
+**Production Overview**
+
+In production grids:
+- Assignee avatars appear in task cells
+- Toggle **Show Assignations** to display/hide
+- Color coding indicates assignment status
+- Empty cells show unassigned tasks
+
+### Manager View
+
+Production managers see:
+- All assignments across all departments
+- Resource allocation reports
+- Workload distribution charts
+- Assignment history and changes
+
+## Assignment Indicators
+
+### Visual Elements
+
+**Avatar Display**
+- **Single assignee**: One avatar in task cell
+- **Multiple assignees**: Stacked avatars (up to 3 shown)
+- **Unassigned**: Empty or placeholder indicator
+- **Overflow**: "+N" indicator for many assignees
+
+**Assignment States**
+- **Active**: Task in WIP status with assignee
+- **Pending**: Task in TODO status
+- **Blocked**: Waiting on dependencies
+- **Unassigned**: No team member assigned
+
+### Assignment Metadata
+
+For each task assignment, Kitsu tracks:
+- Assigned date and time
+- Who made the assignment
+- Assignment duration
+- Time spent (if timelog enabled)
+
+## Assignment Permissions
+
+### Who Can Assign
+
+**Managers**
+- Can assign any task to anyone
+- Full control over all assignments
+- Can reassign between departments
+
+**Supervisors**
+- Can assign tasks in their department
+- Restricted by department permissions
+- Can assign to team members in their department
+
+**Artists**
+- Cannot assign tasks to others
+- Can request assignments (if enabled)
+- Can subscribe to tasks for notifications
+
+### Department Restrictions
+
+When task types are assigned to departments:
+- Only department supervisors can assign those tasks
+- Managers can override department restrictions
+- Cross-department assignments require manager approval
+
+## Workload Management
+
+### Balancing Assignments
+
+Best practices for workload distribution:
+
+**Check Current Load**
+1. Navigate to **Team** > **Workload**
+2. View tasks per person
+3. Review estimation totals
+4. Check due date distribution
+
+**Adjust Assignments**
+1. Identify overloaded team members
+2. Select tasks to reassign
+3. Move to available team members
+4. Update priorities and due dates
+
+### Estimation Integration
+
+When tasks have estimations:
+- Workload calculated in person-days
+- Automatic capacity planning
+- Overallocation warnings
+- Schedule conflict detection
+
+## Assignment Reports
+
+### Available Reports
+
+**Assignment Summary**
+- Tasks per person
+- Breakdown by task type
+- Status distribution
+- Department allocation
+
+**Workload Report**
+- Estimated hours per person
+- Time logged vs estimated
+- Completion rates
+- Upcoming deadlines
+
+**Unassigned Tasks Report**
+- Tasks without assignees
+- Grouped by task type
+- Sorted by priority
+- Due date visibility
+
+## Task Subscriptions
+
+For non-assigned team members:
+
+**Subscribe to Tasks**
+- Click the bell icon on task detail page
+- Receive notifications without being assigned
+- Useful for leads, coordinators, or stakeholders
+- Unsubscribe anytime
+
+**Auto-subscription**
+
+Users are automatically subscribed when:
+- They create a task
+- They comment on a task
+- They're mentioned in a comment
+- They upload a preview
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Assign based on skills and availability">
+    Match task requirements with artist specializations and current workload.
+  </Accordion>
+  
+  <Accordion title="Use bulk assignment for efficiency">
+    Assign multiple similar tasks at once to save time and ensure consistency.
+  </Accordion>
+  
+  <Accordion title="Keep assignments up to date">
+    Reassign tasks promptly when team members change or priorities shift.
+  </Accordion>
+  
+  <Accordion title="Balance workload across the team">
+    Regularly review workload reports to prevent burnout and bottlenecks.
+  </Accordion>
+  
+  <Accordion title="Communicate assignment changes">
+    Add comments when reassigning tasks to explain context and expectations.
+  </Accordion>
+  
+  <Accordion title="Use estimations for capacity planning">
+    Set accurate estimations to enable better workload forecasting.
+  </Accordion>
+</AccordionGroup>
+
+## Automation and API
+
+### Assignment via API
+
+Assignments can be automated:
+
+```python
+# Example: Assign tasks via API
+gazu.task.assign_task(task_id, person_id)
+
+# Bulk assignment
+for task in tasks:
+    gazu.task.assign_task(task['id'], person_id)
+```
+
+### Integration Patterns
+
+- **Auto-assign based on entity metadata**
+- **Round-robin assignment for load balancing**
+- **Skill-based automatic matching**
+- **Department-based auto-assignment**
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Task Types" icon="layer-group" href="/tasks/task-types">
+    Configure task types in your pipeline
+  </Card>
+  <Card title="Task Status" icon="traffic-light" href="/tasks/task-status">
+    Manage task status workflows
+  </Card>
+</CardGroup>

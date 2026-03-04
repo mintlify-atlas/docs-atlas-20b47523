@@ -1,0 +1,545 @@
+---
+title: 'Authentication'
+description: 'Handle user authentication and session management'
+icon: 'lock'
+---
+
+## Overview
+
+Kitsu uses session-based authentication with the Zou backend API. The authentication module handles login, logout, session validation, and password management.
+
+## Authentication Module
+
+The authentication logic is located in `src/lib/auth.js` and integrated with the Vuex login module (`src/store/modules/login.js`).
+
+## Login Flow
+
+### Basic Login
+
+<Steps>
+  <Step title="User Enters Credentials">
+    User provides email and password in the login form
+  </Step>
+  
+  <Step title="Dispatch Login Action">
+    Component dispatches the `logIn` Vuex action
+  </Step>
+  
+  <Step title="API Request">
+    Action sends credentials to `/api/auth/login`
+  </Step>
+  
+  <Step title="Session Created">
+    Backend creates a session and returns user data
+  </Step>
+  
+  <Step title="State Updated">
+    User data is committed to Vuex store
+  </Step>
+</Steps>
+
+### Login Implementation
+
+<Tabs>
+  <Tab title="Component">
+    ```vue
+    <template>
+      <div class="login-form">
+        <input 
+          v-model="email" 
+          type="email" 
+          placeholder="Email"
+        />
+        <input 
+          v-model="password" 
+          type="password" 
+          placeholder="Password"
+        />
+        <button 
+          @click="handleLogin" 
+          :disabled="isLoginLoading"
+        >
+          {{ isLoginLoading ? 'Logging in...' : 'Login' }}
+        </button>
+        <p v-if="isLoginError" class="error">
+          Invalid credentials
+        </p>
+      </div>
+    </template>
+
+    <script>
+    import { mapActions, mapGetters } from 'vuex'
+
+    export default {
+      computed: {
+        ...mapGetters(['isLoginLoading', 'isLoginError']),
+        
+        email: {
+          get() { return this.$store.state.login.email },
+          set(value) { this.changeEmail(value) }
+        },
+        
+        password: {
+          get() { return this.$store.state.login.password },
+          set(value) { this.changePassword(value) }
+        }
+      },
+      
+      methods: {
+        ...mapActions(['changeEmail', 'changePassword', 'logIn']),
+        
+        async handleLogin() {
+          this.logIn({
+            callback: (err, success) => {
+              if (success) {
+                this.$router.push('/')
+              }
+            }
+          })
+        }
+      }
+    }
+    </script>
+    ```
+  </Tab>
+  
+  <Tab title="Vuex Action">
+    ```javascript src/store/modules/login.js
+    import auth from '@/lib/auth'
+
+    const actions = {
+      changeEmail({ commit }, email) {
+        commit(CHANGE_EMAIL, email)
+      },
+
+      changePassword({ commit }, password) {
+        commit(CHANGE_PASSWORD, password)
+      },
+
+      logIn({ commit, state }, { twoFactorPayload, callback }) {
+        commit(LOGIN_RUN)
+        
+        const payload = {
+          email: state.email,
+          password: state.password,
+          ...coerceTwoFactorPayload(twoFactorPayload)
+        }
+        
+        auth.logIn(payload, err => {
+          if (err) {
+            commit(LOGIN_FAILURE)
+            callback(err, false)
+          } else {
+            commit(LOGIN_SUCCESS)
+            callback(null, true)
+          }
+        })
+      }
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Auth Library">
+    ```javascript src/lib/auth.js
+    import superagent from 'superagent'
+    import store from '@/store'
+
+    const auth = {
+      logIn(payload, callback) {
+        superagent
+          .post('/api/auth/login')
+          .send(payload)
+          .end((err, res) => {
+            if (err) {
+              // Handle various error cases
+              if (res?.body?.wrong_OTP) {
+                err.wrong_OTP = true
+              }
+              if (res?.body?.missing_OTP) {
+                err.missing_OTP = true
+                err.preferred_two_factor_authentication =
+                  res.body.preferred_two_factor_authentication
+              }
+              callback(err)
+            } else {
+              if (res.body.login) {
+                const user = res.body.user
+                store.commit(USER_LOGIN, user)
+                callback(null, user)
+              } else {
+                callback(new Error('Login failed'))
+              }
+            }
+          })
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Two-Factor Authentication
+
+Kitsu supports two-factor authentication (2FA):
+
+### 2FA Flow
+
+<Steps>
+  <Step title="Initial Login">
+    User provides email and password
+  </Step>
+  
+  <Step title="2FA Required">
+    API responds with `two_factor_authentication_required: true`
+  </Step>
+  
+  <Step title="User Provides 2FA Code">
+    User enters OTP code from authenticator app or FIDO2 device
+  </Step>
+  
+  <Step title="Verify 2FA">
+    Login request is retried with 2FA payload
+  </Step>
+  
+  <Step title="Session Created">
+    If valid, session is created and user is logged in
+  </Step>
+</Steps>
+
+### 2FA Implementation
+
+```javascript
+import { coerceTwoFactorPayload } from '@/lib/webauthn'
+
+const payload = {
+  email: state.email,
+  password: state.password,
+  ...coerceTwoFactorPayload(twoFactorPayload)
+}
+
+auth.logIn(payload, err => {
+  if (err) {
+    if (err.missing_OTP) {
+      // Show 2FA input form
+      this.show2FAForm = true
+      this.preferredMethod = err.preferred_two_factor_authentication
+    } else if (err.wrong_OTP) {
+      // Show error: Invalid 2FA code
+      this.otpError = 'Invalid authentication code'
+    }
+  }
+})
+```
+
+## Session Validation
+
+### Check Authentication Status
+
+On app load, verify if the user has a valid session:
+
+```javascript src/lib/auth.js
+isServerLoggedIn(callback) {
+  superagent.get('/api/auth/authenticated').end((err, res) => {
+    if (err && res && [401, 422].includes(res.statusCode)) {
+      // Not authenticated
+      store.commit(USER_LOGIN_FAIL)
+      callback(null)
+    } else if (err) {
+      // Server error
+      callback(err)
+    } else {
+      // Authenticated
+      const user = res.body.user
+      const organisation = res.body.organisation || {}
+      store.commit(SET_ORGANISATION, organisation)
+      store.commit(USER_LOGIN, user)
+      callback(null)
+    }
+  })
+}
+```
+
+### Route Guards
+
+Protect routes that require authentication:
+
+```javascript src/lib/auth.js
+requireAuth(to, from, next) {
+  const finalize = () => {
+    if (!store.state.user.isAuthenticated) {
+      store.commit(DATA_LOADING_END)
+      next({
+        name: 'login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  }
+
+  store.commit(DATA_LOADING_START)
+
+  if (store.state.user.user === null) {
+    auth.isServerLoggedIn(err => {
+      if (err) {
+        next({
+          name: 'server-down',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        finalize()
+      }
+    })
+  } else {
+    finalize()
+  }
+}
+```
+
+Apply to routes:
+
+```javascript src/router/routes.js
+import auth from '@/lib/auth'
+
+const routes = [
+  {
+    path: '/productions',
+    component: Productions,
+    beforeEnter: auth.requireAuth
+  }
+]
+```
+
+## Logout
+
+### Logout Flow
+
+```javascript
+// In component
+methods: {
+  ...mapActions(['logout']),
+  
+  async handleLogout() {
+    await this.logout()
+    this.$router.push('/login')
+  }
+}
+
+// Vuex action
+actions: {
+  async logout({ commit }) {
+    // Disconnect real-time socket
+    this.$socket.disconnect()
+    
+    // Call logout API
+    await auth.logout()
+    
+    // Clear all state
+    commit(RESET_ALL)
+  }
+}
+
+// Auth library
+auth.logout = async function() {
+  try {
+    await superagent.get('/api/auth/logout')
+  } finally {
+    store.commit(USER_LOGOUT)
+    this.postBroadcastMessage('logout')
+  }
+}
+```
+
+<Note>
+The logout API call happens even if it fails, and the user is logged out locally regardless.
+</Note>
+
+## Password Reset
+
+### Request Password Reset
+
+```javascript
+// In component
+methods: {
+  ...mapActions(['resetPassword']),
+  
+  async handlePasswordReset() {
+    try {
+      await this.resetPassword(this.email)
+      this.message = 'Password reset email sent'
+    } catch (err) {
+      this.error = 'Failed to send reset email'
+    }
+  }
+}
+
+// Vuex action
+actions: {
+  resetPassword({}, email) {
+    return auth.resetPassword(email)
+  }
+}
+
+// Auth library
+auth.resetPassword = function(email) {
+  const data = { email }
+  return client.ppost('/api/auth/reset-password', data)
+}
+```
+
+### Change Password with Token
+
+```javascript
+// In component (password reset page)
+methods: {
+  ...mapActions(['resetChangePassword']),
+  
+  async handlePasswordChange() {
+    if (!auth.isPasswordValid(this.password, this.password2)) {
+      this.error = 'Passwords must match and be at least 8 characters'
+      return
+    }
+    
+    try {
+      await this.resetChangePassword({
+        email: this.$route.query.email,
+        token: this.$route.query.token,
+        password: this.password,
+        password2: this.password2
+      })
+      this.$router.push('/')
+    } catch (err) {
+      this.error = 'Invalid or expired reset token'
+    }
+  }
+}
+
+// Vuex action
+actions: {
+  async resetChangePassword({ commit }, { email, token, password, password2 }) {
+    await auth.resetChangePassword(email, token, password, password2)
+    commit(LOGIN_SUCCESS)
+  }
+}
+
+// Auth library
+auth.resetChangePassword = function(email, token, password, password2) {
+  const data = { email, token, password, password2 }
+  return client.pput('/api/auth/reset-password', data)
+}
+```
+
+### Password Validation
+
+```javascript
+auth.isPasswordValid = function(password, password2) {
+  return password.length >= 8 && password === password2
+}
+```
+
+## Cross-Tab Synchronization
+
+Kitsu synchronizes logout across browser tabs using BroadcastChannel:
+
+```javascript src/lib/auth.js
+getBroadcastChannel() {
+  if (!channel && 'BroadcastChannel' in window) {
+    channel = new BroadcastChannel('auth')
+  }
+  return channel
+},
+
+postBroadcastMessage(message) {
+  const channel = this.getBroadcastChannel()
+  channel?.postMessage(message)
+}
+```
+
+Listen for messages:
+
+```javascript
+const channel = auth.getBroadcastChannel()
+channel?.addEventListener('message', (event) => {
+  if (event.data === 'logout') {
+    // User logged out in another tab
+    store.commit(USER_LOGOUT)
+    router.push('/login')
+  }
+})
+```
+
+## User State
+
+The user module (`src/store/modules/user.js`) manages the current user's state:
+
+```javascript
+const state = {
+  user: null,
+  isAuthenticated: false,
+  organisation: {}
+}
+
+const getters = {
+  user: state => state.user,
+  isAuthenticated: state => state.isAuthenticated,
+  isCurrentUserAdmin: state => state.user?.role === 'admin',
+  isCurrentUserManager: state => {
+    return state.user?.role === 'admin' || 
+           state.user?.role === 'manager'
+  }
+}
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Use Route Guards" icon="shield">
+    Protect authenticated routes with `auth.requireAuth`
+  </Card>
+  <Card title="Handle 401 Errors" icon="right-from-bracket">
+    The API client automatically redirects on 401
+  </Card>
+  <Card title="Validate Sessions" icon="check">
+    Check session validity on app load
+  </Card>
+  <Card title="Secure Credentials" icon="lock">
+    Never log or expose user credentials
+  </Card>
+</CardGroup>
+
+## Error Handling
+
+Handle common authentication errors:
+
+```javascript
+auth.logIn(payload, err => {
+  if (err) {
+    if (err.wrong_OTP) {
+      this.error = 'Invalid authentication code'
+    } else if (err.missing_OTP) {
+      this.show2FAForm = true
+    } else if (err.too_many_failed_login_attemps) {
+      this.error = 'Too many failed attempts. Try again later.'
+    } else if (err.default_password) {
+      this.$router.push({ 
+        name: 'change-password', 
+        query: { token: err.token } 
+      })
+    } else if (err.server_error) {
+      this.error = 'Server error. Please try again.'
+    } else {
+      this.error = 'Invalid email or password'
+    }
+  }
+})
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Entities API" icon="cube" href="/api/entities">
+    Learn how to work with entities
+  </Card>
+  <Card title="Tasks API" icon="list-check" href="/api/tasks">
+    Manage tasks and comments
+  </Card>
+</CardGroup>

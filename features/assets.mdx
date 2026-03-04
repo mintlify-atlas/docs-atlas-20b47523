@@ -1,0 +1,314 @@
+---
+title: Assets
+description: Manage characters, props, environments, and other reusable elements in your production
+---
+
+Assets are reusable elements in your production such as characters, props, environments, and vehicles. Kitsu helps you track each asset through its creation pipeline.
+
+## What are Assets?
+
+Assets represent any element that can be used across multiple shots:
+
+- **Characters**: Main and secondary characters, crowds
+- **Props**: Objects that characters interact with
+- **Environments**: Sets, locations, and backgrounds
+- **FX**: Reusable visual effects elements
+- **Vehicles**: Cars, spaceships, or any transport
+
+Each asset goes through a series of tasks (Modeling, Texturing, Rigging, etc.) before being marked as ready for production.
+
+## The Assets Page
+
+The Assets page (~/workspace/source/src/components/pages/Assets.vue:4) displays all assets in the current production, organized by asset type.
+
+### Search and Filtering
+
+Use the search bar to find assets quickly:
+
+```
+props modeling=wip
+```
+
+This searches for props with modeling tasks in "WIP" status.
+
+**Advanced Filtering**:
+
+- Filter by asset type: `type=[Characters]`
+- Filter by task status: `modeling=wip` or `rigging=approved`
+- Search by name: Simply type the asset name
+- Combine filters: `chars modeling=wip texturing=todo`
+
+Click the **Filter** button to use the visual filter builder for complex queries.
+
+### Save Search Queries
+
+Save frequently used searches:
+
+1. Enter your search criteria
+2. Click the **Save** icon in the search bar
+3. Give your search a name
+4. The saved search appears in your search queries list
+
+Saved searches sync across your team and can be organized into filter groups.
+
+## Creating Assets
+
+<Note>
+Only Managers and Supervisors can create new assets.
+</Note>
+
+To create a new asset:
+
+1. Click the **New Asset** button
+2. Fill in the asset details:
+   - **Name**: Asset identifier (e.g., "Hero_Robot")
+   - **Asset Type**: Select the category (Character, Prop, etc.)
+   - **Description**: Optional notes about the asset
+   - **Episode**: For TV shows, select which episode(s) use this asset
+
+3. Click **Confirm** to create the asset
+
+For quick asset creation, use **Confirm and Stay** to create multiple assets in succession.
+
+### Shared Assets (TV Shows)
+
+For TV shows, assets can be:
+
+- **Episode-specific**: Only available in that episode
+- **Shared/Main Pack**: Available across all episodes
+
+Toggle **Show Shared Assets** to view assets from the main pack.
+
+## Editing Assets
+
+Click an asset name or the **Edit** icon to modify:
+
+- Asset name
+- Asset type
+- Description
+- Custom metadata fields
+- Episode assignments
+
+### Inline Editing
+
+Many fields can be edited directly in the asset list:
+
+- Click on a metadata field to edit it in place
+- Changes save automatically
+- Validation ensures data integrity
+
+## Asset Organization
+
+### By Asset Type
+
+Assets are automatically grouped by type. Click an asset type name to filter the list to only that type.
+
+### Sorting Options
+
+Sort assets by:
+
+- **Name** (alphabetically)
+- **Task status** (by department)
+- **Time spent** or **Estimation**
+- **Custom metadata** fields
+
+Click column headers to sort. Click again to reverse the sort order.
+
+### Display Options
+
+Customize your view:
+
+- **Big Thumbnails**: Larger preview images
+- **Show Assignations**: Display who's assigned to each task
+- **Show Info**: Show description and metadata
+- **Department Filter**: Show only tasks for specific departments
+
+## Working with Tasks
+
+### Validation Columns
+
+Each asset row shows task statuses across the pipeline:
+
+- Click a task cell to open the [task detail page](/features/tasks)
+- Task colors indicate status (green=done, orange=WIP, etc.)
+- Assignee avatars show who's working on each task
+
+### Creating Tasks
+
+Bulk create tasks for multiple assets:
+
+1. Select assets (Shift+Click for ranges)
+2. Click **Create Tasks**
+3. Choose the task type
+4. Select whether to create for all assets or selection only
+5. Click **Confirm**
+
+Tasks are created with the default "TODO" status.
+
+### Delete All Tasks
+
+Remove all tasks of a specific type:
+
+1. Click the **...** menu on a task column header
+2. Select **Delete All Tasks**
+3. Confirm the task type name
+4. Choose to delete from all assets or selected only
+
+<Warning>
+Deleting tasks is permanent and removes all associated comments and previews.
+</Warning>
+
+## Metadata and Custom Fields
+
+Add production-specific data to assets:
+
+### Adding Metadata Descriptors
+
+Managers can add custom fields:
+
+1. Click **Add Metadata**
+2. Define the field:
+   - **Name**: Field label
+   - **Type**: Text, Number, Date, Checklist, etc.
+   - **Choices**: For dropdown fields
+
+3. The field appears for all assets
+
+### Editing Metadata Values
+
+Click any metadata cell to edit its value. Changes save automatically and sync across the team.
+
+## Import and Export
+
+### CSV Import
+
+Import assets from spreadsheets:
+
+1. Click the **Import** button
+2. Upload your CSV file
+3. Map columns to asset fields:
+   - Required: Type, Name
+   - Optional: Description, Ready For, Resolution, custom metadata
+
+4. Review the preview
+5. Click **Import** to create assets
+
+For TV shows, include an "Episode" column.
+
+### CSV Export
+
+Export your asset list:
+
+1. Click the **Export** button
+2. Kitsu generates a CSV with:
+   - Asset type and name
+   - Description and metadata
+   - Task statuses
+   - Time tracking data
+   - Assignations
+
+The filename includes the date and production name.
+
+### Import Thumbnails
+
+Bulk upload asset thumbnails:
+
+1. Click the **Import Thumbnails** button
+2. Select multiple image files
+3. Name files matching your assets (e.g., `Robot_Hero.png`)
+4. Kitsu matches files to assets automatically
+
+## Casting and Ready Status
+
+Track which assets are ready for production:
+
+### Ready For Field
+
+Set when an asset is cleared for:
+
+- Layout
+- Animation
+- Lighting
+- Final render
+
+This helps downstream departments know what's available.
+
+## Deleting and Restoring Assets
+
+### Soft Delete
+
+Deleting an asset with active tasks marks it as **canceled**:
+
+- The asset is hidden from normal views
+- All data is preserved
+- Tasks remain accessible
+- The asset can be restored
+
+### Hard Delete
+
+Deleting an asset with no tasks permanently removes it:
+
+<Warning>
+Permanent deletion cannot be undone.
+</Warning>
+
+### Restore Canceled Assets
+
+Restore a canceled asset:
+
+1. Find the asset in the list (it appears faded)
+2. Click the **Restore** icon
+3. Confirm restoration
+4. The asset becomes active again
+
+## Best Practices
+
+### Naming Conventions
+
+- Use clear, descriptive names: `Char_Robot_Hero` not `robot1`
+- Include variant info: `Prop_Sword_Rusty` vs `Prop_Sword_Shiny`
+- Be consistent across your production
+- Avoid special characters that may cause issues
+
+### Asset Types
+
+Organize with appropriate granularity:
+
+- Too few types: Hard to find things
+- Too many types: Confusing for the team
+- Standard types work for most productions
+- Add custom types only when needed
+
+### Task Management
+
+- Create tasks at the start of production
+- Assign artists early to help with planning
+- Use estimations for scheduling
+- Track time spent for future projects
+
+### Metadata Usage
+
+- Add fields that help your team
+- Avoid redundant information
+- Use checklists for multi-step approvals
+- Date fields help track milestones
+
+## Keyboard Shortcuts
+
+- **Shift + Click**: Select range of assets
+- **Ctrl/Cmd + Click**: Toggle individual selection
+- **Escape**: Clear selection
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Tasks" icon="check-square" href="/features/tasks">
+    View and update task status
+  </Card>
+  <Card title="Shots" icon="video" href="/features/shots">
+    See where assets are used
+  </Card>
+  <Card title="Playlists" icon="play" href="/features/playlists">
+    Review asset progress
+  </Card>
+</CardGroup>

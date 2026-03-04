@@ -1,0 +1,202 @@
+---
+title: 'Environment Setup'
+description: 'Set up your local Kitsu development environment'
+icon: 'laptop-code'
+---
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+<CardGroup cols={2}>
+  <Card title="Node.js" icon="node-js">
+    Version 20.19 or higher required
+  </Card>
+  <Card title="Docker" icon="docker">
+    Version 1.13 or higher for running the API backend
+  </Card>
+</CardGroup>
+
+<Tip>
+You can verify your Node.js version with `node --version` and Docker with `docker --version`
+</Tip>
+
+## Development Environment Setup
+
+Kitsu uses a Docker-based development workflow that works on Windows, Linux, and macOS.
+
+### Step 1: Start the Backend API
+
+First, launch the CGWire Docker container which provides the Kitsu API and event server:
+
+```bash
+docker run -d --rm -p 80:80 --name cgwire cgwire/cgwire
+```
+
+This container includes:
+- Kitsu API server (Zou)
+- PostgreSQL database
+- Redis for caching
+- Socket.io event server
+
+### Step 2: Configure Environment Variables
+
+Set the API and event endpoints to point to your Docker container:
+
+```bash
+export KITSU_API_TARGET=http://$(docker-machine ip)/api
+export KITSU_EVENT_TARGET=http://$(docker-machine ip)/socket.io
+```
+
+<Note>
+On Linux, you may need to use `localhost` instead of `docker-machine ip` if Docker is running natively.
+</Note>
+
+### Step 3: Clone and Install
+
+Clone the Kitsu repository and install dependencies:
+
+```bash
+git clone https://github.com/cgwire/kitsu.git
+cd kitsu
+npm install
+```
+
+<Warning>
+Make sure you're using npm version 10 or higher. The installation may fail with older versions.
+</Warning>
+
+### Step 4: Start Development Server
+
+Launch the Vite development server:
+
+```bash
+npm run dev
+```
+
+After 30 seconds or so, a browser window should automatically open with Kitsu running at `http://localhost:5173` (default Vite port).
+
+## Development Server Features
+
+The Vite development server provides:
+
+<AccordionGroup>
+  <Accordion title="Hot Module Replacement (HMR)">
+    Changes to Vue components, JavaScript, and CSS are instantly reflected in the browser without a full page reload.
+  </Accordion>
+  
+  <Accordion title="Fast Refresh">
+    Component state is preserved during updates, making development faster and more efficient.
+  </Accordion>
+  
+  <Accordion title="Source Maps">
+    Full source map support for debugging with your browser's developer tools.
+  </Accordion>
+  
+  <Accordion title="Error Overlay">
+    Build errors and runtime errors are displayed directly in the browser.
+  </Accordion>
+</AccordionGroup>
+
+## Project Configuration
+
+### Vite Configuration
+
+Kitsu uses Vite for building and development. The configuration is located in `vite.config.js` at the project root.
+
+### ESLint Configuration
+
+Code quality is enforced through ESLint with the following plugins:
+- `eslint-plugin-vue` - Vue.js specific linting rules
+- `eslint-plugin-prettier` - Prettier integration
+- `eslint-plugin-promise` - Promise best practices
+
+Run the linter:
+```bash
+npm run lint
+```
+
+Auto-fix issues:
+```bash
+npm run lint:fix
+```
+
+### Git Hooks
+
+Kitsu uses Husky for git hooks with lint-staged:
+- Pre-commit: Runs ESLint on staged JavaScript and Vue files
+- Ensures code quality before commits
+
+## Testing
+
+Kitsu uses Vitest for unit testing:
+
+```bash
+npm run test
+```
+
+Test files are located in `tests/unit/` and use:
+- **Vitest** - Fast unit test framework
+- **@vue/test-utils** - Vue component testing utilities
+- **jsdom** - DOM implementation for testing
+- **vitest-localstorage-mock** - localStorage mocking
+
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="Port already in use">
+    If Vite can't start because port 5173 is in use, you can specify a different port:
+    ```bash
+    npm run dev -- --port 3000
+    ```
+  </Accordion>
+  
+  <Accordion title="API connection errors">
+    Verify that:
+    1. Docker container is running: `docker ps`
+    2. Environment variables are set correctly
+    3. You can access the API at `http://localhost/api` in your browser
+  </Accordion>
+  
+  <Accordion title="Node version mismatch">
+    Kitsu requires Node.js 20.19 or higher. Use nvm to manage Node versions:
+    ```bash
+    nvm install 20
+    nvm use 20
+    ```
+  </Accordion>
+  
+  <Accordion title="Module not found errors">
+    Try removing node_modules and reinstalling:
+    ```bash
+    rm -rf node_modules package-lock.json
+    npm install
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## IDE Setup
+
+### VS Code (Recommended)
+
+Install these extensions for the best experience:
+- **Volar** - Vue 3 language support
+- **ESLint** - JavaScript linting
+- **Prettier** - Code formatting
+
+### WebStorm/IntelliJ
+
+WebStorm has built-in support for Vue.js, Vuex, and Vue Router.
+
+## Next Steps
+
+Now that your environment is set up:
+
+<CardGroup cols={2}>
+  <Card title="Architecture" icon="sitemap" href="/development/architecture">
+    Learn about Kitsu's architecture
+  </Card>
+  <Card title="Contributing" icon="code-pull-request" href="/development/contributing">
+    Start contributing to Kitsu
+  </Card>
+</CardGroup>

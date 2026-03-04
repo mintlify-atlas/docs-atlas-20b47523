@@ -1,0 +1,449 @@
+---
+title: 'Translations'
+description: 'How to contribute translations and add new languages to Kitsu'
+icon: 'language'
+---
+
+## Overview
+
+Kitsu supports multiple languages through Vue I18n. The application is currently available in several languages, and we welcome contributions to add more or improve existing translations.
+
+## Available Languages
+
+Kitsu currently supports:
+
+<CardGroup cols={3}>
+  <Card title="English" icon="flag-usa">
+    Default language (en)
+  </Card>
+  <Card title="German" icon="flag">
+    Deutsch (de)
+  </Card>
+  <Card title="English (Video Game)" icon="gamepad">
+    Industry-specific terminology (en_video-game)
+  </Card>
+  <Card title="English (NFT)" icon="image">
+    NFT-specific terminology (en_nft)
+  </Card>
+</CardGroup>
+
+## Contributing Translations
+
+### Using POEditor
+
+The easiest way to contribute translations is through POEditor, Kitsu's translation platform:
+
+<Steps>
+  <Step title="Join the Project">
+    Visit the [Kitsu POEditor project](https://poeditor.com/join/project?hash=fpUejpWDVo) and create an account
+  </Step>
+  
+  <Step title="Select a Language">
+    Choose the language you want to contribute to, or request a new language
+  </Step>
+  
+  <Step title="Translate Terms">
+    Browse through the translation keys and provide translations. You can:
+    - Translate new terms
+    - Improve existing translations
+    - Add context notes
+    - Review other contributors' work
+  </Step>
+  
+  <Step title="Save and Sync">
+    Your translations are automatically saved and will be included in future Kitsu releases
+  </Step>
+</Steps>
+
+<Card title="Start Translating" icon="language" href="https://poeditor.com/join/project?hash=fpUejpWDVo">
+  Contribute to Kitsu translations on POEditor
+</Card>
+
+## Adding a New Language
+
+If you want to add a completely new language to Kitsu:
+
+### 1. Get the Translation File
+
+Export the JSON translation file from POEditor for your language.
+
+### 2. Add to Locales
+
+Store the translation file in the `src/locales/` directory:
+
+```
+src/locales/
+├── en.js        # English (default)
+├── de.js        # German
+├── fr.js        # Your new language
+└── index.js     # Locale registry
+```
+
+### 3. Register the Language
+
+Add the language to `src/locales/index.js`:
+
+```javascript src/locales/index.js
+import en from './en'
+import de from './de'
+import fr from './fr'  // Your new language
+
+export default {
+  de,
+  en,
+  fr  // Add here (alphabetical order)
+}
+```
+
+### 4. Add to Profile Options
+
+<Warning>
+The locale name must be available in Python Babel, or it will break the person entry in the backend.
+</Warning>
+
+Add the language option to the user profile selector. The locale code must match a valid [Babel locale identifier](https://babel.pocoo.org/en/latest/api/core.html#babel.core.Locale).
+
+### 5. Test Your Translation
+
+Start the development server and switch to your new language:
+
+```bash
+npm run dev
+```
+
+Navigate to user settings and select your new language from the dropdown.
+
+## Translation File Structure
+
+Translation files are JavaScript modules exporting an object:
+
+```javascript src/locales/en.js
+export default {
+  assets: {
+    delete_error: 'An error occurred while deleting this asset',
+    delete_text: 'Are you sure you want to delete {name}?',
+    edit_success: 'Asset {name} successfully edited',
+    new_asset: 'Add an asset',
+    number: 'asset | assets',
+    title: 'Assets'
+  },
+  
+  main: {
+    about: 'About',
+    add: 'Add',
+    all: 'All',
+    cancel: 'Cancel',
+    clear_selection: 'Clear selection',
+    close: 'Close',
+    confirmation: 'Confirm',
+    date: 'Date',
+    delete: 'Delete',
+    edit: 'Edit'
+  },
+  
+  tasks: {
+    create_tasks: 'Add tasks',
+    current: 'Current tasks',
+    delete_all_text: 'Are you sure you want to delete all tasks?',
+    fields: {
+      assignees: 'Assignees',
+      count: 'Count',
+      duration: 'Duration',
+      end_date: 'End date',
+      start_date: 'Start date'
+    },
+    priority: 'Priority'
+  }
+}
+```
+
+## Translation Keys
+
+### Organization
+
+Translations are organized hierarchically:
+
+- **Top level**: Feature area (assets, shots, tasks, etc.)
+- **Second level**: Specific keys or sub-categories
+- **Nested levels**: Further organization as needed
+
+### Naming Conventions
+
+Follow these conventions for translation keys:
+
+<Tabs>
+  <Tab title="Actions">
+    ```javascript
+    {
+      add: 'Add',
+      edit: 'Edit',
+      delete: 'Delete',
+      save: 'Save',
+      cancel: 'Cancel'
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Messages">
+    ```javascript
+    {
+      success: 'Operation successful',
+      error: 'An error occurred',
+      delete_text: 'Are you sure?',
+      loading: 'Loading...'
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Fields">
+    ```javascript
+    {
+      fields: {
+        name: 'Name',
+        description: 'Description',
+        due_date: 'Due Date',
+        assignee: 'Assignee'
+      }
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Pluralization">
+    ```javascript
+    {
+      number: 'asset | assets',
+      task_count: 'no tasks | {count} task | {count} tasks'
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Using Translations in Code
+
+### In Templates
+
+Use the `$t` function:
+
+```vue
+<template>
+  <div>
+    <h1>{{ $t('assets.title') }}</h1>
+    <p>{{ $t('assets.number', 2) }}</p>
+    <button>{{ $t('main.add') }}</button>
+  </div>
+</template>
+```
+
+### With Variables
+
+Pass variables to translations:
+
+```vue
+<template>
+  <p>{{ $t('assets.delete_text', { name: asset.name }) }}</p>
+</template>
+```
+
+In the translation file:
+```javascript
+{
+  delete_text: 'Are you sure you want to delete {name}?'
+}
+```
+
+### In JavaScript
+
+Access translations in component methods:
+
+```javascript
+methods: {
+  showConfirmation() {
+    const message = this.$t('assets.delete_text', { 
+      name: this.asset.name 
+    })
+    if (confirm(message)) {
+      this.deleteAsset()
+    }
+  }
+}
+```
+
+### Pluralization
+
+Vue I18n supports pluralization:
+
+```vue
+<template>
+  <p>{{ $tc('assets.number', assetCount) }}</p>
+</template>
+```
+
+Translation:
+```javascript
+{
+  number: 'no assets | {n} asset | {n} assets'
+}
+```
+
+## Adding New Translation Keys
+
+When adding new features that require translations:
+
+<Steps>
+  <Step title="Add to English First">
+    Add the key to `src/locales/en.js` (the default language)
+  </Step>
+  
+  <Step title="Use in Code">
+    Reference the new key in your component using `$t()` or `$tc()`
+  </Step>
+  
+  <Step title="Test">
+    Verify the translation appears correctly in the UI
+  </Step>
+  
+  <Step title="Upload to POEditor">
+    The key will be synced to POEditor where translators can provide translations in other languages
+  </Step>
+</Steps>
+
+## Translation Guidelines
+
+### Context is Important
+
+Provide context for translators when terms could be ambiguous:
+
+<CodeGroup>
+```javascript Good
+{
+  task_status_todo: 'To Do',
+  task_status_wip: 'In Progress',
+  task_status_done: 'Done'
+}
+```
+
+```javascript Unclear
+{
+  todo: 'To Do',
+  wip: 'In Progress',  // What is "wip"?
+  done: 'Done'         // Done with what?
+}
+```
+</CodeGroup>
+
+### Keep Text Concise
+
+UI translations should be brief:
+
+```javascript
+// Good for buttons
+{ add: 'Add', edit: 'Edit', delete: 'Delete' }
+
+// Good for confirmation
+{ confirm_delete: 'Are you sure?' }
+
+// Avoid overly long text in UI elements
+```
+
+### Use Placeholders for Dynamic Content
+
+```javascript
+// Good
+{
+  welcome: 'Welcome back, {name}!',
+  task_assigned: '{task} assigned to {person}'
+}
+
+// Avoid hardcoding dynamic values
+```
+
+## Industry-Specific Terminology
+
+Kitsu supports industry-specific language variants:
+
+### Video Game Mode
+
+Uses game development terminology:
+```javascript src/locales/en_video-game.js
+{
+  shots: { title: 'Levels' },
+  sequences: { title: 'Worlds' }
+}
+```
+
+### NFT Mode
+
+Uses NFT/crypto-specific terms:
+```javascript src/locales/en_nft.js
+{
+  assets: { title: 'Collections' },
+  shots: { title: 'Drops' }
+}
+```
+
+## Testing Translations
+
+### Switch Languages
+
+1. Log into Kitsu
+2. Go to User Settings
+3. Change the language in the dropdown
+4. Verify all UI elements display correctly
+
+### Check for Missing Keys
+
+Missing translation keys will display as the key path:
+```
+assets.new_key_not_translated
+```
+
+If you see this, add the translation to all language files.
+
+## Locale Maintenance
+
+### Sync with POEditor
+
+Periodically, translations are synced from POEditor:
+
+1. Export translations from POEditor
+2. Update locale files in `src/locales/`
+3. Test all languages
+4. Commit changes
+
+### Remove Unused Keys
+
+Regularly audit translation files to remove unused keys:
+
+```bash
+# Search for translation key usage
+grep -r "$t('old.unused.key')" src/
+```
+
+## Babel Locale Compatibility
+
+<Warning>
+Important: The locale identifier must be valid in Python Babel or the backend integration will fail.
+</Warning>
+
+Valid Babel locales include:
+- `en` - English
+- `de` - German  
+- `fr` - French
+- `es` - Spanish
+- `ja` - Japanese
+- `zh_Hans` - Simplified Chinese
+- And many more...
+
+Check the [Babel documentation](https://babel.pocoo.org/en/latest/locale-data.html) for a complete list.
+
+## Getting Help
+
+If you need help with translations:
+
+- Join the [Discord community](https://discord.com/invite/VbCxtKN)
+- Ask in the POEditor comment system
+- Open an issue on [GitHub](https://github.com/cgwire/kitsu/issues)
+
+<Card title="Start Contributing" icon="language" href="https://poeditor.com/join/project?hash=fpUejpWDVo">
+  Help translate Kitsu into your language
+</Card>

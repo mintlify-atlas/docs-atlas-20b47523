@@ -1,0 +1,323 @@
+---
+title: Notifications
+description: Stay informed with personalized alerts for mentions, assignments, and replies
+icon: bell
+---
+
+Kitsu's notification system ensures you never miss important updates by alerting you to mentions, assignments, replies, and other activity relevant to you.
+
+## Notification Types
+
+Kitsu tracks several types of notifications:
+
+<CardGroup cols={2}>
+  <Card title="Mentions" icon="at">
+    Someone mentioned you in a comment using @yourname
+  </Card>
+  
+  <Card title="Replies" icon="reply">
+    Someone replied to your comment
+  </Card>
+  
+  <Card title="Assignments" icon="user">
+    You've been assigned to a new task
+  </Card>
+  
+  <Card title="Comments" icon="message">
+    New comments on tasks you're watching
+  </Card>
+  
+  <Card title="Publications" icon="upload">
+    New preview files uploaded on watched tasks
+  </Card>
+  
+  <Card title="Playlist Ready" icon="play">
+    A playlist you're tracking is ready for review
+  </Card>
+</CardGroup>
+
+## Notification Icon
+
+The bell icon in the top navigation shows:
+
+- **Badge with count**: Number of unread notifications
+- **Real-time updates**: Counter increases as new notifications arrive
+- **Quick access**: Click to view all notifications
+
+<Note>
+  The notification counter updates in real-time via WebSocket connections, so you see new alerts instantly.
+</Note>
+
+## Notification List
+
+The notifications page displays all your alerts with:
+
+### Visual Indicators
+
+- **Unread notifications**: Highlighted with a pink/purple border
+- **Mention notifications**: Orange @ icon
+- **Reply notifications**: Arrow icon
+- **Assignment notifications**: User icon
+- **Publication notifications**: Image icon
+- **Playlist notifications**: Monitor icon
+
+### Notification Content
+
+Each notification shows:
+
+- **Author**: Who triggered the notification
+- **Production**: Which production the activity occurred in
+- **Entity**: The asset or shot involved
+- **Task type**: What department/task type
+- **Validation status**: Current status (if changed)
+- **Timestamp**: When the activity occurred (relative time)
+- **Comment text**: Preview of the comment or reply
+
+## Filtering Notifications
+
+### Task Filters
+
+<Tabs>
+  <Tab title="Task Type">
+    Filter by specific task types to focus on your department:
+    - Animation
+    - Modeling
+    - Compositing
+    - FX
+    - Lighting
+    - And more
+  </Tab>
+  
+  <Tab title="Task Status">
+    Filter by validation status:
+    - Todo
+    - Work In Progress
+    - Waiting For Approval
+    - Retake
+    - Done
+  </Tab>
+</Tabs>
+
+### Notification Filters
+
+<AccordionGroup>
+  <Accordion title="Type Filter">
+    Show only specific notification types:
+    - All types
+    - Only comments
+    - Only mentions
+    - Only assignments
+    - Only replies
+    - Only playlists ready
+  </Accordion>
+  
+  <Accordion title="Status Filter">
+    Filter by read status:
+    - All notifications
+    - Only unread
+    - Only read
+  </Accordion>
+  
+  <Accordion title="Watching Filter">
+    Filter by watch status:
+    - All notifications
+    - Only watching (tasks you explicitly watch)
+    - Only non-watching (assigned tasks)
+  </Accordion>
+</AccordionGroup>
+
+```javascript
+// Notification filtering parameters
+{
+  task_type_id: string,      // Filter by task type
+  task_status_id: string,    // Filter by task status
+  type: string,              // comment, mention, assignation, reply, playlist-ready
+  read: boolean,             // Filter by read status
+  watching: boolean          // Filter by watch status
+}
+```
+
+## Notification Details
+
+### Mention Notifications
+
+When someone mentions you with `@yourname`:
+
+- Orange @ icon indicates mention
+- Full comment text with your mention highlighted
+- Option to reply directly
+- Mark as read/unread
+
+### Reply Notifications
+
+When someone replies to your comment:
+
+- Shows the reply text first
+- Includes the original comment for context
+- Distinguished "Reply" section for clarity
+
+### Assignment Notifications
+
+When you're assigned to a task:
+
+- Shows who assigned you
+- Displays task information
+- Links directly to the task
+
+### Playlist Ready Notifications
+
+When a playlist finishes building:
+
+- Shows playlist name
+- Links to view the playlist
+- Indicates who created the playlist
+
+## Managing Notifications
+
+### Mark as Read/Unread
+
+Each notification has a toggle to:
+
+- Mark individual notifications as read
+- Mark individual notifications as unread
+- Toggle updates the counter automatically
+
+### Mark All as Read
+
+Click "Mark all as read" to:
+
+- Clear all unread notifications at once
+- Reset the notification counter to zero
+- Only available when viewing all notifications (no filters)
+
+<Warning>
+  The "Mark all as read" button only appears when you're viewing all notifications without filters applied.
+</Warning>
+
+### Show/Hide Comments
+
+Toggle the "Show comments" button to:
+
+- Expand all notification comment text
+- Collapse comments for a compact view
+- Preference is saved for your session
+
+## Interacting with Notifications
+
+Click on a notification to:
+
+1. **View task details**: Right panel shows full task information
+2. **Read full comments**: See complete conversation history
+3. **Access entity**: Navigate to the asset or shot
+4. **Take action**: Comment, validate, or update status
+
+<Steps>
+  <Step title="Click Notification">
+    Click anywhere on the notification card (except the read toggle)
+  </Step>
+  
+  <Step title="View Task Panel">
+    Task details load in the right sidebar
+  </Step>
+  
+  <Step title="Take Action">
+    Comment, validate, or navigate to the full task page
+  </Step>
+</Steps>
+
+## Real-Time Updates
+
+Notifications update automatically via WebSocket:
+
+<CardGroup cols={2}>
+  <Card title="New Notifications" icon="bell">
+    Appear at the top of the list as they arrive
+  </Card>
+  
+  <Card title="Counter Updates" icon="hashtag">
+    Badge count increments in real-time
+  </Card>
+  
+  <Card title="Preview Additions" icon="image">
+    Preview files are added to notifications when available
+  </Card>
+  
+  <Card title="Instant Sync" icon="rotate">
+    Stay synchronized across all your devices
+  </Card>
+</CardGroup>
+
+## Infinite Loading
+
+The notification list loads in batches:
+
+- Initial load: 100 notifications
+- Automatic loading when scrolling to bottom
+- Smooth performance with thousands of notifications
+
+## Notification Preferences
+
+Your notification settings are automatically saved:
+
+- Task type filter
+- Task status filter
+- Type mode (comments, mentions, etc.)
+- Show comments toggle state
+- Status filter (read/unread)
+- Watching filter
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Regular Check-ins">
+    Review notifications multiple times per day to stay responsive to your team.
+  </Accordion>
+  
+  <Accordion title="Prioritize Mentions">
+    Use the "Only mentions" filter to see where you're specifically needed.
+  </Accordion>
+  
+  <Accordion title="Manage Read Status">
+    Mark notifications as read after addressing them to maintain a clean inbox.
+  </Accordion>
+  
+  <Accordion title="Use Filters">
+    Combine task type and notification type filters to focus on relevant alerts.
+  </Accordion>
+  
+  <Accordion title="Watch Important Tasks">
+    Get notifications for tasks you're watching, even if not assigned.
+  </Accordion>
+</AccordionGroup>
+
+## Task Watching
+
+Stay informed about tasks by watching them:
+
+- **Auto-watch**: Tasks you comment on are automatically watched
+- **Manual watch**: Explicitly watch tasks you want to track
+- **Filter by watch status**: See notifications only for watched tasks
+
+<Tip>
+  Use the watching filter to distinguish between notifications for your assigned tasks vs. tasks you're following.
+</Tip>
+
+## Mobile Responsiveness
+
+The notifications page adapts to smaller screens:
+
+- Responsive layout for mobile devices
+- Touch-friendly notification cards
+- Optimized scrolling and loading
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="News Feed" icon="newspaper" href="/collaboration/news-feed">
+    View all production activity in a timeline
+  </Card>
+  
+  <Card title="Comments" icon="comments" href="/collaboration/comments">
+    Learn about mentioning team members
+  </Card>
+</CardGroup>

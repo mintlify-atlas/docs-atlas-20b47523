@@ -1,0 +1,631 @@
+---
+title: Production Scheduling
+description: Create schedules, manage deadlines, and plan production timelines in Kitsu
+---
+
+## Overview
+
+Effective scheduling is critical for delivering on time and within budget. Kitsu provides comprehensive scheduling tools including Gantt charts, milestones, schedule versions, and dependency tracking.
+
+## Schedule Overview
+
+### Accessing Schedules
+
+From your production menu:
+
+1. Navigate to **Schedule**
+2. Select schedule type:
+   - Main Schedule: Overview of all work
+   - By Asset Type: Modeling, Rigging, etc.
+   - By Sequence: Shot-based schedules
+   - By Department: Team-specific views
+
+### Schedule Interface
+
+The schedule page displays:
+
+- **Timeline**: Horizontal date axis
+- **Tasks**: Bars showing duration and dates
+- **Milestones**: Key dates marked on timeline
+- **Today marker**: Current date indicator
+- **Zoom controls**: Adjust time scale (days, weeks, months)
+
+<Tip>
+Use the zoom controls to get different perspectives - zoom out for overall production view, zoom in for detailed daily planning.
+</Tip>
+
+## Creating Schedule Items
+
+### Understanding Schedule Items
+
+Schedule items represent planned work:
+
+- Linked to task types (Modeling, Animation, etc.)
+- Associated with entities (specific assets or shots)
+- Have start and end dates
+- Show estimated duration
+- Display assigned team members
+
+### Adding Schedule Items
+
+<Steps>
+  <Step title="Select schedule type">
+    Choose asset type, sequence, or main schedule
+  </Step>
+  
+  <Step title="Click 'Add Item'">
+    Opens schedule item creation form
+  </Step>
+  
+  <Step title="Select entity">
+    Choose the asset or shot to schedule
+  </Step>
+  
+  <Step title="Select task type">
+    Pick which pipeline stage you're scheduling
+  </Step>
+  
+  <Step title="Set dates">
+    - Start date: When work should begin
+    - End date: Deadline for completion
+    Or set duration and it calculates end date
+  </Step>
+  
+  <Step title="Assign team members">
+    (Optional) Pre-assign artists
+  </Step>
+  
+  <Step title="Save">
+    Item appears on schedule timeline
+  </Step>
+</Steps>
+
+### Bulk Schedule Creation
+
+Create many schedule items at once:
+
+1. Filter entities to schedule (e.g., all characters)
+2. Click **Bulk Add**
+3. Select task type (e.g., Modeling)
+4. Set start date or use staggered starts
+5. Set duration per item
+6. Confirm creation
+
+All items are added to the schedule.
+
+<Note>
+Bulk creation is efficient for applying standard durations across similar tasks, like scheduling modeling for all props.
+</Note>
+
+## Working with Schedule Items
+
+### Viewing Item Details
+
+Click a schedule item to see:
+
+- Entity name and thumbnail
+- Task type
+- Assigned team members
+- Estimated hours
+- Actual time logged (if work started)
+- Current task status
+- Comments and updates
+
+### Editing Schedule Items
+
+Modify existing items:
+
+1. Click the schedule item
+2. Edit form appears
+3. Change dates, duration, or assignments
+4. Save changes
+5. Timeline updates automatically
+
+### Drag to Reschedule
+
+Quickly adjust dates:
+
+- **Drag item left/right**: Change start date (duration stays same)
+- **Drag item edges**: Extend or shorten duration
+- Changes save automatically
+- Tasks update with new dates
+
+<Tip>
+Drag scheduling is fastest for quick adjustments. Use the edit form for precise date entry.
+</Tip>
+
+### Deleting Schedule Items
+
+1. Select the schedule item
+2. Click **Delete**
+3. Confirm removal
+4. Item is removed from schedule (tasks remain)
+
+<Warning>
+Deleting a schedule item doesn't delete the task - it only removes the schedule planning. The task itself remains in the production.
+</Warning>
+
+## Task Dates vs. Schedule Items
+
+### Understanding the Relationship
+
+**Schedule Items**:
+- Planning and forecasting tool
+- Created by producers/coordinators
+- Represents intended timeline
+- Can be adjusted without affecting tasks directly
+
+**Task Dates**:
+- Start and due dates on individual tasks
+- Used by artists for their work planning
+- Synced from schedule or set manually
+- Affects artist task lists and notifications
+
+### Syncing Schedule to Tasks
+
+When you create/edit schedule items:
+
+1. Schedule item dates can auto-update task dates
+2. Or you manually sync schedule to tasks
+3. Tasks then show proper deadlines for artists
+
+This ensures team sees accurate deadlines.
+
+### Manual Task Date Setting
+
+Alternatively, set task dates directly:
+
+1. Go to Asset or Shot page
+2. Select task(s)
+3. Set start and due dates in task panel
+4. Dates appear in artist task lists
+
+Schedule and task dates can be managed independently.
+
+## Milestones
+
+### What Are Milestones?
+
+Milestones mark critical dates:
+
+- **Delivery deadlines**: When work must be complete
+- **Client reviews**: Scheduled presentation dates
+- **Production phases**: Transition points
+- **Internal checkpoints**: Team reviews or approvals
+
+Milestones appear as vertical lines on the schedule.
+
+### Creating Milestones
+
+<Steps>
+  <Step title="Go to Schedule page">
+    Access any schedule view
+  </Step>
+  
+  <Step title="Click 'Add Milestone'">
+    Opens milestone creation form
+  </Step>
+  
+  <Step title="Enter milestone details">
+    - Name (e.g., "Animation Lock")
+    - Date
+    - Description/notes
+  </Step>
+  
+  <Step title="Choose milestone type">
+    - Delivery
+    - Review
+    - Internal deadline
+    - Phase transition
+  </Step>
+  
+  <Step title="Save">
+    Milestone appears on timeline
+  </Step>
+</Steps>
+
+### Milestone Types
+
+**Delivery Milestones**:
+- Final delivery to client
+- Episode completion
+- Asset batch delivery
+- Critical path deadlines
+
+**Review Milestones**:
+- Client review sessions
+- Director feedback
+- Dailies presentations
+- Approval checkpoints
+
+**Internal Milestones**:
+- Department handoffs
+- Phase completions
+- Technical milestones
+- Team targets
+
+### Working Backwards from Milestones
+
+Plan schedules in reverse:
+
+1. Set final delivery milestone
+2. Work backwards through pipeline:
+   - Delivery date minus time for final comp/delivery prep
+   - Minus time for lighting
+   - Minus time for animation
+   - Etc.
+3. This reveals when work must start
+4. Identifies if timeline is realistic
+
+<Tip>
+Backward planning from hard deadlines helps ensure you have adequate time for each pipeline stage and reveals schedule conflicts early.
+</Tip>
+
+## Schedule Versions
+
+### What Are Schedule Versions?
+
+Schedule versions save schedule snapshots:
+
+- Original baseline schedule
+- Revised schedules as plans change
+- Compare versions to see drift
+- Document schedule history
+
+### Creating a Schedule Version
+
+<Steps>
+  <Step title="Access Schedule Versions">
+    From schedule page menu
+  </Step>
+  
+  <Step title="Click 'New Version'">
+    Opens version creation form
+  </Step>
+  
+  <Step title="Name the version">
+    - E.g., "Initial Schedule", "Revised - Nov 2024"
+    - Include date or reason for version
+  </Step>
+  
+  <Step title="Add notes">
+    Describe what changed or why version was created
+  </Step>
+  
+  <Step title="Save">
+    Current schedule state is saved as a version
+  </Step>
+</Steps>
+
+### Comparing Versions
+
+1. Select two versions to compare
+2. View differences:
+   - Date changes (delays or advances)
+   - Added or removed items
+   - Assignment changes
+3. Analyze schedule drift
+4. Document reasons for changes
+
+### Version Best Practices
+
+Create versions for:
+
+- **Initial baseline**: First approved schedule
+- **Client changes**: After scope adjustments
+- **Major revisions**: Significant timeline shifts
+- **Milestones**: Before/after key dates
+- **Post-mortem**: Final as-delivered schedule
+
+<Note>
+Regular versioning helps you understand how schedules evolve and improves future planning accuracy.
+</Note>
+
+## Resource Planning
+
+### Team Capacity
+
+Calculate available resources:
+
+```
+Team capacity calculation:
+- Team size: Number of artists
+- Available hours/week: Hours per day × working days
+- Minus: Meetings, overhead, time off
+- Total capacity: Available hours for production work
+```
+
+**Example**:
+```
+5 animators
+× 8 hours/day
+× 5 days/week
+= 200 hours/week team capacity
+
+Minus:
+- 20 hours meetings
+- 10 hours overhead
+= 170 hours/week actual production time
+```
+
+### Workload Balancing
+
+Distribute work evenly:
+
+1. **Sum task estimations** per person
+2. **Compare to capacity** over schedule period
+3. **Identify overallocation**: Person has more work than time
+4. **Redistribute**: Move tasks to balance load
+
+### Resource Leveling
+
+Smooth out resource spikes:
+
+- Identify periods where too many tasks overlap
+- Shift non-critical tasks to avoid conflicts
+- Spread work across available time
+- Avoid burnout from sustained crunch
+
+<Warning>
+Overallocating team members leads to delays and quality issues. Schedule realistically based on actual capacity.
+</Warning>
+
+## Dependencies
+
+### Task Dependencies
+
+Some tasks must complete before others can start:
+
+**Common Dependencies**:
+- Modeling must finish before rigging starts
+- Layout must complete before animation begins
+- Animation must be done before lighting starts
+- All upstream tasks finish before final compositing
+
+### Scheduling with Dependencies
+
+When planning:
+
+1. **Identify dependency chains**
+   - What must happen in sequence?
+   - What can happen in parallel?
+
+2. **Schedule predecessor tasks first**
+   - Ensure upstream work completes on time
+   - Build buffer for reviews and retakes
+
+3. **Set dependent task dates based on predecessors**
+   - Dependent task starts after predecessor ends
+   - Include handoff/review time
+
+4. **Monitor critical path**
+   - Chain of dependent tasks with no slack
+   - Delays here delay entire production
+
+### Critical Path Management
+
+The critical path is the longest chain of dependent tasks:
+
+- Determines minimum production duration
+- Has no schedule flexibility
+- Delays directly impact delivery date
+
+**Managing Critical Path**:
+- Identify critical path tasks
+- Prioritize these above all else
+- Add resources if falling behind
+- Monitor daily for delays
+- Build in buffer time
+
+<Tip>
+Focus management attention on critical path tasks. Non-critical tasks have slack and can absorb minor delays without impacting delivery.
+</Tip>
+
+## Schedule Monitoring
+
+### Tracking Progress
+
+Regularly check schedule adherence:
+
+**Daily**:
+- Review tasks starting/ending today
+- Check for overdue items
+- Identify blocked work
+
+**Weekly**:
+- Compare plan vs. actual progress
+- Update schedule for any changes
+- Communicate delays or advances
+
+**Monthly**:
+- Review overall timeline health
+- Update milestones if needed
+- Report to stakeholders
+
+### Schedule Indicators
+
+**Green Flags** (on track):
+- Tasks completing on or before due dates
+- No overdue items
+- Resources well-utilized
+- Milestones being hit
+
+**Yellow Flags** (watch closely):
+- Some tasks running late
+- Resource constraints emerging
+- Minor milestone slips
+- Increasing retake rates
+
+**Red Flags** (intervention needed):
+- Many overdue tasks
+- Critical path delays
+- Major milestone at risk
+- Team overallocated
+- Quality suffering due to schedule pressure
+
+### Addressing Schedule Issues
+
+<Steps>
+  <Step title="Identify the problem">
+    What's causing the delay? Resource shortage? Scope creep? Technical issues?
+  </Step>
+  
+  <Step title="Assess impact">
+    Does this affect critical path? Which milestones are at risk?
+  </Step>
+  
+  <Step title="Develop options">
+    - Add resources
+    - Reduce scope
+    - Extend deadline
+    - Reorganize workflow
+  </Step>
+  
+  <Step title="Make decision">
+    Choose best option based on constraints and priorities
+  </Step>
+  
+  <Step title="Update schedule">
+    Revise dates, create new schedule version, communicate changes
+  </Step>
+  
+  <Step title="Monitor results">
+    Track whether intervention was effective
+  </Step>
+</Steps>
+
+## Schedule Reporting
+
+### Status Reports
+
+Generate regular schedule reports:
+
+**Weekly Status**:
+- Tasks completed this week
+- Tasks due next week
+- Overdue items
+- Resource utilization
+- Risk areas
+
+**Milestone Reports**:
+- Progress toward next milestone
+- Tasks remaining
+- Projected completion date
+- Confidence level (on track / at risk / off track)
+
+**Executive Summary**:
+- Overall production percentage complete
+- Key milestones and status
+- Major risks or issues
+- Resource needs
+- Budget status
+
+### Visual Reports
+
+Export schedule visuals:
+
+- **Gantt chart screenshots**: Timeline overview
+- **Burndown charts**: Remaining work over time
+- **Progress curves**: Planned vs. actual completion
+- **Resource histograms**: Team utilization
+
+### Stakeholder Communication
+
+Tailor reports for audience:
+
+**For clients**:
+- Milestone dates and status
+- Delivery timeline
+- Review session scheduling
+- High-level progress
+
+**For management**:
+- Budget and schedule variance
+- Resource utilization
+- Risk factors
+- Mitigation plans
+
+**For production team**:
+- Detailed task deadlines
+- Priority focus areas
+- Resource assignments
+- Technical dependencies
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Plan realistically">
+    - Use historical data for estimates
+    - Include buffer time for reviews and revisions
+    - Account for holidays and time off
+    - Don't schedule at 100% capacity
+  </Accordion>
+  
+  <Accordion title="Build in contingency">
+    - Add 10-20% buffer to estimates
+    - Identify high-risk tasks and add extra time
+    - Have backup plans for critical path items
+    - Maintain resource reserves
+  </Accordion>
+  
+  <Accordion title="Communicate schedule clearly">
+    - Share schedule with entire team
+    - Explain priorities and critical path
+    - Update regularly and notify of changes
+    - Make schedule easily accessible
+  </Accordion>
+  
+  <Accordion title="Monitor actively">
+    - Track progress daily
+    - Address delays immediately
+    - Don't let small slips become big problems
+    - Adjust proactively, not reactively
+  </Accordion>
+  
+  <Accordion title="Document changes">
+    - Create schedule versions for major revisions
+    - Note reasons for changes
+    - Learn from schedule drift for future projects
+  </Accordion>
+</AccordionGroup>
+
+## Advanced Scheduling
+
+### Automated Scheduling
+
+Some organizations implement:
+
+- Auto-calculation of dates based on dependencies
+- Resource leveling algorithms
+- Critical path optimization
+- Schedule risk analysis
+
+### Integration with External Tools
+
+Kitsu can integrate with:
+
+- Project management software
+- Calendar systems
+- Resource management tools
+- Financial planning systems
+
+### Custom Schedule Views
+
+Create tailored views:
+
+- Department-specific schedules
+- Shot-based vs. asset-based views
+- Resource allocation matrices
+- Multi-production overviews
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Production Overview" icon="tv" href="/guides/producer/production-overview">
+    Set up and manage production structure
+  </Card>
+  
+  <Card title="Budgeting" icon="dollar-sign" href="/guides/producer/budgeting">
+    Track costs, time, and resource allocation
+  </Card>
+</CardGroup>

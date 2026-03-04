@@ -1,0 +1,351 @@
+---
+title: Status Automations
+description: Automate workflows with status change triggers
+---
+
+## Overview
+
+Status Automations enable you to create automated workflows that trigger when tasks reach specific statuses. This powerful feature helps streamline production by automatically updating dependent tasks, eliminating manual steps, and ensuring consistency across your pipeline.
+
+## Accessing Status Automations
+
+Navigate to the **Status Automations** page from the main administration menu to view and manage automation rules.
+
+## Status Automation Tabs
+
+The Status Automations page has two tabs:
+
+- **Active**: Currently active automation rules
+- **Archived**: Previously archived automation rules
+
+## How Status Automations Work
+
+Status automations follow a simple "when-then" logic:
+
+**When** a task of a specific type reaches a specific status...
+**Then** automatically update a related task's status or ready-for state.
+
+This creates cascading workflows where completing one task automatically triggers updates to downstream tasks.
+
+## Creating a Status Automation
+
+<Steps>
+  <Step title="Click New Status Automation">
+    Click the **New status automation** button in the top-right corner.
+  </Step>
+  
+  <Step title="Configure Input Trigger">
+    Set the conditions that trigger the automation:
+    
+    **Entity Type**: Choose the entity type this applies to:
+    - Asset
+    - Shot
+    - Sequence
+    - Edit
+    - Episode
+    
+    **Input Task Type**: Select the task type to monitor (e.g., "Modeling")
+    
+    **Input Task Status**: Select the status that triggers the automation (e.g., "Done", "Approved")
+  </Step>
+  
+  <Step title="Configure Output Action">
+    Define what happens when triggered:
+    
+    **Output Field Type**: Choose what to change:
+    - **Status**: Change the status of another task
+    - **Ready For**: Mark another task as ready to start
+    
+    **Output Task Type**: Select which task type to update (e.g., "Rigging")
+    
+    **Output Task Status**: If changing status, select the new status (e.g., "Ready")
+    
+    **Import Last Revision**: Check to copy the latest file revision to the output task
+  </Step>
+  
+  <Step title="Save">
+    Click **Confirm** to create the automation.
+  </Step>
+</Steps>
+
+<Note>
+  Status automations only work when the output task type comes after the input task type in your production pipeline hierarchy.
+</Note>
+
+## Entity Types
+
+Status automations can be configured for different entity types:
+
+### Asset
+Automations apply to asset production tasks (modeling, texturing, rigging, etc.).
+
+### Shot
+Automations apply to shot production tasks (animation, lighting, compositing, etc.).
+
+### Sequence
+Automations apply to sequence-level tasks.
+
+### Edit
+Automations apply to edit tasks.
+
+### Episode
+Automations apply to episode-level tasks.
+
+## Output Field Types
+
+### Status
+Changes the status of the output task when triggered.
+
+**Example**: When Animation is marked "Done", automatically set Lighting to "Ready to Start".
+
+### Ready For
+Marks the output task as ready to begin work, without changing its status.
+
+**Example**: When Modeling is "Approved", mark the asset as ready for Rigging.
+
+<Info>
+  Use "Ready For" when you want to signal that a task can begin without forcing a specific status.
+</Info>
+
+## Import Last Revision
+
+When enabled, this option automatically copies the most recent file revision from the input task to the output task.
+
+**Benefits**:
+- Ensures downstream tasks have the latest approved files
+- Eliminates manual file copying
+- Maintains version history
+- Reduces errors from using outdated files
+
+<Tip>
+  Enable "Import Last Revision" for linear workflows where each department builds on the previous department's work.
+</Tip>
+
+## Editing Status Automations
+
+To modify an existing automation:
+
+1. Click the **Edit** button next to the automation
+2. Update any of the following:
+   - Entity type
+   - Input task type or status
+   - Output field type
+   - Output task type or status
+   - Import last revision setting
+3. Click **Confirm** to save changes
+
+<Warning>
+  Changes to status automations take effect immediately and will apply to future status changes.
+</Warning>
+
+## Archiving Status Automations
+
+Instead of deleting automations, archive them:
+
+1. Edit the automation
+2. Check the **Archived** option
+3. Save the changes
+
+Archived automations:
+- No longer trigger on status changes
+- Remain in the system for reference
+- Can be reactivated if needed
+- Accessible via the "Archived" tab
+
+## Deleting Status Automations
+
+To permanently remove an automation:
+
+1. Click the **Delete** button next to the automation
+2. Confirm the deletion
+3. The automation will be permanently removed
+
+<Warning>
+  Deleted automations cannot be recovered. Consider archiving instead.
+</Warning>
+
+## Automation Priority and Order
+
+When multiple automations could trigger:
+
+1. Automations are processed in the order they were created
+2. All applicable automations will execute
+3. If automations conflict, the last one wins
+
+<Note>
+  Carefully design your automations to avoid conflicts or circular dependencies.
+</Note>
+
+## Disabled Automations
+
+An automation is considered disabled if:
+
+- The output task type doesn't come after the input task type in the pipeline
+- The task types don't exist in the current production
+- The automation uses "Status" output but the task type priorities are incorrect
+
+Disabled automations are highlighted in the interface but not automatically deleted.
+
+## Exporting Status Automations
+
+Export automation rules to CSV:
+
+1. Ensure you're on the **Active** tab
+2. Click the **Export** button
+3. Download the CSV file containing:
+   - Entity type
+   - Input task type
+   - Input task status
+   - Output field type
+   - Output task type
+   - Output task status
+   - Import last revision setting
+
+## Common Automation Workflows
+
+<CardGroup cols={2}>
+  <Card title="Asset Pipeline" icon="cube">
+    **Modeling → Texturing**
+    - When: Modeling is Done
+    - Then: Set Texturing to Ready to Start
+    - Import: Last model revision
+    
+    **Texturing → Rigging**
+    - When: Texturing is Approved
+    - Then: Set Rigging to Ready to Start
+    - Import: Last texture revision
+    
+    **Rigging → Animation**
+    - When: Rigging is Approved
+    - Then: Mark ready for Animation
+    - Import: Last rig revision
+  </Card>
+  
+  <Card title="Shot Pipeline" icon="film">
+    **Layout → Animation**
+    - When: Layout is Approved
+    - Then: Set Animation to Ready to Start
+    - Import: Last layout revision
+    
+    **Animation → Lighting**
+    - When: Animation is Done
+    - Then: Set Lighting to Ready to Start
+    - Import: Last animation cache
+    
+    **Lighting → Compositing**
+    - When: Lighting is Approved
+    - Then: Set Compositing to Ready to Start
+    - Import: Last render passes
+  </Card>
+</CardGroup>
+
+## Example Configurations
+
+### Auto-Start Texturing After Modeling
+
+```yaml
+Entity Type: Asset
+Input Task Type: Modeling
+Input Task Status: Done
+Output Field Type: Status
+Output Task Type: Texturing
+Output Task Status: Ready to Start
+Import Last Revision: Yes
+```
+
+### Ready Lighting After Animation
+
+```yaml
+Entity Type: Shot
+Input Task Type: Animation
+Input Task Status: Approved
+Output Field Type: Ready For
+Output Task Type: Lighting
+Import Last Revision: Yes
+```
+
+### Chain Compositing After Lighting
+
+```yaml
+Entity Type: Shot
+Input Task Type: Lighting
+Input Task Status: Done
+Output Field Type: Status
+Output Task Type: Compositing
+Output Task Status: Ready to Start
+Import Last Revision: Yes
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Design Your Workflow">
+    - Map out your production pipeline before creating automations
+    - Ensure task type priorities are correctly configured
+    - Start with simple automations and add complexity gradually
+    - Document your automation logic for team members
+  </Accordion>
+  
+  <Accordion title="Avoid Conflicts">
+    - Don't create circular automation loops
+    - Review existing automations before adding new ones
+    - Test automations in a development project first
+    - Use specific status names to avoid unintended triggers
+  </Accordion>
+  
+  <Accordion title="Maintain Automations">
+    - Regularly review and update automation rules
+    - Archive outdated automations instead of deleting
+    - Export configurations for backup
+    - Monitor automation effects on production flow
+  </Accordion>
+  
+  <Accordion title="File Revision Management">
+    - Enable "Import Last Revision" for linear workflows
+    - Ensure artists publish work before marking tasks as done
+    - Verify file paths and naming conventions are consistent
+    - Test revision imports thoroughly
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+### Automation Isn't Triggering
+
+- Verify the input task type and status match exactly
+- Check that the automation is active (not archived)
+- Ensure task type priorities are correctly set
+- Confirm the entity type matches (Asset vs. Shot)
+- Review the automation's "disabled" status
+
+### Wrong Task Getting Updated
+
+- Check output task type configuration
+- Verify entity type settings
+- Review for conflicting automations
+- Ensure task exists on the entity
+
+### Files Not Importing
+
+- Verify "Import Last Revision" is enabled
+- Check that a file revision exists on the input task
+- Ensure file paths are accessible
+- Review file storage permissions
+- Check file format compatibility
+
+## Performance Considerations
+
+<Warning>
+  Too many complex automations can slow down task status updates. Keep automations simple and focused.
+</Warning>
+
+- Limit cascading automation chains to 3-4 levels
+- Avoid automations that trigger on every status change
+- Use specific statuses rather than generic ones
+- Monitor system performance after adding automations
+
+## Related Pages
+
+- [Custom Actions](/admin/custom-actions) - Extend Kitsu with custom integrations
+- [Task Status](/tasks/task-status) - Configure task statuses
+- [Task Types](/tasks/task-types) - Set up task types and priorities

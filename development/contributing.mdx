@@ -1,0 +1,267 @@
+---
+title: 'Contributing'
+description: 'Learn how to contribute to the Kitsu project'
+icon: 'code-pull-request'
+---
+
+## Ways to Contribute
+
+There are many ways to help the Kitsu project grow and improve:
+
+<CardGroup cols={2}>
+  <Card title="Spread the Word" icon="bullhorn">
+    Help make Kitsu more visible
+  </Card>
+  <Card title="Report Bugs" icon="bug">
+    Help us identify and fix issues
+  </Card>
+  <Card title="Request Features" icon="lightbulb">
+    Suggest new capabilities
+  </Card>
+  <Card title="Contribute Code" icon="code">
+    Submit pull requests
+  </Card>
+  <Card title="Improve Documentation" icon="book">
+    Help others learn Kitsu
+  </Card>
+  <Card title="Translate" icon="language">
+    Make Kitsu available in more languages
+  </Card>
+</CardGroup>
+
+## Spread the Word
+
+Helping to increase Kitsu's visibility doesn't take much time and makes a big difference:
+
+- Star the [GitHub repository](https://github.com/cgwire/kitsu)
+- Follow on [X/Twitter](https://x.com/cgwirekitsu)
+- Follow on [LinkedIn](https://www.linkedin.com/company/cgwire/)
+- Download the [trial Docker image](https://hub.docker.com/r/cgwire/cgwire)
+- Attend [meetups](https://www.meetup.com/Infrastructure-et-film-danimation/)
+- Organize a Kitsu meetup in your area
+- Write social media posts about Kitsu
+- Write blog posts about your experience
+- Tell colleagues and friends about Kitsu
+
+## Join the Community
+
+Connect with other Kitsu users and developers:
+
+<Card title="Kitsu Community Discord" icon="discord" href="https://discord.com/invite/VbCxtKN">
+  Join our Discord server for community support, discussions about pipelines, and to meet other users. Everyone is welcome!
+</Card>
+
+## Report Bugs
+
+If you find an issue with Kitsu:
+
+1. Check if the issue already exists in [GitHub Issues](https://github.com/cgwire/kitsu/issues)
+2. If not, create a new issue with:
+   - Clear description of the problem
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Screenshots if applicable
+   - Your environment (OS, browser, Kitsu version)
+
+<Card title="Report a Bug" icon="github" href="https://github.com/cgwire/kitsu/issues">
+  Submit bug reports on GitHub
+</Card>
+
+## Request Features
+
+We use Canny to manage feature requests:
+
+- Browse existing feature requests
+- Vote for features you'd like to see
+- Post new feature ideas
+- Discuss implementation details
+
+<Card title="Feature Requests" icon="lightbulb" href="https://cgwire.canny.io/">
+  Post and vote on feature requests
+</Card>
+
+## Code Contributions
+
+### Prerequisites
+
+Before contributing code, we recommend:
+
+<Steps>
+  <Step title="Learn ES6 Syntax">
+    Kitsu uses modern JavaScript (ES6+). Familiarize yourself with arrow functions, destructuring, async/await, and other ES6 features.
+  </Step>
+  
+  <Step title="Read Vue.js Documentation">
+    Understanding Vue.js fundamentals is essential. Read at least the main chapters of the [Vue.js documentation](https://vuejs.org/guide/).
+  </Step>
+  
+  <Step title="Understand Vuex">
+    Learn how Vuex works for state management. Review the [Vuex documentation](https://vuex.vuejs.org).
+  </Step>
+  
+  <Step title="Set Up Development Environment">
+    Follow the [environment setup guide](/development/environment-setup) to get your local development environment running.
+  </Step>
+</Steps>
+
+### C4 Contract
+
+All code contributions must respect the [C4 contract](https://rfc.zeromq.org/spec:42/C4) (Collective Code Construction Contract). This ensures:
+
+- Open and collaborative development
+- Clear contribution process
+- Respectful communication
+- Maintainable codebase
+
+### Finding Issues to Work On
+
+Good places to start:
+
+- [GitHub Issues](https://github.com/cgwire/kitsu/issues) - Look for issues labeled "good first issue" or "help wanted"
+- [Feature Requests](https://cgwire.canny.io/) - Popular feature requests on Canny
+- Bug fixes from your own testing
+
+### Contribution Workflow
+
+<Steps>
+  <Step title="Fork and Clone">
+    Fork the repository on GitHub, then clone your fork:
+    ```bash
+    git clone https://github.com/YOUR_USERNAME/kitsu.git
+    cd kitsu
+    ```
+  </Step>
+  
+  <Step title="Create a Branch">
+    Create a feature branch for your changes:
+    ```bash
+    git checkout -b feature/my-new-feature
+    ```
+  </Step>
+  
+  <Step title="Make Your Changes">
+    Write your code following the [code guidelines](/development/code-guidelines).
+  </Step>
+  
+  <Step title="Test Your Changes">
+    Ensure your changes work correctly:
+    ```bash
+    npm run test
+    npm run lint
+    ```
+  </Step>
+  
+  <Step title="Commit Your Changes">
+    Write clear commit messages:
+    ```bash
+    git add .
+    git commit -m "Add feature: description of changes"
+    ```
+  </Step>
+  
+  <Step title="Push and Create PR">
+    Push your branch and create a pull request:
+    ```bash
+    git push origin feature/my-new-feature
+    ```
+    Then open a pull request on GitHub with a clear description of your changes.
+  </Step>
+</Steps>
+
+### Pull Request Guidelines
+
+When creating a pull request:
+
+<AccordionGroup>
+  <Accordion title="Write a Clear Title">
+    Use a descriptive title that summarizes the change:
+    - "Fix: Correct task comment sorting"
+    - "Feature: Add batch asset export"
+    - "Refactor: Improve task list performance"
+  </Accordion>
+  
+  <Accordion title="Describe Your Changes">
+    Include in the description:
+    - What problem does this solve?
+    - How does it work?
+    - Any breaking changes?
+    - Screenshots for UI changes
+  </Accordion>
+  
+  <Accordion title="Link Related Issues">
+    Reference related issues:
+    ```markdown
+    Fixes #123
+    Related to #456
+    ```
+  </Accordion>
+  
+  <Accordion title="Keep PRs Focused">
+    - One feature or fix per PR
+    - Avoid mixing unrelated changes
+    - Keep changes reviewable (< 500 lines when possible)
+  </Accordion>
+</AccordionGroup>
+
+## Improve Documentation
+
+Documentation improvements are always welcome! You can contribute to:
+
+- **Kitsu**: [github.com/cgwire/kitsu/tree/docs](https://github.com/cgwire/kitsu/tree/docs)
+- **Zou** (API): [github.com/cgwire/zou/tree/docs](https://github.com/cgwire/zou/tree/docs)
+- **Gazu** (Python client): [github.com/cgwire/gazu/tree/docs](https://github.com/cgwire/gazu/tree/docs)
+
+Documentation contributions include:
+- Fixing typos and grammar
+- Adding missing information
+- Creating tutorials and guides
+- Improving code examples
+- Adding diagrams and screenshots
+
+## Technology Stack
+
+Kitsu is built with:
+
+- **Frontend**: JavaScript (ES6+), Vue.js 3, Vuex, Vue Router
+- **Build Tool**: Vite
+- **API Communication**: Superagent
+- **Real-time**: Socket.io
+- **CSS**: Bulma framework
+- **Testing**: Vitest, Vue Test Utils
+
+<Card title="Architecture Guide" icon="sitemap" href="/development/architecture">
+  Learn more about Kitsu's architecture
+</Card>
+
+## Code Review Process
+
+After submitting a pull request:
+
+1. **Automated Checks** - ESLint and tests run automatically
+2. **Code Review** - Maintainers review your code
+3. **Feedback** - You may receive requests for changes
+4. **Approval** - Once approved, your PR will be merged
+5. **Release** - Your contribution will be included in the next release
+
+<Tip>
+Be patient and responsive during code review. Maintainers may have questions or suggestions to improve your contribution.
+</Tip>
+
+## Recognition
+
+All contributors are recognized:
+- Listed in GitHub contributors
+- Mentioned in release notes for significant contributions
+- Part of the Kitsu community
+
+## Getting Help
+
+If you need help with your contribution:
+
+- Ask in the [Discord community](https://discord.com/invite/VbCxtKN)
+- Comment on the related GitHub issue
+- Reach out to maintainers
+
+<Card title="Code Guidelines" icon="code" href="/development/code-guidelines">
+  Read the code style guidelines before contributing
+</Card>

@@ -1,0 +1,569 @@
+---
+title: 'Code Guidelines'
+description: 'Code style and best practices for Kitsu development'
+icon: 'brackets-curly'
+---
+
+## Overview
+
+Following consistent code guidelines ensures maintainability and readability across the Kitsu codebase. These guidelines are enforced through ESLint and code review.
+
+## General Principles
+
+<CardGroup cols={2}>
+  <Card title="Readability First" icon="glasses">
+    Write code that others can easily understand
+  </Card>
+  <Card title="Consistency" icon="equals">
+    Follow existing patterns in the codebase
+  </Card>
+  <Card title="Simplicity" icon="wand-magic-sparkles">
+    Prefer simple solutions over clever ones
+  </Card>
+  <Card title="Performance" icon="gauge-high">
+    Be mindful of performance implications
+  </Card>
+</CardGroup>
+
+## Code Style
+
+### Line Length
+
+Keep lines under 80 characters when possible:
+
+<CodeGroup>
+```javascript Good
+const result = someFunction(
+  parameter1,
+  parameter2,
+  parameter3
+)
+```
+
+```javascript Avoid
+const result = someFunction(parameter1, parameter2, parameter3, parameter4, parameter5)
+```
+</CodeGroup>
+
+### ESLint Rules
+
+Respect the configured ESLint rules. Run the linter before committing:
+
+```bash
+npm run lint
+```
+
+Automatically fix issues when possible:
+
+```bash
+npm run lint:fix
+```
+
+### Object Field Ordering
+
+Always order object fields alphabetically:
+
+<CodeGroup>
+```javascript Good
+const task = {
+  assignees: [],
+  dueDate: '2024-01-15',
+  id: '123',
+  name: 'Animation',
+  status: 'wip'
+}
+```
+
+```javascript Avoid
+const task = {
+  name: 'Animation',
+  id: '123',
+  status: 'wip',
+  assignees: [],
+  dueDate: '2024-01-15'
+}
+```
+</CodeGroup>
+
+## Vue.js Guidelines
+
+### Component Structure
+
+Organize component sections in this order:
+
+```vue
+<template>
+  <!-- Template -->
+</template>
+
+<script>
+export default {
+  name: 'ComponentName',
+  
+  components: {},
+  mixins: [],
+  props: {},
+  
+  data() {
+    return {}
+  },
+  
+  computed: {},
+  watch: {},
+  
+  created() {},
+  mounted() {},
+  beforeUnmount() {},
+  
+  methods: {}
+}
+</script>
+
+<style lang="scss" scoped>
+/* Styles */
+</style>
+```
+
+### Component Naming
+
+Use PascalCase for component names:
+
+```javascript
+// Good
+export default {
+  name: 'TaskList'
+}
+
+// Avoid
+export default {
+  name: 'task-list'
+}
+```
+
+### Props Definition
+
+Always define props with type and validation:
+
+<CodeGroup>
+```javascript Good
+props: {
+  task: {
+    type: Object,
+    required: true
+  },
+  editable: {
+    type: Boolean,
+    default: false
+  },
+  maxItems: {
+    type: Number,
+    default: 10,
+    validator: value => value > 0
+  }
+}
+```
+
+```javascript Avoid
+props: ['task', 'editable', 'maxItems']
+```
+</CodeGroup>
+
+### Template Syntax
+
+Use shorthand directives:
+
+<CodeGroup>
+```vue Good
+<button @click="handleClick" :disabled="isLoading">
+  {{ buttonText }}
+</button>
+```
+
+```vue Avoid
+<button v-on:click="handleClick" v-bind:disabled="isLoading">
+  {{ buttonText }}
+</button>
+```
+</CodeGroup>
+
+## Vuex Guidelines
+
+### State Management
+
+<Warning>
+Use Vuex state only when necessary. Vuex creates performance overhead - prefer local component state when possible.
+</Warning>
+
+**Use Vuex when:**
+- State is shared across multiple components
+- State persists across route changes
+- Real-time updates affect multiple views
+
+**Use local state when:**
+- State is only used in one component
+- State is temporary (e.g., modal visibility)
+- Performance is critical
+
+### Always Use Actions for API Calls
+
+<CodeGroup>
+```javascript Good
+// In Vuex action
+actions: {
+  async loadTasks({ commit }, productionId) {
+    const tasks = await tasksApi.getTasks({ productionId })
+    commit(LOAD_TASKS_END, tasks)
+    return tasks
+  }
+}
+
+// In component
+methods: {
+  ...mapActions(['loadTasks']),
+  
+  async mounted() {
+    await this.loadTasks(this.productionId)
+  }
+}
+```
+
+```javascript Avoid
+// In component - don't call API directly
+import tasksApi from '@/store/api/tasks'
+
+methods: {
+  async mounted() {
+    const tasks = await tasksApi.getTasks({ productionId })
+    // Missing state update
+  }
+}
+```
+</CodeGroup>
+
+### Mutation Types
+
+Use constants for mutation types:
+
+```javascript
+// mutation-types.js
+export const LOAD_TASKS_END = 'LOAD_TASKS_END'
+export const UPDATE_TASK = 'UPDATE_TASK'
+
+// In module
+import { LOAD_TASKS_END, UPDATE_TASK } from '@/store/mutation-types'
+
+const mutations = {
+  [LOAD_TASKS_END](state, tasks) {
+    state.tasks = tasks
+  },
+  [UPDATE_TASK](state, task) {
+    const index = state.tasks.findIndex(t => t.id === task.id)
+    if (index >= 0) {
+      state.tasks[index] = task
+    }
+  }
+}
+```
+
+### Getters for Derived State
+
+Don't store computed values in state:
+
+<CodeGroup>
+```javascript Good
+const getters = {
+  tasks: state => Array.from(state.taskMap.values()),
+  openTasks: (state, getters) => {
+    return getters.tasks.filter(t => t.status !== 'done')
+  },
+  taskById: state => id => state.taskMap.get(id)
+}
+```
+
+```javascript Avoid
+const state = {
+  tasks: [],
+  openTasks: [], // Don't store derived data
+  taskMap: new Map()
+}
+```
+</CodeGroup>
+
+## JavaScript Guidelines
+
+### Use Modern ES6+ Syntax
+
+<CodeGroup>
+```javascript Good
+// Arrow functions
+const double = x => x * 2
+
+// Destructuring
+const { name, status } = task
+
+// Template literals
+const message = `Task ${name} is ${status}`
+
+// Spread operator
+const newTask = { ...task, status: 'done' }
+
+// Async/await
+async function loadData() {
+  const data = await api.getData()
+  return data
+}
+```
+
+```javascript Avoid
+// Old function syntax
+var double = function(x) { return x * 2 }
+
+// String concatenation
+var message = 'Task ' + name + ' is ' + status
+
+// Promises without async/await
+function loadData() {
+  return api.getData().then(function(data) {
+    return data
+  })
+}
+```
+</CodeGroup>
+
+### Null Safety
+
+Use optional chaining and nullish coalescing:
+
+```javascript
+// Optional chaining
+const assigneeName = task?.assignees?.[0]?.name
+
+// Nullish coalescing
+const status = task.status ?? 'unknown'
+
+// Default parameters
+function greet(name = 'Guest') {
+  return `Hello, ${name}`
+}
+```
+
+### Array Methods
+
+Prefer declarative array methods:
+
+<CodeGroup>
+```javascript Good
+const openTasks = tasks.filter(t => t.status !== 'done')
+const taskNames = tasks.map(t => t.name)
+const hasWipTasks = tasks.some(t => t.status === 'wip')
+const total = tasks.reduce((sum, t) => sum + t.duration, 0)
+```
+
+```javascript Avoid
+const openTasks = []
+for (let i = 0; i < tasks.length; i++) {
+  if (tasks[i].status !== 'done') {
+    openTasks.push(tasks[i])
+  }
+}
+```
+</CodeGroup>
+
+## Performance Guidelines
+
+### Minimize Watchers
+
+Prefer computed properties over watchers:
+
+<CodeGroup>
+```javascript Good
+computed: {
+  fullName() {
+    return `${this.firstName} ${this.lastName}`
+  }
+}
+```
+
+```javascript Avoid
+data() {
+  return {
+    fullName: ''
+  }
+},
+watch: {
+  firstName() {
+    this.fullName = `${this.firstName} ${this.lastName}`
+  },
+  lastName() {
+    this.fullName = `${this.firstName} ${this.lastName}`
+  }
+}
+```
+</CodeGroup>
+
+### Use v-show vs v-if Wisely
+
+```vue
+<!-- Use v-if for rarely toggled content -->
+<modal v-if="isModalOpen">
+  <expensive-component />
+</modal>
+
+<!-- Use v-show for frequently toggled content -->
+<div v-show="isVisible">
+  <simple-content />
+</div>
+```
+
+### Lazy Load Components
+
+For large components, use dynamic imports:
+
+```javascript
+const HeavyComponent = () => import('@/components/HeavyComponent.vue')
+
+export default {
+  components: {
+    HeavyComponent
+  }
+}
+```
+
+## Testing Guidelines
+
+Write tests for:
+- Vuex getters, actions, and mutations
+- Utility functions
+- Complex component logic
+
+```javascript
+import { describe, it, expect } from 'vitest'
+import { sortByName } from '@/lib/sorting'
+
+describe('sortByName', () => {
+  it('sorts items alphabetically by name', () => {
+    const items = [
+      { name: 'Charlie' },
+      { name: 'Alice' },
+      { name: 'Bob' }
+    ]
+    const sorted = sortByName(items)
+    expect(sorted[0].name).toBe('Alice')
+    expect(sorted[2].name).toBe('Charlie')
+  })
+})
+```
+
+## Comments and Documentation
+
+### When to Comment
+
+<Tabs>
+  <Tab title="Good Comments">
+    ```javascript
+    // Calculate weighted average based on task priority
+    const weightedAverage = tasks.reduce((sum, task) => {
+      return sum + (task.duration * task.priority)
+    }, 0) / totalPriority
+
+    // HACK: Workaround for Safari rendering bug
+    // TODO: Remove when Safari 17 is minimum version
+    if (isSafari) {
+      element.style.transform = 'translateZ(0)'
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Avoid">
+    ```javascript
+    // Bad: Stating the obvious
+    // Increment counter
+    counter++
+
+    // Bad: Outdated comment
+    // Get tasks from API (actually gets from cache now)
+    const tasks = await this.loadTasks()
+    ```
+  </Tab>
+</Tabs>
+
+### JSDoc for Complex Functions
+
+```javascript
+/**
+ * Calculates the weighted average of task durations
+ * @param {Array<Object>} tasks - Array of task objects
+ * @param {string} weightField - Field name to use for weighting
+ * @returns {number} Weighted average duration
+ */
+function calculateWeightedAverage(tasks, weightField) {
+  // Implementation
+}
+```
+
+## Git Commit Messages
+
+Write clear, descriptive commit messages:
+
+<CodeGroup>
+```bash Good
+Fix: Correct task sorting when status is null
+Feature: Add batch export for assets
+Refactor: Simplify task comment rendering
+Docs: Update API integration guide
+```
+
+```bash Avoid
+fixed bug
+changes
+wip
+```
+</CodeGroup>
+
+## Accessibility
+
+Ensure UI is accessible:
+
+```vue
+<!-- Use semantic HTML -->
+<button @click="submit">Submit</button>
+<!-- Not <div @click="submit">Submit</div> -->
+
+<!-- Add labels for form inputs -->
+<label for="task-name">Task Name</label>
+<input id="task-name" v-model="taskName" />
+
+<!-- Add alt text for images -->
+<img :src="thumbnail" :alt="task.name" />
+
+<!-- Use ARIA attributes when needed -->
+<div role="dialog" aria-labelledby="modal-title">
+  <h2 id="modal-title">{{ title }}</h2>
+</div>
+```
+
+## Code Review Checklist
+
+Before submitting a PR, verify:
+
+<Steps>
+  <Step title="Linting">
+    `npm run lint` passes without errors
+  </Step>
+  <Step title="Tests">
+    `npm run test` passes, new tests added if needed
+  </Step>
+  <Step title="Code Style">
+    Follows all guidelines in this document
+  </Step>
+  <Step title="Performance">
+    No obvious performance issues introduced
+  </Step>
+  <Step title="Documentation">
+    Complex logic is commented, README updated if needed
+  </Step>
+</Steps>
+
+<Card title="Contributing Guide" icon="code-pull-request" href="/development/contributing">
+  Ready to contribute? Read the full contributing guide
+</Card>

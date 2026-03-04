@@ -1,0 +1,537 @@
+---
+title: 'Entities API'
+description: 'Work with assets, shots, and other production entities'
+icon: 'cube'
+---
+
+## Overview
+
+Entities are the core building blocks in Kitsu: assets, shots, sequences, episodes, and edits. The entities API module (`src/store/api/entities.js`) provides methods for working with entity data.
+
+## Entity Types
+
+Kitsu supports several entity types:
+
+<CardGroup cols={2}>
+  <Card title="Assets" icon="cube">
+    Props, characters, environments, and other reusable elements
+  </Card>
+  <Card title="Shots" icon="film">
+    Individual shots within sequences
+  </Card>
+  <Card title="Sequences" icon="clapperboard">
+    Groups of related shots
+  </Card>
+  <Card title="Episodes" icon="tv">
+    Containers for sequences in episodic content
+  </Card>
+  <Card title="Edits" icon="scissors">
+    Editorial cuts and assemblies
+  </Card>
+  <Card title="Concepts" icon="lightbulb">
+    Concept art and early development work
+  </Card>
+</CardGroup>
+
+## Entity Operations
+
+### Get Entity News
+
+Retrieve activity feed (comments, status changes) for an entity:
+
+```javascript
+import entitiesApi from '@/store/api/entities'
+
+// Get entity activity
+const news = await entitiesApi.getEntityNews(entityId)
+
+// Returns array of news items
+[
+  {
+    id: '123',
+    type: 'comment',
+    created_at: '2024-01-15T10:30:00Z',
+    author_id: 'user-456',
+    task_id: 'task-789',
+    comment: 'Updated textures',
+    task_status_id: 'wip'
+  },
+  // ...
+]
+```
+
+In a Vuex action:
+
+```javascript
+actions: {
+  async loadEntityNews({ commit }, entityId) {
+    const news = await entitiesApi.getEntityNews(entityId)
+    commit(LOAD_ENTITY_NEWS_END, { entityId, news })
+    return news
+  }
+}
+```
+
+### Get Entity Preview Files
+
+Retrieve all preview files (renders, images, videos) for an entity:
+
+```javascript
+const previews = await entitiesApi.getEntityPreviewFiles(entityId)
+
+// Returns array of preview file objects
+[
+  {
+    id: 'preview-123',
+    extension: 'mp4',
+    revision: 3,
+    task_id: 'task-456',
+    created_at: '2024-01-15T14:20:00Z',
+    width: 1920,
+    height: 1080,
+    duration: 5.5,
+    file_size: 2048576
+  },
+  // ...
+]
+```
+
+Usage in component:
+
+```vue
+<script>
+export default {
+  computed: {
+    ...mapGetters(['entityPreviews'])
+  },
+  
+  methods: {
+    ...mapActions(['loadEntityPreviews']),
+    
+    async mounted() {
+      await this.loadEntityPreviews(this.entityId)
+    }
+  }
+}
+</script>
+```
+
+### Get Entity Time Logs
+
+Retrieve time tracking data for an entity:
+
+```javascript
+const timeLogs = await entitiesApi.getEntityTimeLogs(entityId)
+
+// Returns array of time log entries
+[
+  {
+    id: 'log-123',
+    task_id: 'task-456',
+    person_id: 'person-789',
+    duration: 180, // minutes
+    date: '2024-01-15'
+  },
+  // ...
+]
+```
+
+## Entity Chat
+
+Kitsu provides real-time chat functionality for entities:
+
+### Get User's Chats
+
+```javascript
+const chats = await entitiesApi.getEntityChats()
+
+// Returns user's active chats
+[
+  {
+    id: 'chat-123',
+    entity_id: 'asset-456',
+    entity_name: 'Hero Character',
+    last_message: 'Updated the rig',
+    last_message_date: '2024-01-15T15:30:00Z',
+    unread_count: 3
+  },
+  // ...
+]
+```
+
+### Get Chat for Specific Entity
+
+```javascript
+const chat = await entitiesApi.getChat(entityId)
+
+// Returns chat metadata
+{
+  id: 'chat-123',
+  entity_id: 'asset-456',
+  participants: ['user-1', 'user-2', 'user-3'],
+  created_at: '2024-01-10T09:00:00Z'
+}
+```
+
+### Get Chat Messages
+
+```javascript
+const messages = await entitiesApi.getChatMessages(entityId)
+
+// Returns array of messages
+[
+  {
+    id: 'msg-123',
+    chat_id: 'chat-456',
+    person_id: 'user-789',
+    message: 'The new textures look great!',
+    created_at: '2024-01-15T10:30:00Z',
+    attachments: []
+  },
+  // ...
+]
+```
+
+### Send Chat Message
+
+<Tabs>
+  <Tab title="Text Only">
+    ```javascript
+    const message = await entitiesApi.sendMessage(
+      entityId,
+      'Working on the final polish',
+      null // no attachments
+    )
+    ```
+  </Tab>
+  
+  <Tab title="With Attachments">
+    ```javascript
+    const attachments = [
+      new FormData().append('file', file1),
+      new FormData().append('file', file2)
+    ]
+
+    const message = await entitiesApi.sendMessage(
+      entityId,
+      'Here are the reference images',
+      attachments
+    )
+    ```
+  </Tab>
+  
+  <Tab title="In Component">
+    ```vue
+    <template>
+      <div class="chat">
+        <div v-for="msg in messages" :key="msg.id">
+          {{ msg.message }}
+        </div>
+        
+        <input v-model="newMessage" @keyup.enter="sendMessage" />
+        <input type="file" ref="fileInput" multiple />
+        <button @click="sendMessage">Send</button>
+      </div>
+    </template>
+
+    <script>
+    export default {
+      data() {
+        return {
+          newMessage: ''
+        }
+      },
+      
+      methods: {
+        async sendMessage() {
+          const files = this.$refs.fileInput.files
+          const attachments = files.length > 0
+            ? Array.from(files).map(file => {
+                const fd = new FormData()
+                fd.append('file', file)
+                return fd
+              })
+            : null
+          
+          await this.sendChatMessage({
+            entityId: this.entityId,
+            message: this.newMessage,
+            attachments
+          })
+          
+          this.newMessage = ''
+          this.$refs.fileInput.value = ''
+        }
+      }
+    }
+    </script>
+    ```
+  </Tab>
+</Tabs>
+
+### Join and Leave Chats
+
+```javascript
+// Join a chat (start receiving messages)
+await entitiesApi.joinChat(entityId)
+
+// Leave a chat (stop receiving messages)
+await entitiesApi.leaveChat(entityId)
+```
+
+### Delete Chat Message
+
+```javascript
+await entitiesApi.deleteMessage(entityId, messageId)
+```
+
+### Get Specific Message
+
+```javascript
+const message = await entitiesApi.getChatMessage(entityId, messageId)
+```
+
+## Complete Example: Entity Detail Page
+
+```vue
+<template>
+  <div class="entity-detail">
+    <h1>{{ entity.name }}</h1>
+    
+    <!-- Preview Gallery -->
+    <div class="previews">
+      <preview-card 
+        v-for="preview in previews" 
+        :key="preview.id"
+        :preview="preview"
+      />
+    </div>
+    
+    <!-- Activity Feed -->
+    <div class="news-feed">
+      <h2>Activity</h2>
+      <news-item 
+        v-for="item in news" 
+        :key="item.id"
+        :item="item"
+      />
+    </div>
+    
+    <!-- Time Tracking -->
+    <div class="time-logs">
+      <h2>Time Spent: {{ totalHours }} hours</h2>
+      <time-log-chart :logs="timeLogs" />
+    </div>
+    
+    <!-- Chat -->
+    <div class="chat">
+      <h2>Team Chat</h2>
+      <chat-messages :messages="messages" />
+      <chat-input @send="handleSendMessage" />
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters([
+      'entity',
+      'entityPreviews',
+      'entityNews',
+      'entityTimeLogs',
+      'entityChatMessages'
+    ]),
+    
+    entityId() {
+      return this.$route.params.id
+    },
+    
+    previews() {
+      return this.entityPreviews(this.entityId)
+    },
+    
+    news() {
+      return this.entityNews(this.entityId)
+    },
+    
+    timeLogs() {
+      return this.entityTimeLogs(this.entityId)
+    },
+    
+    messages() {
+      return this.entityChatMessages(this.entityId)
+    },
+    
+    totalHours() {
+      return this.timeLogs.reduce((sum, log) => {
+        return sum + (log.duration / 60)
+      }, 0).toFixed(1)
+    }
+  },
+  
+  methods: {
+    ...mapActions([
+      'loadEntity',
+      'loadEntityPreviews',
+      'loadEntityNews',
+      'loadEntityTimeLogs',
+      'loadChatMessages',
+      'joinChat',
+      'sendChatMessage'
+    ]),
+    
+    async handleSendMessage({ message, attachments }) {
+      await this.sendChatMessage({
+        entityId: this.entityId,
+        message,
+        attachments
+      })
+    }
+  },
+  
+  async mounted() {
+    // Load all entity data
+    await Promise.all([
+      this.loadEntity(this.entityId),
+      this.loadEntityPreviews(this.entityId),
+      this.loadEntityNews(this.entityId),
+      this.loadEntityTimeLogs(this.entityId),
+      this.loadChatMessages(this.entityId)
+    ])
+    
+    // Join chat for real-time updates
+    await this.joinChat(this.entityId)
+  },
+  
+  async beforeUnmount() {
+    // Leave chat when navigating away
+    await this.leaveChat(this.entityId)
+  }
+}
+</script>
+```
+
+## API Reference
+
+### entitiesApi Methods
+
+<ParamField path="getEntityNews" type="function">
+  Get activity feed for an entity
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  
+  **Returns:** Promise\<Array\> - Array of news items
+</ParamField>
+
+<ParamField path="getEntityPreviewFiles" type="function">
+  Get all preview files for an entity
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  
+  **Returns:** Promise\<Array\> - Array of preview file objects
+</ParamField>
+
+<ParamField path="getEntityTimeLogs" type="function">
+  Get time tracking data for an entity
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  
+  **Returns:** Promise\<Array\> - Array of time log entries
+</ParamField>
+
+<ParamField path="getEntityChats" type="function">
+  Get all chats for the current user
+  
+  **Returns:** Promise\<Array\> - Array of chat objects
+</ParamField>
+
+<ParamField path="getChat" type="function">
+  Get chat metadata for a specific entity
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  
+  **Returns:** Promise\<Object\> - Chat object
+</ParamField>
+
+<ParamField path="getChatMessages" type="function">
+  Get all messages in an entity's chat
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  
+  **Returns:** Promise\<Array\> - Array of message objects
+</ParamField>
+
+<ParamField path="sendMessage" type="function">
+  Send a message to an entity's chat
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  - `message` (string) - Message text
+  - `attachments` (Array\<FormData\> | null) - Optional file attachments
+  
+  **Returns:** Promise\<Object\> - Created message object
+</ParamField>
+
+<ParamField path="joinChat" type="function">
+  Join an entity's chat
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  
+  **Returns:** Promise\<void\>
+</ParamField>
+
+<ParamField path="leaveChat" type="function">
+  Leave an entity's chat
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  
+  **Returns:** Promise\<void\>
+</ParamField>
+
+<ParamField path="deleteMessage" type="function">
+  Delete a chat message
+  
+  **Parameters:**
+  - `entityId` (string) - Entity ID
+  - `messageId` (string) - Message ID
+  
+  **Returns:** Promise\<void\>
+</ParamField>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Load Data Efficiently" icon="bolt">
+    Use Promise.all() to load multiple entity data sources in parallel
+  </Card>
+  <Card title="Join/Leave Chats" icon="right-left">
+    Always join chats on mount and leave on unmount
+  </Card>
+  <Card title="Handle Real-time Updates" icon="tower-broadcast">
+    Subscribe to socket events for live entity updates
+  </Card>
+  <Card title="Cache Entity Data" icon="database">
+    Store entity data in Vuex to avoid redundant API calls
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Tasks API" icon="list-check" href="/api/tasks">
+    Learn about task and comment management
+  </Card>
+  <Card title="Files API" icon="file" href="/api/files">
+    Work with file uploads and previews
+  </Card>
+</CardGroup>

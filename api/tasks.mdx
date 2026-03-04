@@ -1,0 +1,749 @@
+---
+title: 'Tasks API'
+description: 'Manage tasks, comments, and previews'
+icon: 'list-check'
+---
+
+## Overview
+
+The tasks API (`src/store/api/tasks.js`) is one of the most comprehensive modules in Kitsu. It handles task management, commenting, preview uploads, assignments, and subscriptions.
+
+## Task Operations
+
+### Get Task
+
+Retrieve full task details including relations:
+
+```javascript
+import tasksApi from '@/store/api/tasks'
+
+const task = await tasksApi.getTask(taskId)
+
+// Returns complete task object
+{
+  id: 'task-123',
+  name: 'Animation',
+  entity_id: 'asset-456',
+  entity_name: 'Hero Character',
+  task_type_id: 'type-789',
+  task_type_name: 'Animation',
+  task_status_id: 'status-wip',
+  task_status_name: 'WIP',
+  assignees: ['user-1', 'user-2'],
+  start_date: '2024-01-10',
+  due_date: '2024-01-20',
+  estimation: 10, // days
+  duration: 7.5,  // actual days spent
+  retake_count: 1,
+  priority: 2
+}
+```
+
+### Get Tasks with Filters
+
+```javascript
+const tasks = await tasksApi.getTasks({
+  project_id: 'prod-123',
+  task_type_id: 'type-456',
+  task_status_id: 'status-wip'
+})
+
+// Returns array of task objects
+```
+
+### Get Open Tasks
+
+Retrieve tasks that are not done:
+
+```javascript
+const openTasks = await tasksApi.getOpenTasks({
+  project_id: 'prod-123',
+  person_id: 'user-456' // Optional: filter by assignee
+})
+```
+
+### Update Task
+
+```javascript
+const updated = await tasksApi.updateTask(taskId, {
+  task_status_id: 'status-done',
+  due_date: '2024-01-25',
+  priority: 1
+})
+```
+
+### Create Tasks
+
+Create tasks for multiple entities:
+
+```javascript
+const result = await tasksApi.createTasks({
+  project_id: 'prod-123',
+  task_type_id: 'type-animation',
+  type: 'assets', // 'assets', 'shots', 'sequences', 'episodes'
+  entityIds: ['asset-1', 'asset-2', 'asset-3']
+})
+```
+
+Create task for single entity:
+
+```javascript
+const task = await tasksApi.createTask({
+  project_id: 'prod-123',
+  task_type_id: 'type-animation',
+  type: 'assets',
+  entity_id: 'asset-456'
+})
+```
+
+### Delete Task
+
+```javascript
+await tasksApi.deleteTask(task)
+```
+
+### Delete Multiple Tasks
+
+```javascript
+// Delete specific tasks
+await tasksApi.deleteAllTasks(
+  projectId,
+  taskTypeId,
+  ['task-1', 'task-2', 'task-3']
+)
+
+// Delete all tasks of a type
+await tasksApi.deleteAllTasks(
+  projectId,
+  taskTypeId,
+  null // null means delete all
+)
+```
+
+## Comments
+
+### Get Task Comments
+
+```javascript
+const comments = await tasksApi.getTaskComments(taskId)
+
+// Returns array of comments
+[
+  {
+    id: 'comment-123',
+    object_id: 'task-456',
+    person_id: 'user-789',
+    task_status_id: 'status-wip',
+    text: 'Updated the animation timing',
+    created_at: '2024-01-15T10:30:00Z',
+    checklist: [],
+    pinned: false,
+    acknowledgements: [],
+    attachments: [],
+    previews: ['preview-1']
+  },
+  // ...
+]
+```
+
+### Add Comment
+
+<Tabs>
+  <Tab title="Text Only">
+    ```javascript
+    const comment = await tasksApi.commentTask({
+      taskId: 'task-123',
+      taskStatusId: 'status-wip',
+      comment: 'Looking good, just needs polish',
+      checklist: [],
+      links: []
+    })
+    ```
+  </Tab>
+  
+  <Tab title="With Attachments">
+    ```javascript
+    const formData1 = new FormData()
+    formData1.append('file', file1)
+    
+    const formData2 = new FormData()
+    formData2.append('file', file2)
+
+    const comment = await tasksApi.commentTask({
+      taskId: 'task-123',
+      taskStatusId: 'status-wip',
+      comment: 'Here are the reference images',
+      attachment: [formData1, formData2],
+      checklist: [],
+      links: []
+    })
+    ```
+  </Tab>
+  
+  <Tab title="With Checklist">
+    ```javascript
+    const comment = await tasksApi.commentTask({
+      taskId: 'task-123',
+      taskStatusId: 'status-wip',
+      comment: 'Review checklist',
+      checklist: [
+        { text: 'Check timing', checked: true },
+        { text: 'Check physics', checked: false },
+        { text: 'Check lighting', checked: false }
+      ],
+      links: []
+    })
+    ```
+  </Tab>
+</Tabs>
+
+### Comment Multiple Tasks
+
+Add the same comment to multiple tasks:
+
+```javascript
+const comments = await tasksApi.commentTasks(
+  projectId,
+  {
+    task_ids: ['task-1', 'task-2', 'task-3'],
+    task_status_id: 'status-approved',
+    comment: 'Batch approved'
+  }
+)
+```
+
+### Edit Comment
+
+```javascript
+const updated = await tasksApi.editTaskComment({
+  id: 'comment-123',
+  text: 'Updated comment text',
+  task_status_id: 'status-done',
+  checklist: [
+    { text: 'Item 1', checked: true }
+  ],
+  links: ['https://example.com/reference']
+})
+```
+
+### Delete Comment
+
+```javascript
+await tasksApi.deleteTaskComment(taskId, commentId)
+```
+
+### Pin/Unpin Comment
+
+```javascript
+await tasksApi.pinComment({
+  id: 'comment-123',
+  pinned: true // or false to unpin
+})
+```
+
+### Acknowledge Comment
+
+```javascript
+await tasksApi.ackComment(comment)
+```
+
+### Reply to Comment
+
+<Tabs>
+  <Tab title="Text Reply">
+    ```javascript
+    const reply = await tasksApi.replyToComment(
+      comment,
+      'Thanks for the feedback!',
+      null // no attachments
+    )
+    ```
+  </Tab>
+  
+  <Tab title="Reply with Attachments">
+    ```javascript
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const reply = await tasksApi.replyToComment(
+      comment,
+      'Here is the updated version',
+      [formData]
+    )
+    ```
+  </Tab>
+</Tabs>
+
+### Delete Reply
+
+```javascript
+await tasksApi.deleteReply(comment, reply)
+```
+
+### Add Attachment to Comment
+
+```javascript
+const formData1 = new FormData()
+formData1.append('file', file1)
+
+const formData2 = new FormData()
+formData2.append('file', file2)
+
+await tasksApi.addAttachmentToComment(
+  comment,
+  [formData1, formData2],
+  replyId // optional: attach to a reply
+)
+```
+
+### Delete Attachment
+
+```javascript
+await tasksApi.deleteAttachment(comment, attachment)
+```
+
+## Previews
+
+### Get Task Previews
+
+```javascript
+const previews = await tasksApi.getTaskPreviews(taskId)
+
+// Returns array of preview objects
+[
+  {
+    id: 'preview-123',
+    revision: 3,
+    task_id: 'task-456',
+    extension: 'mp4',
+    width: 1920,
+    height: 1080,
+    duration: 5.5,
+    file_size: 2048576,
+    annotations: []
+  },
+  // ...
+]
+```
+
+### Add Preview to Comment
+
+```javascript
+const preview = await tasksApi.addPreview({
+  taskId: 'task-123',
+  commentId: 'comment-456',
+  revision: 3
+})
+```
+
+### Upload Preview File
+
+```javascript
+const formData = new FormData()
+formData.append('file', videoFile)
+
+const { request, promise } = tasksApi.uploadPreview(
+  previewId,
+  formData
+)
+
+// Track upload progress
+request.on('progress', e => {
+  console.log(`Upload: ${e.percent}%`)
+  this.uploadProgress = e.percent
+})
+
+// Wait for completion
+const result = await promise
+```
+
+### Add Extra Preview
+
+Add an existing preview to a comment:
+
+```javascript
+await tasksApi.addExtraPreview(
+  previewId,
+  taskId,
+  commentId
+)
+```
+
+### Delete Preview
+
+```javascript
+await tasksApi.deletePreview(taskId, commentId, previewId)
+```
+
+### Set Preview as Main
+
+Set a preview as the entity's main preview:
+
+```javascript
+// Set specific frame as thumbnail
+await tasksApi.setPreview(entityId, previewId, frameNumber)
+
+// Set without specific frame
+await tasksApi.setPreview(entityId, previewId)
+```
+
+### Set Task Preview as Entity Thumbnail
+
+```javascript
+await tasksApi.setLastTaskPreviewAsEntityThumbnail(taskId)
+```
+
+### Update Preview Position
+
+Change the order of preview revisions:
+
+```javascript
+await tasksApi.updateRevisionPreviewPosition(
+  previewId,
+  2 // new position (0-based)
+)
+```
+
+### Get Preview File Details
+
+```javascript
+const preview = await tasksApi.getPreviewFile(previewId)
+```
+
+## Preview Annotations
+
+### Update Annotations
+
+Add, update, or delete annotations on a preview:
+
+```javascript
+await tasksApi.updatePreviewAnnotation(
+  preview,
+  // Additions
+  [
+    {
+      drawing: { /* fabric.js drawing data */ },
+      time: 2.5,
+      text: 'Fix this area'
+    }
+  ],
+  // Updates
+  [
+    {
+      id: 'annotation-123',
+      text: 'Updated note'
+    }
+  ],
+  // Deletions
+  ['annotation-456']
+)
+```
+
+## Task Assignments
+
+### Assign Tasks to Person
+
+```javascript
+await tasksApi.assignTasks(
+  personId,
+  ['task-1', 'task-2', 'task-3']
+)
+```
+
+### Unassign Tasks
+
+```javascript
+// Unassign all assignees from tasks
+await tasksApi.unassignTasks(['task-1', 'task-2'])
+```
+
+### Unassign Specific Person from Task
+
+```javascript
+await tasksApi.unassignPersonFromTask(taskId, personId)
+```
+
+## Task Subscriptions
+
+### Check Subscription Status
+
+```javascript
+const isSubscribed = await tasksApi.getTaskSubscribed(taskId)
+```
+
+### Subscribe to Task
+
+Receive notifications about task updates:
+
+```javascript
+await tasksApi.subscribeToTask(taskId)
+```
+
+### Unsubscribe from Task
+
+```javascript
+await tasksApi.unsubscribeFromTask(taskId)
+```
+
+## Time Tracking
+
+### Get Task Dates for All People
+
+```javascript
+const dates = await tasksApi.getPersonsTasksDates()
+
+// Returns task date information for scheduling
+```
+
+## Complete Example: Task Detail Component
+
+```vue
+<template>
+  <div class="task-detail">
+    <h1>{{ task.entity_name }} - {{ task.task_type_name }}</h1>
+    
+    <div class="task-status">
+      <select v-model="selectedStatus" @change="updateStatus">
+        <option 
+          v-for="status in taskStatuses" 
+          :key="status.id"
+          :value="status.id"
+        >
+          {{ status.name }}
+        </option>
+      </select>
+    </div>
+    
+    <div class="task-assignees">
+      <person-tag 
+        v-for="assignee in assignees" 
+        :key="assignee.id"
+        :person="assignee"
+      />
+    </div>
+    
+    <!-- Comments -->
+    <div class="comments">
+      <comment-item 
+        v-for="comment in comments" 
+        :key="comment.id"
+        :comment="comment"
+        @edit="handleEditComment"
+        @delete="handleDeleteComment"
+        @pin="handlePinComment"
+        @ack="handleAckComment"
+      />
+    </div>
+    
+    <!-- New Comment Form -->
+    <div class="comment-form">
+      <textarea v-model="newComment" placeholder="Add a comment..." />
+      
+      <select v-model="newStatus">
+        <option 
+          v-for="status in taskStatuses" 
+          :key="status.id"
+          :value="status.id"
+        >
+          {{ status.name }}
+        </option>
+      </select>
+      
+      <input 
+        type="file" 
+        ref="fileInput" 
+        multiple
+        @change="handleFileSelect"
+      />
+      
+      <button @click="submitComment" :disabled="!canSubmit">
+        Submit
+      </button>
+      
+      <div v-if="uploadProgress > 0" class="progress">
+        Upload: {{ uploadProgress }}%
+      </div>
+    </div>
+    
+    <!-- Previews -->
+    <div class="previews">
+      <preview-player 
+        v-for="preview in previews" 
+        :key="preview.id"
+        :preview="preview"
+        @annotate="handleAnnotate"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  data() {
+    return {
+      newComment: '',
+      newStatus: null,
+      selectedFiles: [],
+      uploadProgress: 0
+    }
+  },
+  
+  computed: {
+    ...mapGetters([
+      'task',
+      'taskComments',
+      'taskPreviews',
+      'taskStatuses',
+      'people'
+    ]),
+    
+    taskId() {
+      return this.$route.params.id
+    },
+    
+    comments() {
+      return this.taskComments(this.taskId)
+    },
+    
+    previews() {
+      return this.taskPreviews(this.taskId)
+    },
+    
+    assignees() {
+      return this.task.assignees.map(id => 
+        this.people.find(p => p.id === id)
+      )
+    },
+    
+    selectedStatus: {
+      get() { return this.task.task_status_id },
+      set(value) { this.newStatus = value }
+    },
+    
+    canSubmit() {
+      return this.newComment.trim() || this.selectedFiles.length > 0
+    }
+  },
+  
+  methods: {
+    ...mapActions([
+      'loadTask',
+      'loadTaskComments',
+      'loadTaskPreviews',
+      'addComment',
+      'editComment',
+      'deleteComment',
+      'pinComment',
+      'ackComment',
+      'updateTaskStatus',
+      'subscribeToTask'
+    ]),
+    
+    handleFileSelect(event) {
+      this.selectedFiles = Array.from(event.target.files)
+    },
+    
+    async submitComment() {
+      const attachments = this.selectedFiles.length > 0
+        ? this.selectedFiles.map(file => {
+            const fd = new FormData()
+            fd.append('file', file)
+            return fd
+          })
+        : null
+      
+      await this.addComment({
+        taskId: this.taskId,
+        taskStatusId: this.newStatus,
+        comment: this.newComment,
+        attachment: attachments,
+        checklist: [],
+        links: []
+      })
+      
+      this.newComment = ''
+      this.selectedFiles = []
+      this.$refs.fileInput.value = ''
+    },
+    
+    async updateStatus() {
+      await this.updateTaskStatus({
+        taskId: this.taskId,
+        statusId: this.selectedStatus
+      })
+    },
+    
+    async handleEditComment(comment) {
+      await this.editComment(comment)
+    },
+    
+    async handleDeleteComment(comment) {
+      if (confirm('Delete this comment?')) {
+        await this.deleteComment({
+          taskId: this.taskId,
+          commentId: comment.id
+        })
+      }
+    },
+    
+    async handlePinComment(comment) {
+      await this.pinComment({
+        ...comment,
+        pinned: !comment.pinned
+      })
+    },
+    
+    async handleAckComment(comment) {
+      await this.ackComment(comment)
+    },
+    
+    async handleAnnotate(preview, annotations) {
+      await this.updatePreviewAnnotation({
+        preview,
+        additions: annotations.additions,
+        updates: annotations.updates,
+        deletions: annotations.deletions
+      })
+    }
+  },
+  
+  async mounted() {
+    await Promise.all([
+      this.loadTask(this.taskId),
+      this.loadTaskComments(this.taskId),
+      this.loadTaskPreviews(this.taskId)
+    ])
+    
+    this.newStatus = this.task.task_status_id
+    
+    // Subscribe to task updates
+    await this.subscribeToTask(this.taskId)
+  }
+}
+</script>
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Use Subscriptions" icon="bell">
+    Subscribe to tasks for real-time notifications
+  </Card>
+  <Card title="Handle Uploads" icon="upload">
+    Track upload progress for better UX
+  </Card>
+  <Card title="Batch Operations" icon="layer-group">
+    Use batch methods for bulk updates
+  </Card>
+  <Card title="Cache Data" icon="database">
+    Store comments and previews in Vuex
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+<Card title="Files API" icon="file" href="/api/files">
+  Learn about file management and output files
+</Card>

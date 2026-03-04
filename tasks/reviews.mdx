@@ -1,0 +1,430 @@
+---
+title: 'Reviews and Approvals'
+description: 'Manage the review process with comments, previews, and annotations'
+icon: 'comment-dots'
+---
+
+## Overview
+
+The review and approval process is central to production workflows in Kitsu. It combines commenting, preview uploads, annotations, and status changes to create a comprehensive feedback loop between artists, supervisors, and clients.
+
+## The Review Workflow
+
+### Artist Submission
+
+**1. Complete Work**
+- Artist finishes work on a task
+- Updates task status to "Waiting For Approval"
+- Adds a comment describing the work
+
+**2. Upload Preview** (Optional but recommended)
+- Click **Publish Revision** tab
+- Upload image, video, or other preview files
+- Set revision number (auto-increments)
+- Add optional external link
+
+**3. Request Feedback**
+- Submit comment with or without preview
+- Reviewers receive notifications
+- Task appears in supervisor's review queue
+
+### Supervisor Review
+
+**1. Review Submitted Work**
+- Open task from review queue
+- View uploaded preview files
+- Compare with previous revisions
+- Check against reference and requirements
+
+**2. Add Feedback**
+
+Supervisors can provide feedback through:
+
+**Comments**
+- Written feedback in comment text
+- @mention team members for attention
+- Add checklist items for specific changes
+- Attach reference files
+
+**Annotations** (for visual feedback)
+- Draw directly on preview images/videos
+- Add text annotations with notes
+- Place markers at specific frames (for video)
+- Choose annotation colors for categorization
+
+**3. Set Status**
+- **Approve**: Change status to "Done"
+- **Request Changes**: Change status to "Retake"
+- Retake count increments automatically
+
+### Artist Revision
+
+**Addressing Retakes**
+1. Review supervisor comments and annotations
+2. Update task status to "WIP"
+3. Make requested changes
+4. Re-submit with new preview (incremented revision)
+5. Reference previous feedback in comment
+
+## Comments
+
+### Adding Comments
+
+**Basic Comment**
+1. Open a task
+2. Type in the comment textarea
+3. Use Ctrl/Cmd + Enter to submit quickly
+4. Comment appears with timestamp and author
+
+**Rich Comment Features**
+
+**@Mentions**
+- Type `@` to mention team members
+- Autocomplete shows available people
+- Mentioned users receive notifications
+- Creates direct communication threads
+
+**#Department Mentions**
+- Type `#` to mention entire departments
+- All department members notified
+- Useful for cross-team coordination
+- Shows department color in comment
+
+**Time Codes** (for video reviews)
+- Reference specific frames or timestamps
+- Format: `#00:01:23.05` or `#frame:125`
+- Clicking time code jumps to that moment
+- Essential for precise video feedback
+
+**Checklists**
+- Add actionable items to comments
+- Artists can check off completed items
+- Track progress on multi-part feedback
+- Useful for technical requirements
+
+### Comment Actions
+
+**Pin Comments**
+- Supervisors/managers can pin important comments
+- Pinned comments appear at the top
+- Useful for keeping critical feedback visible
+- Unpin when no longer needed
+
+**Acknowledge Comments**
+- Click ✓ to acknowledge you've read a comment
+- Shows who has seen the feedback
+- Useful in collaborative reviews
+- Acknowledgments tracked per comment
+
+**Reply to Comments**
+- Click reply icon on a comment
+- Creates threaded conversation
+- Keeps related discussion together
+- All participants receive notifications
+
+**Edit Comments**
+- Authors can edit their own comments
+- Managers can edit any comment
+- Edit history is tracked
+- Use for corrections or clarifications
+
+**Delete Comments**
+- Authors and managers can delete comments
+- Deleting a status change reverts to previous status
+- Previews associated with comment may be affected
+- Use cautiously as action is permanent
+
+## Previews
+
+### Uploading Previews
+
+**Supported Formats**
+- **Images**: PNG, JPG, TIFF, EXR
+- **Videos**: MP4, MOV, WEBM
+- **Documents**: PDF
+
+**Upload Process**
+1. Switch to **Publish Revision** tab in add comment area
+2. Click **Add preview** or drag files to upload area
+3. Set revision number (defaults to next available)
+4. Optionally add external link (for cloud storage, etc.)
+5. Add comment describing the submission
+6. Click **Publish** to upload
+
+**Multiple Preview Files**
+- Upload multiple files for one revision
+- All files share the same revision number
+- Useful for:
+  - Different angles of the same work
+  - Beauty pass and utility passes
+  - Multiple shots in a sequence
+
+### Preview Player
+
+**Image Previews**
+- Zoom and pan controls
+- Full-screen mode
+- Compare mode (side-by-side with other revisions)
+- Download original file
+
+**Video Previews**
+- Standard playback controls
+- Frame-by-frame stepping
+- Playback speed adjustment
+- Loop option
+- Time code display
+
+**Revision Comparison**
+- Dropdown to select any previous revision
+- Quick switch between revisions
+- Compare mode for side-by-side viewing
+- Useful for tracking progress over iterations
+
+### Setting Entity Thumbnail
+
+Managers can set a preview as the entity thumbnail:
+1. Open task with desired preview
+2. Select the preview revision
+3. Click **Set as thumbnail**
+4. This image represents the entity in all views
+
+## Annotations
+
+### Creating Annotations
+
+**Drawing Annotations**
+1. Open a task with an image/video preview
+2. Enter annotation mode
+3. Available tools:
+   - **Pencil**: Freehand drawing
+   - **Rectangle**: Draw boxes to highlight areas
+   - **Arrow**: Point to specific elements
+   - **Text**: Add text annotations
+
+**Frame-Specific Annotations** (Video)
+- Navigate to specific frame
+- Add annotation
+- Annotation only shows at that frame
+- Multiple annotations per frame supported
+
+**Color Coding**
+- Choose annotation colors
+- Use consistently for categories:
+  - Red: Critical issues
+  - Yellow: Notes/suggestions
+  - Green: Approved elements
+  - Blue: Questions
+
+### Managing Annotations
+
+**Edit Annotations**
+- Click annotation to select
+- Drag to reposition
+- Resize if applicable
+- Edit text content
+- Change color
+
+**Delete Annotations**
+- Select annotation
+- Press Delete or click remove icon
+- Only annotation creator and managers can delete
+
+**Annotation Snapshots**
+- Export frame with annotations
+- Attach to comments for reference
+- Share annotated frames externally
+
+### Annotation Permissions
+
+**Who Can Annotate**
+- Assigned artists (on their own tasks)
+- Department supervisors (for their department)
+- Managers (all tasks)
+- Clients (if client review enabled)
+
+**Read-Only Mode**
+- Non-assigned team members can view but not create
+- Artists can't annotate supervisor/manager tasks
+- Respects department boundaries
+
+## Review States
+
+### Task Status Progression
+
+Typical review flow:
+
+```
+WIP → Waiting For Approval → Done
+                ↓
+             Retake → WIP
+```
+
+**Status Indicators**
+- Task cell color matches current status
+- Retake count visible as bullet points
+- Last comment date tracked
+- Preview revision number shown
+
+### Retake Management
+
+**Retake Counter**
+- Increments each time status changes to "Retake"
+- Visible in task lists and reports
+- Used for quality metrics
+- Helps identify challenging tasks
+
+**Max Retakes** (if configured)
+- Organization can set retake limits
+- Warning when approaching limit
+- Prevents excessive iteration
+- Requires manager approval to exceed
+
+## Client Reviews
+
+### Enabling Client Review
+
+**Client Permissions**
+- Configure client-allowed task statuses
+- Common options:
+  - "Client Approved"
+  - "Client Feedback"
+  - "Waiting for Client"
+
+**Client Access**
+Clients can:
+- View submitted previews
+- Add comments (no @mentions)
+- Change status to approved/feedback states
+- Cannot see internal comments (if configured)
+
+### Client Review Workflow
+
+1. **Submission**
+   - Artist/supervisor marks task as "Waiting for Client"
+   - Client receives notification
+
+2. **Client Review**
+   - Client accesses preview in client portal
+   - Reviews work, adds comments
+   - Sets status to approved or requests changes
+
+3. **Internal Processing**
+   - Team receives client feedback
+   - Addresses client notes
+   - Resubmits or marks complete
+
+## Playlists for Review
+
+### Creating Review Playlists
+
+**Build Playlists**
+1. Navigate to **Playlists**
+2. Click **New Playlist**
+3. Add tasks/shots to review
+4. Organize in sequence order
+5. Share with reviewers
+
+**Playlist Features**
+- Sequential playback of all shots
+- Bulk status changes
+- Batch commenting
+- Export for offline review
+- Share with external reviewers
+
+### Review Sessions
+
+**Structured Reviews**
+- Schedule review meetings
+- Share playlist link with attendees
+- Review in sequence
+- Add comments during session
+- Status updates recorded
+
+## Review Notifications
+
+### Email Notifications
+
+Users receive emails when:
+- Tasks are assigned to them
+- Comments are added to their tasks
+- They are @mentioned
+- Status changes on their tasks
+- New previews are uploaded
+- Retakes are requested
+
+### In-App Notifications
+
+- Bell icon shows unread notifications
+- Click to see notification list
+- Direct links to tasks
+- Mark as read/unread
+- Notification preferences configurable
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Provide clear, actionable feedback">
+    Be specific about what needs to change and why. Use annotations to point out exact areas.
+  </Accordion>
+  
+  <Accordion title="Use revisions consistently">
+    Maintain sequential revision numbering. Each significant iteration should be a new revision.
+  </Accordion>
+  
+  <Accordion title="Leverage annotations for visual clarity">
+    Drawing on frames is faster and clearer than describing locations in text.
+  </Accordion>
+  
+  <Accordion title="Keep comment threads organized">
+    Use replies to keep related discussions together. Pin important notes.
+  </Accordion>
+  
+  <Accordion title="@Mention for urgent items">
+    Use @mentions to ensure specific people see critical feedback.
+  </Accordion>
+  
+  <Accordion title="Set clear approval criteria">
+    Document what constitutes approval vs retake to maintain consistency.
+  </Accordion>
+  
+  <Accordion title="Review in context">
+    When reviewing shots, consider them in sequence using playlists.
+  </Accordion>
+</AccordionGroup>
+
+## Advanced Features
+
+### Time Tracking
+
+If time tracking is enabled:
+- Artists log time spent on tasks
+- Compare time logged vs estimated
+- Track efficiency across revisions
+- Identify bottlenecks
+
+### Comparison Mode
+
+Compare different revisions:
+- Side-by-side view
+- Overlay/blend mode
+- Scrub between versions
+- Useful for checking progress
+
+### External Links
+
+Attach links to:
+- Cloud storage (Google Drive, Dropbox)
+- Render outputs
+- Reference material
+- High-resolution source files
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Task Status" icon="traffic-light" href="/tasks/task-status">
+    Configure status workflows
+  </Card>
+  <Card title="Assignments" icon="users" href="/tasks/assignments">
+    Learn about task assignments
+  </Card>
+</CardGroup>

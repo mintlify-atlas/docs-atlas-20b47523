@@ -1,0 +1,326 @@
+---
+title: 'Breakdown'
+description: 'Manage asset casting for shots, sequences, and episodes'
+icon: 'diagram-project'
+---
+
+The Breakdown tool is where you manage which assets appear in which shots, sequences, or episodes. This powerful feature helps track asset usage throughout your production and ensures consistency in asset assignment.
+
+## Overview
+
+Breakdown provides:
+
+- **Visual asset casting**: Drag-and-drop or click to assign assets to shots
+- **Multiple casting modes**: Cast assets to shots, episodes, or other assets
+- **Bulk operations**: Assign assets to multiple shots at once
+- **Occurrence tracking**: Track how many times an asset appears in a shot
+- **Label management**: Add labels to casting relationships (e.g., "animate", "fixed")
+- **Import/Export**: Bulk import casting data via CSV
+
+## Casting Modes
+
+Breakdown supports three casting modes:
+
+<Tabs>
+  <Tab title="Shot Casting">
+    Assign assets to individual shots within a sequence. This is the most common casting mode for animation productions.
+    
+    - Select a sequence to view its shots
+    - Assets are displayed by type in the right panel
+    - Click to assign assets to selected shots
+  </Tab>
+  
+  <Tab title="Episode Casting">
+    For TV shows, assign assets at the episode level to track which assets are needed for each episode.
+    
+    - Available when "All Episodes" is selected
+    - Useful for planning and resource allocation
+    - Shows asset requirements per episode
+  </Tab>
+  
+  <Tab title="Asset Casting">
+    Cast assets to other assets (e.g., props that are part of a character rig).
+    
+    - Select an asset type to view assets of that type
+    - Assign other assets as components or dependencies
+    - Useful for complex asset hierarchies
+  </Tab>
+</Tabs>
+
+## Using the Breakdown Interface
+
+### Layout
+
+The breakdown page is divided into two main columns:
+
+**Left Column - Entities**
+- Lists shots, episodes, or assets (depending on casting mode)
+- Shows entity thumbnails and names
+- Displays current casting for each entity
+- Allows selection of multiple entities
+
+**Right Column - Available Assets**
+- Grouped by asset type
+- Visual thumbnails or text mode
+- Search and filter functionality
+- Quick-add buttons
+
+### Casting Assets
+
+<Steps>
+  <Step title="Select Entities">
+    Click on one or more shots/episodes/assets in the left column to select them. Selected entities are highlighted.
+  </Step>
+  
+  <Step title="Add Assets">
+    In the right column, click the "+" button next to an asset to add one occurrence. Click "+10" to add 10 occurrences at once.
+  </Step>
+  
+  <Step title="Verify Casting">
+    The asset appears in the casting list for the selected entities. The occurrence count is displayed.
+  </Step>
+</Steps>
+
+<Note>
+  Changes are automatically saved when you add or remove assets from casting.
+</Note>
+
+### Removing Assets from Casting
+
+To remove assets:
+
+1. Select the entities containing the asset
+2. Click the "-" button next to the asset in the left column
+3. This removes one occurrence (or prompts for confirmation if it's the last one)
+
+### Adjusting Occurrences
+
+For assets that appear multiple times in a shot:
+
+- Click "+" to add one more occurrence
+- Click "-" to remove one occurrence
+- The number displayed shows the total occurrences
+
+## Advanced Features
+
+### Copy and Paste Casting
+
+<Tabs>
+  <Tab title="Copy">
+    1. Select a shot/episode/asset with the desired casting
+    2. Press `Ctrl+C` (or `Cmd+C` on Mac)
+    3. The casting is copied to clipboard
+  </Tab>
+  
+  <Tab title="Paste">
+    1. Select one or more target entities
+    2. Press `Ctrl+V` (or `Cmd+V` on Mac)
+    3. The casting is applied to all selected entities
+  </Tab>
+</Tabs>
+
+<Tip>
+  This is extremely useful for shots with similar asset requirements.
+</Tip>
+
+### Asset Labels
+
+Labels help categorize how assets are used:
+
+<Steps>
+  <Step title="Edit Label">
+    Click on an asset in the casting list to open the label editor.
+  </Step>
+  
+  <Step title="Choose Label">
+    Select from predefined labels:
+    - **animate**: Asset needs to be animated
+    - **fixed**: Static asset in the background
+    - Custom labels can be added
+  </Step>
+  
+  <Step title="Save">
+    The label is saved and displayed with the asset.
+  </Step>
+</Steps>
+
+### Display Options
+
+<CardGroup cols={2}>
+  <Card title="Text Mode" icon="font">
+    Switch between thumbnail and text-only display using the text mode button. Text mode is faster for large asset libraries.
+  </Card>
+  
+  <Card title="Big Thumbnails" icon="expand">
+    Toggle larger thumbnail sizes for easier visual identification of assets.
+  </Card>
+  
+  <Card title="Show Infos" icon="info">
+    Display additional metadata columns like description, frame counts, and custom metadata.
+  </Card>
+  
+  <Card title="Standby Status" icon="clock">
+    Mark entities as standby to indicate they're not currently active but shouldn't be forgotten.
+  </Card>
+</CardGroup>
+
+### Metadata and Fields
+
+When "Show Infos" is enabled, you can:
+
+- Edit entity descriptions inline
+- Update frame counts (for shots)
+- Modify custom metadata fields
+- View and edit all entity data without leaving the breakdown view
+
+## Bulk Operations
+
+### CSV Import
+
+<Warning>
+  CSV import is only available to managers and admins.
+</Warning>
+
+Import casting data in bulk:
+
+<Steps>
+  <Step title="Prepare CSV">
+    Format your CSV with columns:
+    - Episode (for TV shows)
+    - Parent (Sequence name)
+    - Name (Shot/Entity name)
+    - Asset Type
+    - Asset (Asset name)
+    - Occurences (Number)
+    - Label (Optional)
+  </Step>
+  
+  <Step title="Import File">
+    Click the import button and select your CSV file.
+  </Step>
+  
+  <Step title="Review">
+    Review the parsed data before confirming the import.
+  </Step>
+  
+  <Step title="Confirm">
+    Confirm to apply the casting changes.
+  </Step>
+</Steps>
+
+### CSV Export
+
+Export current breakdown data:
+
+1. Click the export button
+2. Choose to export current view or all data
+3. CSV file is downloaded with all casting information
+
+## Working with Shared Assets
+
+Breakdown supports assets from the [Asset Library](/assets/asset-library):
+
+- **Library Toggle**: Show or hide shared assets from other productions
+- **Visual Indicator**: Shared assets are marked with a special icon
+- **Episode Filtering**: In TV shows, filter to show only assets from the current episode
+
+### Episode-Specific Assets
+
+For TV show productions:
+
+<Accordion title="Current Episode Only">
+  Toggle this option to show only assets from the current episode plus any shared assets already cast in the episode.
+</Accordion>
+
+## Search and Filtering
+
+### Asset Search
+
+Search for assets in the available assets panel:
+
+- Real-time search as you type
+- Searches asset names
+- Works across all asset types
+- Supports advanced search queries
+
+### Build Filter
+
+Create complex filters:
+
+1. Click the filter button
+2. Build your query using:
+   - Asset type
+   - Metadata values
+   - Task status
+   - Assignees
+3. Apply the filter
+
+### Saved Searches
+
+Save frequently used searches:
+
+- Click the save icon in the search field
+- Give your search a name
+- Access saved searches from the query list
+
+## Keyboard Shortcuts
+
+<ResponseField name="Ctrl/Cmd + C" type="Copy casting">
+  Copy the casting from the selected entity
+</ResponseField>
+
+<ResponseField name="Ctrl/Cmd + V" type="Paste casting">
+  Paste copied casting to selected entities
+</ResponseField>
+
+<ResponseField name="Click" type="Select single entity">
+  Select one entity for casting
+</ResponseField>
+
+<ResponseField name="Ctrl/Cmd + Click" type="Multi-select">
+  Add or remove entities from selection
+</ResponseField>
+
+<ResponseField name="Shift + Click" type="Range select">
+  Select a range of entities
+</ResponseField>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Start with Sequences">
+    Begin casting at the sequence level to get an overview, then refine shot by shot.
+  </Accordion>
+  
+  <Accordion title="Use Copy/Paste">
+    For shots with similar casting, use copy/paste to save time and ensure consistency.
+  </Accordion>
+  
+  <Accordion title="Track Occurrences">
+    Accurate occurrence counts help with planning and resource allocation.
+  </Accordion>
+  
+  <Accordion title="Label Appropriately">
+    Use labels to communicate how assets should be used (animated, background, etc.).
+  </Accordion>
+  
+  <Accordion title="Review Regularly">
+    Regularly review and update casting as your production evolves.
+  </Accordion>
+  
+  <Accordion title="Export for Planning">
+    Export casting data to CSV for production planning and asset tracking reports.
+  </Accordion>
+</AccordionGroup>
+
+## Permissions
+
+- **Viewers**: Read-only access to breakdown
+- **Artists**: Read-only access
+- **Managers**: Full casting permissions, can import/export
+- **Admins**: Full access to all features
+
+<Card title="Related Topics" icon="link">
+  - [Shot Management](/shots/shot-management) - Learn about creating and managing shots
+  - [Asset Library](/assets/asset-library) - Browse and share assets across productions
+</Card>

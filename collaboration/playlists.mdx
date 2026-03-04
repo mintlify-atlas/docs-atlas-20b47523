@@ -1,0 +1,416 @@
+---
+title: Playlists
+description: Create, organize, and share collections of preview files for review
+icon: list-video
+---
+
+Playlists allow you to collect and organize preview files for review sessions, dailies, and client presentations.
+
+## Overview
+
+Playlists are curated collections of preview files from multiple entities (shots, assets, or sequences) that can be:
+
+- Played back sequentially
+- Shared with team members and clients
+- Built into downloadable video files
+- Annotated and reviewed collaboratively
+
+<Note>
+  Playlists automatically update when new preview versions are uploaded to included entities.
+</Note>
+
+## Creating Playlists
+
+Create a new playlist:
+
+<Steps>
+  <Step title="Click New Playlist">
+    Click the "+" button in the playlist sidebar
+  </Step>
+  
+  <Step title="Set Properties">
+    Configure playlist name, entity type, and task type
+  </Step>
+  
+  <Step title="Add Entities">
+    Search and add shots, assets, or sequences
+  </Step>
+  
+  <Step title="Arrange Order">
+    Drag and drop to reorder preview files
+  </Step>
+</Steps>
+
+### Playlist Properties
+
+```javascript
+{
+  name: "Daily Review 2024-03-04",
+  production_id: string,
+  episode_id: string,           // For TV shows
+  for_entity: "shot",           // "shot", "asset", or "sequence"
+  for_client: false,            // Mark as client-facing
+  task_type_id: string,         // Filter previews by task type
+  is_for_all: false            // All episodes (TV shows)
+}
+```
+
+## Playlist Types
+
+Create playlists for different entity types:
+
+<Tabs>
+  <Tab title="Shot Playlists">
+    Collect shots for sequence reviews:
+    - Group by sequence
+    - Ordered by shot number
+    - Perfect for dailies and reviews
+  </Tab>
+  
+  <Tab title="Asset Playlists">
+    Organize assets for approval:
+    - Group by asset type
+    - Character lineup reviews
+    - Prop and environment collections
+  </Tab>
+  
+  <Tab title="Sequence Playlists">
+    Review entire sequences:
+    - High-level editorial reviews
+    - Episode summaries (TV shows)
+    - Story reel presentations
+  </Tab>
+</Tabs>
+
+## Adding Entities
+
+Multiple ways to build your playlist:
+
+### Manual Selection
+
+Click individual shots, assets, or sequences to add them:
+
+- Click to toggle selection
+- Selected entities show purple border
+- Already added entities are fully highlighted
+
+### Search and Filter
+
+Use the search bar to filter:
+
+```
+ex: seq01 anim=wfa
+chars mode=wfa
+SH01 comp=done
+```
+
+Then click "Add Selection" to add all filtered results.
+
+### Quick Build Options
+
+<CardGroup cols={2}>
+  <Card title="Build Daily" icon="calendar-day">
+    Add all entities with previews uploaded today
+  </Card>
+  
+  <Card title="Build Weekly" icon="calendar-week">
+    Add all pending entities with recent activity
+  </Card>
+  
+  <Card title="Add Episode" icon="film">
+    Add all shots from the current episode (TV shows)
+  </Card>
+  
+  <Card title="Add Movie" icon="video">
+    Add all shots from the production
+  </Card>
+</CardGroup>
+
+### Drag and Drop
+
+Drag entities from the addition panel:
+
+- Drag entity thumbnails
+- Drop onto the playlist
+- Automatically inserts at drop position
+
+<Tip>
+  Use "Build Daily" for quick daily review playlists, then manually add or remove specific shots as needed.
+</Tip>
+
+## Playlist Player
+
+The playlist player provides:
+
+### Playback Controls
+
+- **Play/Pause**: Spacebar or click
+- **Next/Previous**: Arrow keys or buttons
+- **Scrub**: Drag timeline or click position
+- **Loop**: Repeat current preview or entire playlist
+- **Speed**: Adjust playback speed
+
+### Preview Display
+
+- **Full screen**: Maximize preview area
+- **Thumbnail strip**: Navigate between entities
+- **Entity information**: Name, task type, status
+- **Frame counter**: Current frame and total frames
+
+### Annotations
+
+Annotate previews while reviewing:
+
+- **Draw**: Freehand drawing on frames
+- **Text**: Add text annotations
+- **Shapes**: Circles, rectangles, arrows
+- **Colors**: Multiple color options
+- **Persist**: Annotations saved in real-time
+
+## Managing Playlists
+
+### Reordering Entities
+
+Drag and drop thumbnails to reorder:
+
+- Click and drag entity thumbnail
+- Drop between other entities
+- Order saves automatically
+
+### Changing Previews
+
+Select which preview to include:
+
+- Click version dropdown on entity
+- Choose from all available preview files
+- Organized by task type
+- Shows revision numbers
+
+### Removing Entities
+
+Remove entities from playlist:
+
+- Click X icon on entity thumbnail
+- Removes from playlist (doesn't delete entity)
+- Can re-add later if needed
+
+### Editing Playlist
+
+Update playlist properties:
+
+<AccordionGroup>
+  <Accordion title="Name">
+    Change the playlist name for clarity
+  </Accordion>
+  
+  <Accordion title="Task Type">
+    Switch which task type previews to show (updates all entities)
+  </Accordion>
+  
+  <Accordion title="For Client">
+    Toggle client visibility status
+  </Accordion>
+  
+  <Accordion title="Entity Type">
+    Cannot change after creation (create new playlist instead)
+  </Accordion>
+</AccordionGroup>
+
+## Task Type Filtering
+
+Filter preview files by task type:
+
+- Set task type when creating playlist
+- Change task type in playlist settings
+- All entities update to show selected task type
+- Entities without that task type show placeholder
+
+<Warning>
+  Changing the playlist task type updates all preview selections. This is useful when you want to review a different pipeline stage across all entities.
+</Warning>
+
+## Client Playlists
+
+Mark playlists for client review:
+
+- **Purple background**: Client playlists are visually distinct
+- **For Client toggle**: Enable in playlist settings
+- **Access control**: Only visible to clients when shared
+- **Curated content**: Include only approved work
+
+## Building Playlists
+
+Generate downloadable video files:
+
+### Build Options
+
+<Tabs>
+  <Tab title="Quick Build">
+    Generate video with default settings:
+    - H264 encoding
+    - 1920x1080 resolution
+    - Ready for review
+  </Tab>
+  
+  <Tab title="Full Build">
+    Higher quality output:
+    - ProRes or other codec
+    - Original resolution
+    - Production-quality
+  </Tab>
+</Tabs>
+
+### Build Jobs
+
+Track build progress:
+
+- **Running**: Build in progress (spinner)
+- **Succeeded**: Download link available
+- **Failed**: Error indicator
+- **Job history**: Previous builds listed
+
+<Note>
+  Build jobs run on the server and can take several minutes depending on playlist length and resolution.
+</Note>
+
+## Playlist Notifications
+
+When a playlist is ready:
+
+- Team members receive notification
+- Notification includes playlist name and link
+- Click to view the completed playlist
+- Shown in notifications with monitor icon
+
+## Sorting Playlists
+
+Organize your playlist list:
+
+<CardGroup cols={3}>
+  <Card title="Updated At" icon="clock">
+    Most recently modified first (default)
+  </Card>
+  
+  <Card title="Created At" icon="calendar-plus">
+    Newest playlists first
+  </Card>
+  
+  <Card title="Name" icon="alphabetical">
+    Alphabetical order
+  </Card>
+</CardGroup>
+
+Sort preference is saved for your session.
+
+## Filtering Playlists
+
+Filter playlists by task type:
+
+- Select task type from dropdown
+- Shows only playlists for that task type
+- "All" shows playlists of all types
+- Useful for department-specific playlists
+
+## Playlist List
+
+The sidebar shows:
+
+- **Thumbnail**: First preview in playlist
+- **Name**: Playlist title
+- **Updated date**: Last modification time
+- **Task type**: Color-coded bar
+- **For client**: Purple background
+
+### Compact Mode
+
+Toggle the sidebar to compact mode:
+
+- Click arrow icon to collapse
+- Shows only thumbnails
+- More space for player
+- Click arrow again to expand
+
+## Real-Time Updates
+
+Playlists sync automatically:
+
+<CardGroup cols={2}>
+  <Card title="New Playlists" icon="plus">
+    Appear in your list when created by team members
+  </Card>
+  
+  <Card title="Playlist Changes" icon="edit">
+    Updates reflect in real-time when others edit
+  </Card>
+  
+  <Card title="Build Jobs" icon="gear">
+    Status updates as builds progress
+  </Card>
+  
+  <Card title="Deletions" icon="trash">
+    Removed from list when deleted
+  </Card>
+</CardGroup>
+
+<Warning>
+  Real-time sync is paused while you're actively adding entities to prevent conflicts. It resumes when you finish.
+</Warning>
+
+## TV Show Episodes
+
+For TV productions:
+
+- **Episode filtering**: Playlists are episode-specific
+- **Episode selector**: Switch between episodes
+- **Main pack**: Assets shared across episodes
+- **All episodes**: View playlists from all episodes
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Naming Conventions">
+    Use clear, dated names like "Daily Review 2024-03-04" or "Seq01 Animation WIP".
+  </Accordion>
+  
+  <Accordion title="Task Type Focus">
+    Create playlists for specific task types to keep reviews focused on one department at a time.
+  </Accordion>
+  
+  <Accordion title="Regular Updates">
+    Build daily or weekly playlists regularly to track progress and maintain momentum.
+  </Accordion>
+  
+  <Accordion title="Client Playlists">
+    Maintain separate client playlists with only approved, polished work.
+  </Accordion>
+  
+  <Accordion title="Logical Order">
+    Arrange shots in story/sequence order for review clarity.
+  </Accordion>
+  
+  <Accordion title="Clean Up">
+    Delete old playlists after review sessions to keep the list manageable.
+  </Accordion>
+</AccordionGroup>
+
+## Permissions
+
+Playlist access by role:
+
+- **Artists**: View playlists
+- **Supervisors**: Create, edit, delete playlists
+- **Managers**: Full playlist access
+- **Clients**: View playlists marked "for client"
+- **Admins**: Complete access
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Preview Files" icon="play">
+    Learn about uploading and managing preview files
+  </Card>
+  
+  <Card title="Notifications" icon="bell" href="/collaboration/notifications">
+    Get notified when playlists are ready
+  </Card>
+</CardGroup>

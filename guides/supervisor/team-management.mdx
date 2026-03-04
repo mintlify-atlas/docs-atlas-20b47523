@@ -1,0 +1,488 @@
+---
+title: Team Management
+description: Learn how to assign tasks, manage team members, and organize workloads effectively
+---
+
+## Overview
+
+As a supervisor, managing your team effectively is crucial for production success. Kitsu provides tools for task assignment, workload balancing, and team coordination.
+
+## Accessing Team Information
+
+### Team Page
+
+Navigate to **Team** from your production menu to see:
+
+- All people assigned to the current production
+- Their roles (Artist, Supervisor, Admin, etc.)
+- Active status and availability
+- Department assignments
+- Contact information
+
+### Filtering Team Members
+
+Filter the team list by:
+
+- **Department**: Animation, Modeling, Compositing, etc.
+- **Role**: Artists, Supervisors, Managers
+- **Status**: Active, inactive, or on leave
+- **Studio**: For multi-studio productions
+
+<Tip>
+Use the department filter to quickly find artists in your specialized area for task assignment.
+</Tip>
+
+## Assigning Tasks
+
+### Single Task Assignment
+
+To assign a task to an artist:
+
+<Steps>
+  <Step title="Navigate to the task">
+    Go to Assets or Shots page and find the task cell
+  </Step>
+  
+  <Step title="Click the task cell">
+    Opens the task panel on the right side
+  </Step>
+  
+  <Step title="Find assignees section">
+    Look for the assignee field showing current assignments
+  </Step>
+  
+  <Step title="Click to add assignees">
+    Click the + icon or assignee field
+  </Step>
+  
+  <Step title="Select team member(s)">
+    Choose from the list of available artists
+  </Step>
+  
+  <Step title="Save assignment">
+    Changes are saved automatically
+  </Step>
+</Steps>
+
+### Multiple Assignees
+
+Assign multiple artists to a single task when:
+
+- Task requires collaboration (e.g., lead + junior artist)
+- Splitting work between specialists
+- Cross-training or mentoring scenarios
+- Large scope tasks benefit from team effort
+
+**Best Practice**: Clearly communicate roles when multiple artists are assigned:
+
+```
+Assigned to:
+- @senior_artist (lead, overall supervision)
+- @junior_artist (base work, iterations under guidance)
+```
+
+### Batch Assignment
+
+Assign tasks to multiple people efficiently:
+
+1. **Select multiple tasks**:
+   - Click task cells while holding Ctrl/Cmd
+   - Or use the checkbox column to select rows
+   - Filter to show relevant tasks first
+
+2. **Open action panel**:
+   - Action panel appears when tasks are selected
+   - Shows bulk action options
+
+3. **Assign to team members**:
+   - Click "Assign" button
+   - Select the artist(s)
+   - Confirm assignment
+
+4. **All selected tasks** are assigned to chosen artist(s)
+
+<Warning>
+Batch assignment assigns the same artist(s) to all selected tasks. Make sure this is appropriate for your workflow.
+</Warning>
+
+### Task Assignment by Type
+
+Common assignment strategies:
+
+**By Specialization**
+- Modeling tasks → Modelers
+- Animation tasks → Animators
+- Lighting tasks → Lighting artists
+
+**By Experience Level**
+- Complex/hero assets → Senior artists
+- Standard assets → Mid-level artists
+- Simple assets → Junior artists
+
+**By Availability**
+- Check workload before assigning
+- Balance tasks across team
+- Consider deadlines and capacity
+
+## Workload Management
+
+### Viewing Artist Workload
+
+Several ways to see what team members are working on:
+
+#### Team Workload View
+
+From the Team page:
+
+1. Each person shows their current task count
+2. Color coding indicates capacity:
+   - Green: Under capacity
+   - Yellow: At capacity
+   - Red: Overloaded
+
+#### Person Detail View
+
+Click on a team member to see:
+
+- All their assigned tasks across productions
+- Task status breakdown
+- Upcoming deadlines
+- Recent time logged
+- Task completion rate
+
+#### All Tasks Filtering
+
+Go to **All Tasks** and:
+
+1. Filter by assignee
+2. See all tasks for a specific person
+3. Check status, due dates, and priorities
+4. Identify bottlenecks or overallocation
+
+### Balancing Workload
+
+Strategies for even distribution:
+
+<AccordionGroup>
+  <Accordion title="Monitor task counts">
+    - Keep track of how many tasks each artist has
+    - Aim for similar workload across similar skill levels
+    - Account for task complexity, not just count
+  </Accordion>
+  
+  <Accordion title="Check estimations">
+    - Sum estimated hours for each person
+    - Compare to available work time
+    - Redistribute if someone is overbooked
+  </Accordion>
+  
+  <Accordion title="Review priorities">
+    - High priority tasks need adequate resources
+    - Don't pile all urgent work on one person
+    - Spread critical path tasks across team
+  </Accordion>
+  
+  <Accordion title="Consider dependencies">
+    - Some tasks block others
+    - Assign dependent work to available artists
+    - Avoid creating bottlenecks
+  </Accordion>
+</AccordionGroup>
+
+### Reassigning Tasks
+
+When workload needs adjustment:
+
+1. **Identify overloaded artists**
+   - Review task lists and estimations
+   - Check for deadline conflicts
+
+2. **Select tasks to move**
+   - Choose tasks not yet started
+   - Prefer moving entire asset/shot sequences
+   - Consider artist specializations
+
+3. **Reassign to available artists**
+   - Check target artist's capacity
+   - Communicate the change
+   - Update estimations if needed
+
+4. **Notify affected artists**
+   - Explain why task was reassigned
+   - Provide context to new assignee
+   - Update any related schedules
+
+## Task Creation
+
+### Creating Individual Tasks
+
+If a task is missing:
+
+1. Navigate to the asset or shot
+2. Find the task type grid
+3. If a task cell is empty, click it
+4. Select "Create task"
+5. Assign immediately or leave for later
+
+### Bulk Task Creation
+
+Create tasks for multiple entities:
+
+1. Go to Assets or Shots page
+2. Click the task type column header
+3. Select "Create tasks"
+4. Choose which entities should get this task
+5. Confirm creation
+6. Batch assign to team members
+
+<Note>
+Bulk creation is useful when adding a new task type to many assets or when production needs expand.
+</Note>
+
+## Setting Task Parameters
+
+### Estimation
+
+Set realistic time estimates:
+
+- Based on historical data when available
+- Factor in artist experience level
+- Include time for revisions
+- Account for complexity
+
+**Example estimations** (in hours):
+- Simple prop modeling: 4-8 hours
+- Character modeling: 40-80 hours
+- Shot animation: 16-40 hours
+- Lighting setup: 8-16 hours
+
+### Priority
+
+Set task priority to guide artist focus:
+
+- **High**: Critical path, blocking other work
+- **Normal**: Standard production work
+- **Low**: Nice-to-have, fill time
+
+<Tip>
+Use priority sparingly. If everything is high priority, nothing is.
+</Tip>
+
+### Start and Due Dates
+
+Schedule tasks effectively:
+
+1. **Set start dates** based on:
+   - Dependency completion
+   - Artist availability
+   - Production milestones
+
+2. **Set due dates** considering:
+   - Estimation duration
+   - Buffer for reviews/revisions
+   - Downstream dependencies
+   - Production deadlines
+
+3. **Avoid conflicts**:
+   - Don't overlap complex tasks
+   - Leave room for unexpected issues
+   - Build in review time
+
+## Team Communication
+
+### Using @Mentions
+
+Tag team members in comments:
+
+```
+@artist_name Can you take a look at this reference 
+and match the material in your model?
+
+@lead_animator This shot needs to match the timing 
+from SH010 - can you coordinate with that artist?
+```
+
+### Task Notifications
+
+Team members are notified when:
+
+- Assigned to a new task
+- Task status changes
+- Mentioned in comments
+- Deadlines are approaching
+- Tasks are updated by others
+
+### Status Updates
+
+Encourage regular status updates:
+
+- Daily or weekly check-ins
+- Comment on progress or blockers
+- Update task status as work progresses
+- Flag issues early
+
+## Monitoring Team Performance
+
+### Task Completion Metrics
+
+Track team efficiency:
+
+- **Tasks completed per week**
+- **Average time to completion**
+- **First-pass approval rate**
+- **Retake frequency**
+
+### Timesheet Review
+
+Access team timesheets:
+
+1. Go to **Timesheets** page
+2. View aggregated time by person
+3. Check daily/weekly/monthly logs
+4. Compare estimated vs. actual time
+5. Identify estimation improvement areas
+
+### Production Quota
+
+Some productions use quota tracking:
+
+- Daily/weekly task quotas
+- Expected vs. actual completion
+- Team velocity trends
+- Capacity planning
+
+## Handling Common Scenarios
+
+### Artist Is Blocked
+
+<Steps>
+  <Step title="Identify the blocker">
+    Review task comments to understand the issue
+  </Step>
+  
+  <Step title="Provide resources">
+    Share references, clarify expectations, or connect with other team members
+  </Step>
+  
+  <Step title="Adjust timeline if needed">
+    Update due dates if blocker causes delay
+  </Step>
+  
+  <Step title="Reassign if necessary">
+    Move task to someone who can proceed if blocker persists
+  </Step>
+</Steps>
+
+### Artist Is Overwhelmed
+
+1. **Review their workload**
+   - Check task count and estimations
+   - Look for competing deadlines
+
+2. **Prioritize tasks**
+   - Identify what's most critical
+   - Mark others as lower priority
+
+3. **Redistribute work**
+   - Reassign non-critical tasks
+   - Move future tasks to others
+
+4. **Adjust deadlines**
+   - Extend due dates if possible
+   - Communicate with production
+
+5. **Check in regularly**
+   - Monitor progress
+   - Provide support
+
+### Quality Issues
+
+1. **Provide clear feedback**
+   - Specific, actionable notes
+   - Visual references and examples
+
+2. **Offer training**
+   - Share tutorials or documentation
+   - Pair with senior artist
+   - Schedule training session
+
+3. **Adjust assignments**
+   - Match complexity to skill level
+   - Provide mentorship opportunities
+
+4. **Set expectations**
+   - Define quality standards clearly
+   - Show approved examples
+
+## Best Practices
+
+<Steps>
+  <Step title="Know your team">
+    Understand each artist's strengths, preferences, and development goals
+  </Step>
+  
+  <Step title="Communicate clearly">
+    Set expectations, provide context, and be available for questions
+  </Step>
+  
+  <Step title="Balance workload">
+    Distribute tasks fairly and monitor for overload
+  </Step>
+  
+  <Step title="Provide timely feedback">
+    Review work quickly to keep artists productive
+  </Step>
+  
+  <Step title="Encourage growth">
+    Assign stretch tasks and provide learning opportunities
+  </Step>
+  
+  <Step title="Track performance">
+    Use metrics to identify trends and improvement areas
+  </Step>
+  
+  <Step title="Support your team">
+    Address blockers, provide resources, and recognize good work
+  </Step>
+</Steps>
+
+## Advanced Features
+
+### Task Templates
+
+Some studios set up task templates:
+
+- Predefined task lists for asset types
+- Standard estimations and priorities
+- Default assignees by department
+- Automated task creation
+
+### Status Automation
+
+Configure automatic status changes:
+
+- When all upstream tasks complete
+- Based on time-based triggers
+- Following approval workflows
+- Linked to external systems
+
+### Department Management
+
+Organize by department:
+
+- Assign departments to people
+- Filter tasks by department
+- Track department capacity
+- Report by department metrics
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Reviewing Work" icon="eye" href="/guides/supervisor/reviewing-work">
+    Learn how to review and provide feedback on submissions
+  </Card>
+  
+  <Card title="Tracking Progress" icon="chart-line" href="/guides/supervisor/tracking-progress">
+    Monitor production progress and identify issues early
+  </Card>
+</CardGroup>

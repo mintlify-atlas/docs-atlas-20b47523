@@ -1,0 +1,603 @@
+---
+title: Production Overview and Setup
+description: Understand production structure, settings, and high-level management in Kitsu
+---
+
+## Overview
+
+As a producer or production manager, you have oversight of entire productions in Kitsu. This includes managing production settings, team assignments, task types, and overall project structure.
+
+## Production Dashboard
+
+### Accessing Productions
+
+From the main navigation:
+
+1. Go to **Productions** to see all productions
+2. Filter by status:
+   - **Open**: Active productions
+   - **Closed**: Completed or archived
+3. Click a production to enter its workspace
+
+### Production Information
+
+Each production displays:
+
+- **Name** and avatar/logo
+- **Type**: Film, TV Show, Short, etc.
+- **Status**: Open or Closed
+- **Team size**: Number of assigned people
+- **Asset and shot counts**
+- **Overall progress** percentage
+- **Date created** and last modified
+
+<Tip>
+Use production avatars/logos to quickly identify projects visually in lists and filters.
+</Tip>
+
+## Creating a Production
+
+### New Production Setup
+
+<Steps>
+  <Step title="Click 'New Production'">
+    From the Productions page
+  </Step>
+  
+  <Step title="Enter production details">
+    - Production name
+    - Production type (Film, TV Show, etc.)
+    - Start date (optional)
+    - End date (optional)
+    - Upload production logo/avatar
+  </Step>
+  
+  <Step title="Configure production type">
+    - **Film/Short**: Single deliverable
+    - **TV Show**: Episodes and sequences
+    - Choose based on project structure
+  </Step>
+  
+  <Step title="Set initial team">
+    - Assign production lead
+    - Add initial supervisors
+    - Add production coordinator
+  </Step>
+  
+  <Step title="Save and continue">
+    Production is created and you can configure details
+  </Step>
+</Steps>
+
+### Production Types
+
+**Film / Short**:
+- Linear sequence of shots
+- Assets organized by type
+- Single delivery timeline
+- Simpler structure
+
+**TV Show**:
+- Multiple episodes
+- Sequences within episodes
+- Recurring assets across episodes
+- Asset episode tagging
+- More complex organization
+
+<Note>
+Production type affects navigation structure and how entities are organized. Choose carefully as it's difficult to change later.
+</Note>
+
+## Production Settings
+
+### Accessing Settings
+
+Navigate to **Production Settings** from the production menu:
+
+- General settings
+- Team management
+- Task types configuration
+- Status workflows
+- Metadata fields
+- Integrations
+
+### General Settings
+
+**Basic Information**:
+- Production name
+- Description
+- Production code (for exports)
+- FPS (frames per second)
+- Resolution
+- Aspect ratio
+
+**Scheduling**:
+- Start date
+- End date
+- Working days configuration
+- Holiday schedule
+
+**Display Options**:
+- Default sorting
+- Column visibility defaults
+- Theme/branding
+
+### Timesheet Settings
+
+Configure time tracking:
+
+- **Hours per day**: Standard workday length (e.g., 8 hours)
+- **Timesheet locking**: Prevent edits to old timesheets
+- **Lock period**: How far back artists can edit (e.g., 1 week)
+- **Approval workflow**: Require timesheet approval
+
+### File Upload Settings
+
+- **Max file size**: Upload limits
+- **Allowed formats**: Restrict file types
+- **Preview generation**: Automatic thumbnail creation
+- **Storage quota**: Track storage usage
+
+## Team Management
+
+### Production Team
+
+Manage who has access to the production:
+
+1. Go to **Team** page in production
+2. See all assigned people
+3. Add or remove team members
+4. Assign roles and departments
+
+### Adding Team Members
+
+<Steps>
+  <Step title="Click 'Add Person'">
+    Opens the team member selector
+  </Step>
+  
+  <Step title="Select person">
+    Choose from organization members
+  </Step>
+  
+  <Step title="Assign role">
+    - Producer/Manager: Full access
+    - Supervisor: Department oversight
+    - Artist: Task execution
+    - Client: View-only (if enabled)
+  </Step>
+  
+  <Step title="Set department">
+    - Animation
+    - Modeling
+    - Rigging
+    - Lighting
+    - Compositing
+    - etc.
+  </Step>
+  
+  <Step title="Save">
+    Person is added to production team
+  </Step>
+</Steps>
+
+### Removing Team Members
+
+1. Find the person in team list
+2. Click remove icon
+3. Confirm removal
+4. Their task assignments remain but they lose production access
+
+<Warning>
+Removing someone from the team doesn't unassign their tasks. Review and reassign tasks before removing critical team members.
+</Warning>
+
+### Team Roles
+
+**Manager/Producer**:
+- Full production access
+- Settings management
+- Team administration
+- Financial data access
+- Reporting capabilities
+
+**Supervisor**:
+- Department task oversight
+- Review and approval authority
+- Team assignment
+- Schedule management
+- Limited settings access
+
+**Artist**:
+- Task execution
+- Preview upload
+- Time tracking
+- Comment participation
+- No administrative access
+
+**Client** (if enabled):
+- View-only access
+- Comment on approved work
+- Playlist viewing
+- No task details
+
+## Task Types
+
+### Understanding Task Types
+
+Task types represent production pipeline stages:
+
+**Asset Task Types**:
+- Concept
+- Modeling
+- Shading
+- Rigging
+- Grooming
+
+**Shot Task Types**:
+- Layout
+- Animation
+- FX
+- Lighting
+- Compositing
+
+### Creating Task Types
+
+<Steps>
+  <Step title="Go to Production Settings">
+    Access the settings menu
+  </Step>
+  
+  <Step title="Navigate to Task Types">
+    View existing task types
+  </Step>
+  
+  <Step title="Click 'Add Task Type'">
+    Opens creation form
+  </Step>
+  
+  <Step title="Configure task type">
+    - Name (e.g., "Previz")
+    - Color (for visual identification)
+    - For entity: Asset, Shot, or Edit
+    - Priority/Order (display sequence)
+    - Allow timelog (enable time tracking)
+  </Step>
+  
+  <Step title="Save">
+    Task type is added to production
+  </Step>
+</Steps>
+
+### Task Type Settings
+
+**For Entity**:
+- **Asset**: Task applies to assets
+- **Shot**: Task applies to shots
+- **Edit**: Task applies to edit entities
+
+Tasks appear only on appropriate entity types.
+
+**Color Coding**:
+- Choose distinct colors for quick visual identification
+- Consistent colors across productions help team orientation
+- Use lighter shades for early pipeline stages, darker for later
+
+**Priority/Order**:
+- Controls left-to-right column order
+- Typically follows pipeline order (Modeling before Rigging, etc.)
+- Lower numbers appear first
+
+<Tip>
+Order task types to match your pipeline flow. Artists read left-to-right, so put earlier stages on the left.
+</Tip>
+
+### Removing Task Types
+
+1. Find task type in settings
+2. Click remove/delete
+3. Confirm removal
+4. Existing tasks of this type are preserved but hidden
+
+<Warning>
+Deleting task types doesn't delete associated tasks. Data is preserved but the task type won't appear in new entity creation.
+</Warning>
+
+## Task Statuses
+
+### Status Workflow
+
+Task statuses represent task states:
+
+- **Todo / Not Started**: Work not begun
+- **WIP / In Progress**: Active work
+- **Waiting for Approval / Pending**: Ready for review
+- **Retake / Revision**: Changes needed
+- **Approved / Validated**: Complete
+
+### Creating Custom Statuses
+
+<Steps>
+  <Step title="Go to Task Status settings">
+    In Production Settings
+  </Step>
+  
+  <Step title="Click 'Add Status'">
+    Opens status creation form
+  </Step>
+  
+  <Step title="Configure status">
+    - Name (e.g., "Client Review")
+    - Short name (abbreviation for compact views)
+    - Color (visual indicator)
+    - Is reviewable (can supervisors approve from this state)
+    - Is done (counts as complete for stats)
+  </Step>
+  
+  <Step title="Set status purpose">
+    - Standard workflow state
+    - Feedback request state
+    - Blocked/hold state
+    - Final approval state
+  </Step>
+  
+  <Step title="Save">
+    Status available for tasks
+  </Step>
+</Steps>
+
+### Status Properties
+
+**Is Done**:
+- Counts toward completion percentage
+- Removes from active task lists
+- Marks task as requiring no further work
+
+**Is Retake**:
+- Indicates work needs revision
+- Appears in retake tracking
+- Typically orange/red color
+
+**Is Feedback Request**:
+- Shows in pending/review queues
+- Awaits supervisor action
+- Typically purple/blue color
+
+## Asset Types
+
+### Managing Asset Types
+
+Organize assets into categories:
+
+**Common Asset Types**:
+- Characters
+- Props
+- Environments
+- Vehicles
+- FX
+
+### Creating Asset Types
+
+1. Go to **Asset Types** in production menu
+2. Click **Add Asset Type**
+3. Enter name (e.g., "Vegetation")
+4. Choose task types that apply
+5. Save
+
+### Task Type Association
+
+When creating an asset type:
+
+- Select which task types apply
+- Not all tasks are relevant to all assets
+- Example: Characters need rigging, props might not
+
+This ensures only relevant task columns appear for each asset type.
+
+<Note>
+You can adjust task type associations later if pipeline needs change.
+</Note>
+
+## Episodes and Sequences
+
+### For TV Show Productions
+
+TV shows use episodes to organize content:
+
+### Creating Episodes
+
+<Steps>
+  <Step title="Go to Episodes page">
+    From production menu
+  </Step>
+  
+  <Step title="Click 'Add Episode'">
+    Opens episode form
+  </Step>
+  
+  <Step title="Enter details">
+    - Episode name (e.g., "E01")
+    - Episode number
+    - Description
+  </Step>
+  
+  <Step title="Save">
+    Episode is created
+  </Step>
+</Steps>
+
+### Creating Sequences
+
+Within episodes, organize shots into sequences:
+
+1. Go to **Sequences** page
+2. Select episode
+3. Click **Add Sequence**
+4. Enter sequence name and details
+5. Save
+
+Sequences group related shots (scenes/locations/sequences).
+
+## Metadata Fields
+
+### Custom Metadata
+
+Add custom fields to track production-specific data:
+
+**Common Metadata**:
+- Character tags
+- Location
+- Time of day
+- Complexity rating
+- Client priority
+- VFX intensity
+
+### Creating Metadata Descriptors
+
+<Steps>
+  <Step title="Go to Production Settings">
+    Access metadata section
+  </Step>
+  
+  <Step title="Click 'Add Descriptor'">
+    Opens metadata creation form
+  </Step>
+  
+  <Step title="Configure field">
+    - Field name
+    - Entity type (Asset, Shot, etc.)
+    - Data type (Text, Number, List, etc.)
+    - Departments that can see/edit
+  </Step>
+  
+  <Step title="Define options">
+    For list types, add valid options
+  </Step>
+  
+  <Step title="Save">
+    Field appears on entities
+  </Step>
+</Steps>
+
+### Metadata Types
+
+- **String**: Free text
+- **Number**: Numeric values
+- **List**: Dropdown selection
+- **Boolean**: Yes/No checkbox
+- **Date**: Date picker
+
+## Production Statistics
+
+### Overview Stats
+
+From production dashboard, view:
+
+- **Total assets**: Count by type
+- **Total shots**: Count by sequence/episode
+- **Task completion**: Overall percentage
+- **Time logged**: Total hours
+- **Team size**: Active members
+
+### Detailed Analytics
+
+Access detailed reports:
+
+1. **Quota Page**: Completion rates over time
+2. **Timesheets**: Time tracking analysis
+3. **Entity Stats**: Per-asset or per-shot metrics
+4. **Task Reports**: Status breakdown
+
+### Exporting Data
+
+Export production data:
+
+- **CSV Export**: Assets, shots, tasks, time
+- **Reports**: PDF summaries
+- **API Access**: Integration with other tools
+
+## Production Lifecycle
+
+### Active Production Phase
+
+During production:
+
+- Monitor progress daily/weekly
+- Adjust schedules as needed
+- Manage team and resources
+- Communicate with stakeholders
+- Track budget and time
+
+### Closing a Production
+
+When production completes:
+
+<Steps>
+  <Step title="Verify all work complete">
+    Check that all critical tasks are approved
+  </Step>
+  
+  <Step title="Archive deliverables">
+    Ensure all files are properly stored
+  </Step>
+  
+  <Step title="Export final data">
+    Download production records
+  </Step>
+  
+  <Step title="Update production status">
+    Go to Production Settings and set status to "Closed"
+  </Step>
+  
+  <Step title="Document lessons learned">
+    Note what worked well and areas for improvement
+  </Step>
+</Steps>
+
+<Note>
+Closed productions remain accessible for reference but are hidden from active production lists by default.
+</Note>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Setup thoroughly at start">
+    - Define all task types upfront
+    - Set up metadata fields early
+    - Configure team and roles properly
+    - Establish naming conventions
+  </Accordion>
+  
+  <Accordion title="Communicate structure">
+    - Train team on production setup
+    - Document workflow processes
+    - Share naming conventions
+    - Clarify approval workflows
+  </Accordion>
+  
+  <Accordion title="Monitor and adjust">
+    - Review structure effectiveness
+    - Add/modify task types as needed
+    - Adjust team assignments
+    - Refine based on feedback
+  </Accordion>
+  
+  <Accordion title="Keep data clean">
+    - Enforce naming conventions
+    - Archive completed productions
+    - Remove inactive team members
+    - Update production info regularly
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Scheduling" icon="calendar" href="/guides/producer/scheduling">
+    Learn how to create and manage production schedules
+  </Card>
+  
+  <Card title="Budgeting" icon="dollar-sign" href="/guides/producer/budgeting">
+    Track budget, time, and resource allocation
+  </Card>
+</CardGroup>

@@ -1,0 +1,371 @@
+---
+title: Studios
+description: Manage multi-studio organizations and locations
+---
+
+## Overview
+
+The Studios feature allows you to manage multiple physical or organizational locations within your production company. This is particularly useful for organizations with offices in different cities, outsourcing partners, or separate business units that share the same Kitsu instance.
+
+## Accessing Studios
+
+Navigate to the **Studios** page from the main administration menu to view and manage all studios in your organization.
+
+## Studio Tabs
+
+The Studios page is organized into two tabs:
+
+- **Active**: Currently active studios
+- **Archived**: Previously archived studios
+
+## What are Studios?
+
+Studios represent different locations or organizational units within your company:
+
+- Physical office locations (e.g., "London Office", "Vancouver Office")
+- External partners (e.g., "Partner Studio A", "Outsourcing Vendor")
+- Business units (e.g., "Animation Division", "VFX Division")
+- Departments spanning multiple locations
+
+## Creating a Studio
+
+<Steps>
+  <Step title="Click New Studio">
+    Click the **New studios** button in the top-right corner.
+  </Step>
+  
+  <Step title="Enter Studio Details">
+    Fill in the studio information:
+    - **Name**: Studio name (e.g., "Paris Office", "Montreal Studio")
+    - **Color**: Choose a color for visual identification
+  </Step>
+  
+  <Step title="Save">
+    Click **Confirm** to create the studio.
+  </Step>
+</Steps>
+
+<Tip>
+  Use distinct colors for each studio to make them easily identifiable throughout the interface.
+</Tip>
+
+## Editing Studios
+
+To modify an existing studio:
+
+1. Click the **Edit** button next to the studio
+2. Update the studio details:
+   - Change the name
+   - Modify the color
+3. Click **Confirm** to save changes
+
+<Note>
+  Changing a studio's name or color updates it throughout the system immediately.
+</Note>
+
+## Archiving Studios
+
+Instead of deleting studios, you can archive them:
+
+1. Edit the studio
+2. Check the **Archived** option
+3. Save the changes
+
+Archived studios:
+- No longer appear in active studio lists
+- Retain historical data and assignments
+- Can be unarchived if needed
+- Accessible via the "Archived" tab
+- Users assigned to archived studios remain in the system
+
+<Info>
+  Archive studios when closing offices or ending partnerships, rather than deleting them.
+</Info>
+
+## Deleting Studios
+
+<Warning>
+  Deleting a studio is permanent and should be done with caution. Consider archiving instead to preserve historical data.
+</Warning>
+
+To delete a studio:
+
+1. Click the **Delete** button next to the studio
+2. Confirm the deletion by typing the studio name
+3. The studio will be permanently removed
+
+<Note>
+  You cannot delete studios that have active users assigned. Reassign users to another studio or deactivate them before deleting.
+</Note>
+
+## Studio Colors
+
+Each studio can have a unique color code:
+
+- Colors help visually distinguish studios in the interface
+- Choose colors that align with your organization's branding
+- Use contrasting colors for better visibility
+- Colors appear in user lists, timesheets, and reports
+
+## Assigning Users to Studios
+
+Users are assigned to studios through the [User Management](/admin/user-management) page:
+
+<Steps>
+  <Step title="Edit User Profile">
+    Navigate to the People page and click **Edit** on a user.
+  </Step>
+  
+  <Step title="Select Studio">
+    Choose a studio from the **Studio** dropdown menu.
+  </Step>
+  
+  <Step title="Save">
+    Click **Confirm** to assign the user to the studio.
+  </Step>
+</Steps>
+
+<Info>
+  Each user can only belong to one studio at a time. To transfer a user, simply change their studio assignment.
+</Info>
+
+## Filtering by Studio
+
+Throughout Kitsu, you can filter views by studio:
+
+### People Page
+Filter the user list to show only team members from a specific studio.
+
+### Timesheets
+View time tracking data segmented by studio location.
+
+### Reports
+Generate studio-specific production reports and analytics.
+
+### Resource Planning
+Allocate resources based on studio availability and capacity.
+
+## Multi-Studio Workflows
+
+When working with multiple studios:
+
+<CardGroup cols={2}>
+  <Card title="User Management" icon="users">
+    - Assign users to their primary studio location
+    - Filter people lists by studio
+    - Track studio-specific headcount
+    - Manage studio-specific permissions
+  </Card>
+  
+  <Card title="Production Planning" icon="calendar">
+    - Allocate shots/assets to specific studios
+    - Balance workload across locations
+    - Account for time zone differences
+    - Plan resource distribution
+  </Card>
+  
+  <Card title="Time Tracking" icon="clock">
+    - View timesheets by studio
+    - Track studio productivity
+    - Calculate studio-specific costs
+    - Generate studio financial reports
+  </Card>
+  
+  <Card title="Collaboration" icon="handshake">
+    - Coordinate between studios
+    - Share assets across locations
+    - Manage handoffs between teams
+    - Track inter-studio dependencies
+  </Card>
+</CardGroup>
+
+## Studio-Based Reporting
+
+Generate reports segmented by studio:
+
+- **Production Progress**: Track how each studio is performing
+- **Time Spent**: See hours logged per studio
+- **Resource Utilization**: Monitor studio capacity
+- **Cost Analysis**: Calculate studio-specific expenses
+- **Quota Achievement**: Compare studio productivity
+
+## Exporting Studio Data
+
+Export studio information to CSV:
+
+1. Ensure you're on the **Active** tab
+2. Click the **Export** button
+3. Download the CSV file containing:
+   - Studio type
+   - Studio name
+   - Studio color
+
+Use exports for:
+- Organizational documentation
+- Integration with HR systems
+- Reporting to stakeholders
+- Backup purposes
+
+## Common Use Cases
+
+<AccordionGroup>
+  <Accordion title="Geographic Locations">
+    **Scenario**: Animation studio with offices in multiple cities
+    
+    **Setup**:
+    - Create a studio for each physical office
+    - Assign users to their primary location
+    - Use colors matching local office branding
+    - Filter timesheets and reports by location
+    
+    **Benefits**:
+    - Track productivity by location
+    - Manage local teams effectively
+    - Account for regional differences
+    - Coordinate across time zones
+  </Accordion>
+  
+  <Accordion title="Outsourcing Partners">
+    **Scenario**: In-house team working with external vendors
+    
+    **Setup**:
+    - Create studios for each outsourcing partner
+    - Assign vendor artists to appropriate studios
+    - Use distinct colors to identify external teams
+    - Filter to separate internal and external work
+    
+    **Benefits**:
+    - Track vendor contributions
+    - Manage external resources
+    - Monitor outsourcing costs
+    - Coordinate handoffs
+  </Accordion>
+  
+  <Accordion title="Business Units">
+    **Scenario**: Large studio with separate animation and VFX divisions
+    
+    **Setup**:
+    - Create a studio for each division
+    - Assign team members to their division
+    - Use division-specific colors
+    - Generate division-level reports
+    
+    **Benefits**:
+    - Track division performance
+    - Allocate resources by division
+    - Measure division profitability
+    - Manage division-specific workflows
+  </Accordion>
+</AccordionGroup>
+
+## Integration with Other Features
+
+Studios integrate with other Kitsu features:
+
+### Departments
+Combine studios and departments for granular organization:
+- "London Office - Animation"
+- "Vancouver Office - Lighting"
+- Track both location and specialty
+
+### Projects/Productions
+Assign primary studio to each production:
+- Track which studio owns each project
+- Distribute work across studios
+- Manage studio-specific pipelines
+
+### Timesheets
+Studio-based time tracking:
+- View hours by studio
+- Calculate studio costs
+- Monitor studio utilization
+- Generate payroll by location
+
+### Quota Management
+Set studio-specific quotas:
+- Track shots/assets per studio
+- Compare studio productivity
+- Balance workload distribution
+- Identify studio bottlenecks
+
+## Best Practices
+
+<Card title="Studio Management Guidelines" icon="building">
+  **Naming Conventions**
+  - Use clear, consistent studio names
+  - Include location or function in the name
+  - Avoid abbreviations that could confuse
+  
+  **Color Strategy**
+  - Assign logical colors (e.g., blue for water-themed locations)
+  - Maintain high contrast for visibility
+  - Document color meanings
+  
+  **User Assignment**
+  - Assign users to their primary work location
+  - Update assignments when people relocate
+  - Use studios for organizational, not physical, structure if needed
+  
+  **Data Management**
+  - Archive rather than delete closed studios
+  - Export studio data regularly for backup
+  - Review studio list quarterly
+  - Keep studio information up to date
+  
+  **Reporting**
+  - Use studios for geographic and organizational analysis
+  - Create studio-specific dashboards
+  - Track inter-studio collaboration
+  - Monitor studio-specific metrics
+</Card>
+
+## Time Zone Considerations
+
+When managing studios across time zones:
+
+- Document each studio's time zone
+- Schedule meetings considering all locations
+- Use UTC times for deadlines when appropriate
+- Account for time zone differences in delivery schedules
+- Coordinate handoffs between studios in different zones
+
+<Tip>
+  For global teams, consider creating a coordination schedule that shows each studio's working hours in a common time zone.
+</Tip>
+
+## Troubleshooting
+
+### Can't Delete Studio
+
+**Issue**: Delete button is disabled or shows an error
+
+**Solutions**:
+- Check if users are still assigned to the studio
+- Reassign users to another studio first
+- Archive the studio instead of deleting
+
+### Studio Not Appearing in Filters
+
+**Issue**: Studio doesn't show up in dropdown menus
+
+**Solutions**:
+- Verify the studio is not archived
+- Check that users are assigned to the studio
+- Refresh the page
+- Clear browser cache
+
+### Colors Not Displaying
+
+**Issue**: Studio colors don't appear in the interface
+
+**Solutions**:
+- Verify color was saved correctly
+- Try a different color code
+- Check browser compatibility
+- Refresh the page
+
+## Related Pages
+
+- [User Management](/admin/user-management) - Assign users to studios
+- [Departments](/admin/departments) - Organize users by function
+- [Timesheets](/planning/timesheets) - Track time by studio

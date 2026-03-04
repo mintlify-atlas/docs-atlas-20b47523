@@ -1,0 +1,506 @@
+---
+title: Budget Management
+description: Plan, track, and analyze production budgets with detailed cost breakdowns and forecasting
+---
+
+## Overview
+
+Kitsu's budget management system helps you plan and track production costs for animation, VFX, and game projects. Create multiple budget versions, track actual expenses against forecasts, and analyze costs by department and personnel.
+
+<Info>
+Budget tracking is production-specific and requires production start/end dates to be set for accurate month-by-month cost allocation.
+</Info>
+
+## Accessing Budget Management
+
+Navigate to budgets from:
+- **Production Menu** → **Budget**
+- Requires manager or admin permissions
+- Available only at production level
+
+## Budget Versions
+
+Create multiple budget versions to compare scenarios and track changes:
+
+### Creating a Budget
+
+1. Click **New Version** button
+2. Configure budget details:
+   - **Name**: Descriptive name (e.g., "Initial Budget", "Revised Q2")
+   - **Currency**: USD, EUR, GBP, etc.
+   - **Revision Number**: Auto-incremented from previous versions
+
+3. Click **Create** to save
+
+### Version Management
+
+- **Latest Version**: Default view shows most recent budget
+- **Version Selector**: Dropdown to switch between versions
+- **Revisions**: Versions numbered sequentially (v1, v2, v3...)
+- **Comparison**: Compare different scenarios or track changes over time
+
+### Editing Budgets
+
+1. Select the budget version to edit
+2. Click **Edit Budget** (pencil icon)
+3. Modify name or currency
+4. Save changes
+
+<Warning>
+Changing currency does not convert amounts. It only changes the display unit.
+</Warning>
+
+### Deleting Budgets
+
+1. Click **Delete Budget** (trash icon)
+2. Type budget name to confirm
+3. Confirm deletion
+
+<Note>
+Deleting a budget version is permanent and cannot be undone. Consider creating a new version instead.
+</Note>
+
+## Budget Structure
+
+Budgets are organized by departments and personnel:
+
+```
+Budget
+├── Department 1 (e.g., Modeling)
+│   ├── Person A (Senior Artist)
+│   ├── Person B (Lead)
+│   └── Hardware Items
+│   └── Software Licenses
+├── Department 2 (e.g., Animation)
+│   ├── Person C (Junior Animator)
+│   └── Person D (Supervisor)
+└── Department 3...
+```
+
+## Budget Entries
+
+Budget entries represent personnel costs:
+
+### Adding Budget Entries
+
+1. Click **Add Entry** button or **+** in table header
+2. Fill in entry details:
+   - **Person** (optional): Specific team member or generic role
+   - **Department**: Department assignment
+   - **Position**: Artist, Lead, or Supervisor
+   - **Seniority**: Junior, Mid, or Senior
+   - **Start Date**: When this person joins the project
+   - **Duration**: Number of months on the project
+   - **Daily Salary**: Daily rate (or use salary scale)
+
+3. Click **Add** to create entry
+
+### Salary Calculation
+
+Budget costs are calculated from daily rates:
+
+```javascript
+// Monthly cost calculation
+const monthlySalary = dailySalary * 20 // 20 working days per month
+const totalCost = monthlySalary * monthsDuration
+```
+
+### Salary Scale Integration
+
+Use predefined salary scales:
+- Organized by department, position, and seniority
+- Auto-populates daily rate based on selection
+- Can be overridden per entry
+- Ensures consistency across similar roles
+
+Example salary scale:
+```javascript
+{
+  'modeling-dept-id': {
+    'artist': {
+      'junior': 350,
+      'mid': 450,
+      'senior': 600
+    },
+    'lead': {
+      'mid': 650,
+      'senior': 800
+    }
+  }
+}
+```
+
+### Generic Entries
+
+Create entries without specific person:
+- Leave **Person** field empty
+- Represents planned headcount
+- Useful for future hiring or TBD roles
+- Example: "2x Junior Animators"
+
+### Editing Budget Entries
+
+1. Click **Edit** (pencil icon) on any entry row
+2. Modify any field
+3. Save changes
+4. Costs recalculate automatically
+
+### Deleting Budget Entries
+
+1. Click **Delete** (trash icon) on entry row
+2. Confirm deletion
+3. Budget totals update immediately
+
+## Month-by-Month Breakdown
+
+Budgets display costs month by month across the production timeline:
+
+### Time Periods
+
+- **Past Months**: Months from production start to now (can compare to expenses)
+- **Current Month**: Present month
+- **Future Months**: Remaining months until production end
+
+### Monthly Costs
+
+Each entry has:
+- **Base Monthly Cost**: Daily salary × 20 days
+- **Exceptions**: Override specific months (e.g., vacation, part-time)
+- **Cell Display**: Shows cost for that month if person is active
+
+### Cost Exceptions
+
+Set custom costs for specific months:
+
+1. Click on a month cell for a person
+2. Enter custom amount
+3. Saves automatically
+4. Useful for:
+   - Part-time months
+   - Vacation adjustments
+   - Ramp-up/ramp-down periods
+   - Bonuses or special rates
+
+```javascript
+// Entry with exceptions
+{
+  daily_salary: 500,
+  months_duration: 6,
+  start_date: '2024-01-01',
+  exceptions: {
+    '2024-02': 8000,  // Custom amount for February
+    '2024-04': 0      // Unpaid leave in April
+  }
+}
+```
+
+## Hardware and Software Items
+
+<Note>
+Hardware and software costs are distributed across department personnel working in each month.
+</Note>
+
+### Linked Items
+
+Associate costs with departments:
+- **Hardware Items**: Workstations, render farm, storage
+- **Software Licenses**: Per-seat or department licenses
+- Monthly costs allocated proportionally
+
+### Cost Distribution
+
+Item costs are distributed:
+1. Monthly item cost split across all active personnel in the department
+2. If person works that month, they get a share of the item cost
+3. Total department item cost = sum of all personnel shares
+
+### Showing/Hiding Items
+
+Toggle item display:
+- Click **Show Items** button
+- Items appear as separate rows under each department
+- Included in totals when visible
+- Hidden by default for cleaner view
+
+## Expense Tracking
+
+Compare budgeted costs to actual expenses:
+
+### Loading Expenses
+
+1. Click **Show Expenses** button
+2. System loads actual time spent from timesheets
+3. Converts time to cost using person's daily rate
+4. Displays alongside budgeted amounts
+
+### Expense Calculation
+
+Expenses calculated from timesheets:
+
+```javascript
+// Convert time to cost
+const days = timeSpentMinutes / 60 / hoursPerDay
+const cost = days * dailyRate
+```
+
+### Budget vs. Actual
+
+View columns:
+- **Budgeted**: Planned monthly cost
+- **Done**: Actual cost from production start to now
+- **Expenses**: Actual time spent converted to cost
+- **Remaining**: Budgeted cost from now to end
+
+### Variance Analysis
+
+Identify budget overruns:
+- Compare expenses to done budget
+- Overages highlighted (expenses > budget)
+- Helps forecast final costs
+- Adjust future budgets accordingly
+
+## Budget Analytics
+
+Side panel shows visual analytics:
+
+### Total Budget
+
+Large display of overall budget amount:
+- Sum of all departments
+- Includes hardware/software if shown
+- In selected currency
+
+### Summary Stats
+
+- **X Departments**: Number of departments with budget entries
+- **Y Entries**: Total budget entries (personnel)
+- **Z Months**: Production duration in months
+
+### Cash Repartition (Pie Chart)
+
+Department cost breakdown:
+- Each department shown as pie slice
+- Color-coded by department color
+- Percentage of total budget
+- Identify highest-cost departments
+
+### Cash Evolution (Column Chart)
+
+Monthly spending over time:
+- X-axis: Months across production timeline
+- Y-axis: Total cost for that month
+- Visualize spending peaks and valleys
+- Plan cash flow needs
+
+## Export Options
+
+### Export Budget
+
+Generate detailed CSV report:
+
+1. Click **Export Budget** button
+2. Downloads file: `budget_[production]_v[revision]_[name]_[currency].csv`
+3. Includes:
+   - Department breakdown
+   - Person entries with all details
+   - Month-by-month costs
+   - Totals and subtotals
+
+Example CSV:
+```csv
+Department,Person,Position,Seniority,2024-01,2024-02,...,Total
+Modeling,John Smith,Artist,Senior,10000,10000,...,60000
+Modeling,Jane Doe,Lead,Senior,12000,12000,...,72000
+...
+```
+
+## Budget Workflows
+
+### Initial Budget Creation
+
+1. **Set Production Dates**
+   - Define start and end dates
+   - Determines month-by-month timeline
+
+2. **Create First Budget Version**
+   - Name: "Initial Budget" or "Proposal"
+   - Set currency
+
+3. **Add Department Entries**
+   - Start with department heads and leads
+   - Add artists based on planned headcount
+   - Use generic entries for TBD hires
+
+4. **Set Salary Scale** (if not already done)
+   - Define rates per department/position/seniority
+   - Ensures consistency
+
+5. **Review and Adjust**
+   - Check totals against client budget
+   - Adjust headcount or rates as needed
+   - Add hardware/software costs
+
+### Tracking During Production
+
+1. **Enable Expense Tracking**
+   - Click **Show Expenses**
+   - Review actual vs. budgeted costs
+
+2. **Monthly Reviews**
+   - Compare month's expenses to budget
+   - Identify variances early
+   - Adjust future months if needed
+
+3. **Update Budget Versions**
+   - Create new version for significant changes
+   - Track reasons for budget changes
+   - Maintain audit trail
+
+### Budget Revisions
+
+1. **Create New Version**
+   - Increment revision number
+   - Descriptive name (e.g., "Post-Milestone-1")
+
+2. **Adjust Entries**
+   - Add/remove personnel as team changes
+   - Update durations based on schedule changes
+   - Modify rates if needed
+
+3. **Compare Versions**
+   - Switch between versions to see differences
+   - Export both for side-by-side comparison
+   - Document reasons for changes
+
+## Budget Best Practices
+
+### Realistic Planning
+
+<Tip>
+Pad budgets with 10-20% contingency for unexpected costs, scope changes, and delays.
+</Tip>
+
+- Base rates on actual salary data
+- Account for ramp-up time (lower productivity initially)
+- Include overhead (leads, supervisors, management)
+- Factor in training and onboarding time
+
+### Regular Monitoring
+
+- **Weekly**: Quick check of current month expenses
+- **Monthly**: Detailed variance analysis
+- **Quarterly**: Budget revision and forecasting
+- **End of Production**: Post-mortem for future budgets
+
+### Accurate Time Tracking
+
+Expense tracking requires good timesheet data:
+- Ensure team logs time consistently
+- Time logs must include correct person and task
+- Review timesheet completeness before budget meetings
+
+### Department Collaboration
+
+- Share budget summaries with department leads
+- Involve leads in budget planning
+- Discuss variances and constraints
+- Collaborative problem-solving for overages
+
+## Integration with Other Features
+
+### Schedule
+
+[Schedule planning](/planning/scheduling) affects budget:
+- Personnel duration from schedule dates
+- Task assignments determine who incurs costs
+- Schedule delays directly impact budget
+
+### Timesheets
+
+[Timesheet data](/planning/timesheets) powers expense tracking:
+- Actual time spent converted to costs
+- Compare to budgeted time/cost
+- Identify efficiency issues
+
+### Quotas
+
+[Quota data](/planning/quota-management) helps with efficiency:
+- Higher quotas mean lower cost per deliverable
+- Factor quota history into budget estimates
+- Cost per frame/shot = Budget / Quota
+
+## Technical Details
+
+### Budget Data Model
+
+```javascript
+// Budget
+{
+  id: 'uuid',
+  project_id: 'uuid',
+  name: 'Initial Budget',
+  revision: 1,
+  currency: 'USD',
+  created_at: 'timestamp'
+}
+
+// Budget Entry
+{
+  id: 'uuid',
+  budget_id: 'uuid',
+  person_id: 'uuid', // nullable for generic entries
+  department_id: 'uuid',
+  position: 'artist' | 'lead' | 'supervisor',
+  seniority: 'junior' | 'mid' | 'senior',
+  start_date: '2024-01-01',
+  months_duration: 6,
+  daily_salary: 500,
+  exceptions: {
+    '2024-02': 8000
+  }
+}
+```
+
+### Cost Calculation
+
+Server-side aggregation:
+1. Load budget entries for selected version
+2. Calculate monthly costs per entry
+3. Aggregate by department
+4. Add hardware/software costs if enabled
+5. Load expenses from time spent if enabled
+6. Return structured data for rendering
+
+### Real-time Updates
+
+Budget uses WebSocket for real-time collaboration:
+- Changes from other users appear immediately
+- Prevents conflicting edits
+- Shows who's viewing/editing
+
+```javascript
+// Socket events
+'budget:create' // New budget version created
+'budget:update' // Budget edited
+'budget:delete' // Budget deleted
+'budget-entry:create' // Entry added
+'budget-entry:update' // Entry modified
+'budget-entry:delete' // Entry removed
+```
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Scheduling" icon="calendar" href="/planning/scheduling">
+    Schedule duration affects budget costs
+  </Card>
+  <Card title="Timesheets" icon="clock" href="/planning/timesheets">
+    Time data powers expense tracking
+  </Card>
+  <Card title="Quota Management" icon="chart-line" href="/planning/quota-management">
+    Measure cost efficiency per deliverable
+  </Card>
+  <Card title="Departments" icon="users" href="/essentials/departments">
+    Organize budget by department structure
+  </Card>
+</CardGroup>

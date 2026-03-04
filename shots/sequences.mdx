@@ -1,0 +1,368 @@
+---
+title: 'Sequences'
+description: 'Organize and manage sequences in your production'
+icon: 'list-timeline'
+---
+
+Sequences are the primary organizational unit for shots in Kitsu. They represent distinct sections of your production, such as scene changes, locations, or narrative beats.
+
+## Overview
+
+Sequence management provides:
+
+- **Hierarchical organization**: Sequences group related shots together
+- **Episode support**: For TV shows, sequences belong to episodes
+- **Task tracking**: View aggregate task status across all shots in a sequence
+- **Metadata**: Custom fields for sequence-specific information
+- **Statistics**: Time spent, estimation, and progress tracking
+
+## Sequence List
+
+The sequence list displays all sequences in your production with:
+
+### Information Columns
+
+- **Name**: Sequence identifier (e.g., "010", "020", "Intro")
+- **Description**: Brief description of the sequence
+- **Task columns**: Aggregated status for each task type
+- **Statistics**: Time spent and estimation totals
+
+### Task Aggregation
+
+For each task type column, the sequence shows:
+
+- Number of shots at each status
+- Visual indicator of overall progress
+- Quick access to shot-level details
+
+## Creating Sequences
+
+<Note>
+  Only managers and admins can create sequences.
+</Note>
+
+<Steps>
+  <Step title="Open Creation Modal">
+    Click the "New Sequence" button.
+  </Step>
+  
+  <Step title="Enter Details">
+    Provide:
+    - **Name**: Sequence identifier (required)
+    - **Description**: Brief description (optional)
+    - **Episode**: For TV shows, select the parent episode
+  </Step>
+  
+  <Step title="Create Sequence">
+    Click "Create" to add the sequence.
+  </Step>
+</Steps>
+
+<Tip>
+  Sequences are automatically sorted alphanumerically. Use consistent naming with padding (010, 020) for proper ordering.
+</Tip>
+
+## Editing Sequences
+
+### Edit Details
+
+<Steps>
+  <Step title="Select Sequence">
+    Click on a sequence in the list.
+  </Step>
+  
+  <Step title="Open Editor">
+    Click the edit button or double-click the sequence.
+  </Step>
+  
+  <Step title="Modify Fields">
+    Update:
+    - Name
+    - Description
+    - Metadata fields
+  </Step>
+  
+  <Step title="Save Changes">
+    Changes are saved automatically.
+  </Step>
+</Steps>
+
+### Inline Editing
+
+Some fields support inline editing:
+
+- **Description**: Click to edit directly in the list
+- **Metadata**: Click custom metadata fields to edit values
+
+## Deleting Sequences
+
+<Warning>
+  Deleting a sequence will also delete all shots within that sequence. This operation cannot be undone.
+</Warning>
+
+To delete a sequence:
+
+<Steps>
+  <Step title="Select Sequence">
+    Click on the sequence to select it.
+  </Step>
+  
+  <Step title="Delete">
+    Click the delete button.
+  </Step>
+  
+  <Step title="Confirm">
+    Type the sequence name to confirm deletion.
+  </Step>
+</Steps>
+
+## Viewing Sequence Details
+
+Click on a sequence name to navigate to the shot list filtered for that sequence. This provides:
+
+- All shots in the sequence
+- Detailed task information
+- Ability to create new shots
+- Access to breakdown and casting
+
+## Task Management
+
+### Creating Tasks
+
+Add new task types to all shots in sequences:
+
+<Steps>
+  <Step title="Open Task Creator">
+    Click "Create Tasks" button.
+  </Step>
+  
+  <Step title="Select Task Type">
+    Choose the task type to create.
+  </Step>
+  
+  <Step title="Choose Scope">
+    Apply to:
+    - All sequences
+    - Selected sequences only
+  </Step>
+  
+  <Step title="Create">
+    Tasks are created for all shots in the selected sequences.
+  </Step>
+</Steps>
+
+### Deleting Tasks
+
+<Warning>
+  This operation cannot be undone.
+</Warning>
+
+Delete all tasks of a specific type from sequences:
+
+1. Click the delete icon in the task column header
+2. Choose scope (all or selected sequences)
+3. Type the task type name to confirm
+4. Confirm deletion
+
+## Search and Filtering
+
+### Quick Search
+
+Search sequences by:
+
+- **Name**: Sequence identifier
+- **Description**: Text in description field
+- **Episode**: Episode name (for TV shows)
+
+### Advanced Filters
+
+Use the filter builder to create complex queries:
+
+```
+sequence=wip anim>50
+```
+
+This finds sequences where animation is marked as WIP and more than 50% complete.
+
+### Saved Searches
+
+Save frequently used searches:
+
+1. Build your search query
+2. Click the save icon
+3. Name your search
+4. Access from the query list
+
+## Display Options
+
+<CardGroup cols={2}>
+  <Card title="Show Assignations" icon="users">
+    Display assignee avatars for tasks in each sequence.
+  </Card>
+  
+  <Card title="Show Infos" icon="info">
+    Toggle visibility of metadata and statistics columns.
+  </Card>
+  
+  <Card title="Department Filter" icon="filter">
+    Filter sequences by department to focus on specific workflows.
+  </Card>
+  
+  <Card title="Big Thumbnails" icon="expand">
+    Show larger thumbnail previews for sequences.
+  </Card>
+</CardGroup>
+
+## Sorting
+
+Sort sequences by clicking column headers:
+
+- **Name**: Alphanumeric sorting
+- **Description**: Alphabetical
+- **Task status**: By progress or status
+- **Time spent**: By production time
+- **Estimation**: By estimated time
+
+## Statistics and Reporting
+
+### Sequence Statistics
+
+Each sequence displays:
+
+- **Time Spent**: Total time worked across all shots and tasks
+- **Estimation**: Sum of estimated time for all incomplete tasks
+- **Shot Count**: Number of shots in the sequence
+- **Task Progress**: Percentage complete for each task type
+
+### Exporting Data
+
+Export sequence data to CSV:
+
+1. Apply filters if needed
+2. Click the export button
+3. CSV includes all visible columns and current results
+
+## TV Show Features
+
+### Episode Organization
+
+For TV show productions:
+
+- Sequences are grouped by episode
+- Switch between episodes using the episode selector
+- Each episode has its own sequence list
+- "Main Pack" contains sequences not in specific episodes
+
+### Episode Switching
+
+<Steps>
+  <Step title="Select Episode">
+    Use the episode dropdown in the top navigation.
+  </Step>
+  
+  <Step title="View Sequences">
+    The sequence list updates to show only sequences for that episode.
+  </Step>
+  
+  <Step title="Create Sequences">
+    New sequences are automatically assigned to the current episode.
+  </Step>
+</Steps>
+
+## Metadata Management
+
+### Adding Metadata Fields
+
+<Note>
+  Only managers and admins can add metadata descriptors.
+</Note>
+
+<Steps>
+  <Step title="Open Metadata Manager">
+    Click "Add Metadata" button.
+  </Step>
+  
+  <Step title="Define Field">
+    Specify:
+    - Field name
+    - Data type (text, number, date, checklist, etc.)
+    - Departments (optional)
+  </Step>
+  
+  <Step title="Create">
+    The new field appears as a column in the sequence list.
+  </Step>
+</Steps>
+
+### Editing Metadata
+
+Edit metadata values:
+
+1. Click on the metadata field for a sequence
+2. Enter or select the new value
+3. Changes are saved automatically
+
+### Deleting Metadata Fields
+
+To remove a metadata field:
+
+1. Click the column header menu
+2. Select "Delete Metadata"
+3. Confirm deletion
+
+<Warning>
+  Deleting a metadata field removes it from all sequences and cannot be undone.
+</Warning>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Naming Conventions">
+    Use consistent sequence naming:
+    - Numeric with padding: 010, 020, 030
+    - Or descriptive names: "Opening", "Chase", "Finale"
+    - Choose one style and stick with it
+  </Accordion>
+  
+  <Accordion title="Granularity">
+    Determine appropriate sequence granularity:
+    - Too few sequences: Hard to track progress
+    - Too many sequences: Overhead in management
+    - Align with narrative or location changes
+  </Accordion>
+  
+  <Accordion title="Descriptions">
+    Write clear sequence descriptions:
+    - Brief summary of action or location
+    - Reference to script or storyboard
+    - Any special requirements or notes
+  </Accordion>
+  
+  <Accordion title="Progress Tracking">
+    Use sequence-level statistics:
+    - Monitor overall progress
+    - Identify bottlenecks
+    - Balance workload across sequences
+  </Accordion>
+  
+  <Accordion title="Metadata Usage">
+    Add sequence-specific metadata for:
+    - Location information
+    - Time of day
+    - Complexity rating
+    - Special effects requirements
+  </Accordion>
+</AccordionGroup>
+
+## Permissions
+
+- **Viewers**: Read-only access to sequences
+- **Artists**: Read-only access
+- **Managers**: Can create, edit, and delete sequences
+- **Admins**: Full access to all features
+
+<Card title="Related Topics" icon="link">
+  - [Shot Management](/shots/shot-management) - Learn about managing shots within sequences
+  - [Tasks](/production/tasks) - Understand task tracking and management
+  - [Episodes](/production/episodes) - TV show episode management
+</Card>

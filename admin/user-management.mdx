@@ -1,0 +1,220 @@
+---
+title: User Management
+description: Manage users, roles, and permissions in your Kitsu studio
+---
+
+## Overview
+
+The user management system in Kitsu allows administrators to create, edit, and manage user accounts across your animation, VFX, or video game production studio. You can control user access, assign roles, manage departments, and track team member activity.
+
+## Accessing User Management
+
+Navigate to the **People** page from the main menu. This page displays all users in your studio and provides tools for managing user accounts.
+
+## User Roles
+
+Kitsu supports several user roles with different permission levels:
+
+- **Admin**: Full system access, can manage users, productions, and settings
+- **Manager**: Can manage productions and assign tasks
+- **Supervisor**: Can review work and manage team tasks
+- **User**: Standard artist/team member with task access
+- **Client**: External reviewers with limited access
+- **Vendor**: External studio partners
+
+## Adding New Users
+
+<Steps>
+  <Step title="Click New Person">
+    Click the **New person** button in the top-right corner of the People page.
+  </Step>
+  
+  <Step title="Fill in User Details">
+    Enter the required information:
+    - **Email**: User's email address (used for login and notifications)
+    - **First Name**: User's first name
+    - **Last Name**: User's last name
+    - **Phone**: Optional phone number
+    - **Role**: Select the appropriate role
+    - **Department**: Assign to one or more departments
+    - **Studio**: Assign to a specific studio (for multi-studio setups)
+    - **Contract Type**: Employment type
+  </Step>
+  
+  <Step title="Save and Invite">
+    Choose one of the following options:
+    - **Create**: Save the user without sending an invitation
+    - **Create and Invite**: Save the user and send an invitation email
+    - **Invite**: Send an invitation to an existing user
+  </Step>
+</Steps>
+
+<Note>
+  When you create and invite a user, they will receive an email with instructions to set up their account and create a password.
+</Note>
+
+## Editing User Information
+
+Click the **Edit** button next to any user to modify their details:
+
+- Update personal information (name, email, phone)
+- Change role and permissions
+- Modify department assignments
+- Update studio assignment
+- Change contract type
+- Toggle active status
+
+## User Filtering and Search
+
+The People page includes powerful filtering options:
+
+### Search Field
+Search for users by name or email. The search supports:
+- Full name search (e.g., "John Doe")
+- Partial matches
+- Saved search queries
+
+### Filter Options
+
+- **Studio**: Filter by studio (for multi-studio organizations)
+- **Department**: Show only users in specific departments
+- **Role**: Filter by user role (admin, user, client, etc.)
+
+### Active/Inactive Tabs
+
+Switch between viewing:
+- **Active**: Currently active users
+- **Inactive**: Deactivated user accounts
+
+<Tip>
+  Use saved search queries to quickly access frequently used filters.
+</Tip>
+
+## Managing User Avatars
+
+Click on a user's avatar to:
+- **Upload Avatar**: Add or update profile picture
+- **Delete Avatar**: Remove the current profile picture
+
+Supported formats include PNG, JPG, and GIF.
+
+## Password Management
+
+As an administrator, you can:
+
+1. **Reset User Password**: Click **Change Password** on any user
+2. **Set New Password**: Enter and confirm the new password
+3. **User Receives**: The user can now log in with the new password
+
+<Warning>
+  Password changes take effect immediately. Make sure to communicate the new credentials securely to the user.
+</Warning>
+
+## Two-Factor Authentication
+
+Administrators can disable two-factor authentication for users who have lost access to their authentication device:
+
+1. Edit the user's profile
+2. Click **Disable 2FA** if available
+3. User can re-enable 2FA in their profile settings
+
+## Importing Users (CSV)
+
+Bulk import users via CSV file:
+
+<Steps>
+  <Step title="Prepare CSV File">
+    Create a CSV file with the following columns:
+    
+    **Required columns:**
+    - Email
+    - First Name
+    - Last Name
+    
+    **Optional columns:**
+    - Phone
+    - Role
+    - Contract Type
+    - Studio
+    - Active
+  </Step>
+  
+  <Step title="Import">
+    1. Click the **Import** button
+    2. Upload your CSV file
+    3. Map the CSV columns to Kitsu fields
+    4. Preview the import
+  </Step>
+  
+  <Step title="Review and Confirm">
+    Review the import preview and confirm to create the users.
+  </Step>
+</Steps>
+
+<Info>
+  The CSV import will skip existing users (matched by email) and can update their information if needed.
+</Info>
+
+## Exporting Users
+
+Export the user list to CSV:
+
+1. Click the **Export** button
+2. Download the generated CSV file containing all user information
+
+The export includes all user fields and can be used for backup or reporting purposes.
+
+## Deactivating Users
+
+Instead of deleting users, it's recommended to deactivate them:
+
+1. Edit the user profile
+2. Uncheck the **Active** checkbox
+3. Save changes
+
+Deactivated users:
+- Cannot log in
+- Remain in the system for historical data
+- Can be reactivated later
+- Appear in the "Inactive" tab
+
+## Deleting Users
+
+<Warning>
+  Deleting users is permanent and should be done with caution. Consider deactivating instead.
+</Warning>
+
+To delete a user:
+
+1. Click the **Delete** button next to the user
+2. Type the user's full name to confirm
+3. Click **Confirm** to permanently delete
+
+<Note>
+  You cannot delete users who have created content or been assigned tasks. Deactivate these users instead.
+</Note>
+
+## User Limits
+
+Some Kitsu installations may have user limits based on licensing:
+
+- When the limit is reached, you cannot add new active users
+- You can deactivate existing users to free up slots
+- Inactive users do not count toward the limit
+
+## Best Practices
+
+<Card title="User Management Tips" icon="users">
+  - Assign appropriate roles based on job function
+  - Use departments to organize teams logically
+  - Regularly review and deactivate unused accounts
+  - Use CSV import for onboarding multiple users
+  - Save common search filters for quick access
+  - Keep user information up to date
+</Card>
+
+## Related Pages
+
+- [Departments](/admin/departments) - Organize users into departments
+- [Studios](/admin/studios) - Manage multi-studio setups
+- [Task Assignments](/tasks/assignments) - Assign tasks to users

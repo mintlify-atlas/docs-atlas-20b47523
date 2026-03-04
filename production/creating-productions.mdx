@@ -1,0 +1,185 @@
+---
+title: Creating Productions
+description: Learn how to create and set up new productions in Kitsu
+icon: folder-plus
+---
+
+A production in Kitsu represents a project - whether it's a film, TV show, or video game. Each production has its own settings, team, assets, shots, and tasks.
+
+## Production Types
+
+Kitsu supports several production types:
+
+- **Short**: For short films, commercials, or standalone projects
+- **Feature Film**: For feature-length productions
+- **TV Show**: For episodic content with episodes and sequences
+- **Asset Library**: For maintaining a library of reusable assets
+
+<Note>
+  TV Show productions enable episode and sequence management, allowing you to organize content hierarchically.
+</Note>
+
+## Creating a New Production
+
+Only users with **Manager** or **Admin** permissions can create productions.
+
+<Steps>
+  <Step title="Access Production Settings">
+    Navigate to the Productions section and click the "New Production" button.
+  </Step>
+  
+  <Step title="Enter Basic Information">
+    Fill in the required production details:
+    
+    - **Name**: The production's display name
+    - **Code**: A short identifier (optional but recommended)
+    - **Type**: Select the production type from the dropdown
+    - **Start Date**: When production begins
+    - **End Date**: Target completion date
+  </Step>
+  
+  <Step title="Configure Production Settings">
+    Set up technical specifications:
+    
+    - **FPS**: Frame rate (e.g., 24, 25, 30)
+    - **Ratio**: Aspect ratio (e.g., 16:9, 2.39:1)
+    - **Resolution**: Output resolution (e.g., 1920x1080, 4K)
+  </Step>
+  
+  <Step title="Save and Configure">
+    Click "Save" to create the production. You'll be redirected to the production settings page where you can configure additional options.
+  </Step>
+</Steps>
+
+## Initial Setup Checklist
+
+After creating a production, complete these essential setup steps:
+
+### 1. Configure Task Statuses
+
+Task statuses track the progress of work. Add the statuses your team needs:
+
+- **Todo**: Work not yet started
+- **WIP** (Work In Progress): Currently being worked on
+- **Retake**: Needs revision
+- **Done**: Completed and approved
+
+<Tip>
+  You can reorder task statuses by dragging them in the Task Status settings tab. This order determines how they appear in your production.
+</Tip>
+
+### 2. Add Task Types
+
+Task types represent different kinds of work. Common examples:
+
+- **Modeling**: 3D model creation
+- **Rigging**: Character setup
+- **Animation**: Movement and performance
+- **Lighting**: Scene lighting
+- **Compositing**: Final image assembly
+
+Each task type can be assigned to specific entity types (Assets, Shots, Episodes, or Sequences).
+
+### 3. Configure Asset Types
+
+Asset types categorize your production assets:
+
+- **Characters**: Main and background characters
+- **Props**: Objects used in scenes
+- **Sets**: Environments and locations
+- **FX**: Special effects elements
+
+### 4. Build Your Team
+
+Add team members to the production:
+
+1. Go to the **Team** tab in production settings
+2. Search for users by name
+3. Click "Add" to include them in the production
+
+Team members will only see productions they're assigned to.
+
+## Production Parameters
+
+You can configure various production-wide settings:
+
+### Access Control
+
+- **Isolate Clients**: When enabled, client users can only see content assigned to them
+- **Allow Preview Downloads**: Enable/disable preview file downloads for the production
+
+### Automation
+
+- **Automate Preview Selection**: Automatically set the latest preview as the entity's main preview
+- **Publish Default for Artists**: Make "Publish" the default action for artists (instead of "Work In Progress")
+
+### Quality Control
+
+- **Max Retakes**: Set a limit for the number of retakes allowed per task (0 = unlimited)
+
+## Homepage Configuration
+
+Choose what team members see when they access the production:
+
+- **Assets**: Show the assets list
+- **Shots**: Show the shots list  
+- **Todos**: Show the user's task list
+- **Schedule**: Show the production schedule
+
+This can be configured in the **Parameters** tab under the **Homepage** dropdown.
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use Clear Naming Conventions">
+    Establish naming conventions before creating content:
+    - Use consistent prefixes (e.g., "CH_" for characters, "PR_" for props)
+    - Keep names short but descriptive
+    - Avoid special characters that might cause issues
+  </Accordion>
+  
+  <Accordion title="Plan Your Asset Types">
+    Define your asset types based on your pipeline:
+    - Consider how assets will be used
+    - Group related assets together
+    - Don't over-categorize - keep it simple
+  </Accordion>
+  
+  <Accordion title="Set Up Task Types for Your Pipeline">
+    Map task types to your actual workflow:
+    - Include only the tasks your team actually performs
+    - Order them to match your production pipeline
+    - Use clear, unambiguous names
+  </Accordion>
+  
+  <Accordion title="Configure Permissions Carefully">
+    Control access based on team roles:
+    - Use client isolation for external reviewers
+    - Limit preview downloads if needed for security
+    - Consider who needs access to what information
+  </Accordion>
+</AccordionGroup>
+
+## TV Show Specific Setup
+
+When creating a TV Show production, you'll have additional organizational features:
+
+- **Episodes**: Top-level organizational units (e.g., Episode 1, Episode 2)
+- **Sequences**: Subdivisions within episodes
+- **Episode Span**: Duration or shot count per episode
+
+See the [Episodes & Sequences](/production/episodes-sequences) guide for detailed information.
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Production Settings" icon="gear" href="/production/production-settings">
+    Learn about all available production settings and configurations
+  </Card>
+  <Card title="Asset Types" icon="shapes" href="/production/asset-types">
+    Set up and manage asset type categories
+  </Card>
+  <Card title="Episodes & Sequences" icon="film" href="/production/episodes-sequences">
+    Organize TV show content with episodes and sequences
+  </Card>
+</CardGroup>
