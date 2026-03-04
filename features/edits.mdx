@@ -1,0 +1,218 @@
+---
+title: Edits
+description: Manage editorial sequences and montage for film and video productions
+icon: scissors
+---
+
+Edits (also called montages or editorial sequences) are the assembled cuts of your production. Kitsu helps you track edit versions, revisions, and the approval process for each cut.
+
+## What are Edits?
+
+Edits represent assembled sequences of shots:
+
+- **Rough cuts**: Initial assembly of footage
+- **Fine cuts**: Refined edits with timing and pacing
+- **Final cuts**: Approved versions ready for delivery
+- **Revisions**: Different versions based on feedback
+- **Reels**: Specific sections or acts of the production
+
+Each edit goes through review tasks (Editorial, Sound Edit, Color Grading, etc.) before being marked as approved.
+
+## The Edits Page
+
+The Edits page displays all editorial sequences in the current production, organized by episode or reel.
+
+### Search and Filtering
+
+Use the search bar to find edits quickly:
+
+```
+e01 edit=wip
+```
+
+This searches for episode 1 edits with editing tasks in "WIP" status.
+
+**Advanced Filtering**:
+
+- Filter by episode: `e01` or `e02`
+- Filter by task status: `edit=wip` or `color=approved`
+- Search by name: Simply type the edit name
+- Combine filters: `e01 edit=wip sound=todo`
+
+Click the **Filter** button to use the visual filter builder for complex queries.
+
+### Department View
+
+Filter edits by department to see only tasks relevant to your team:
+
+- Select a department from the dropdown
+- Choose **All Departments** to see all tasks
+- Choose **My Departments** to see only your assigned departments
+
+## Creating Edits
+
+<Steps>
+  <Step title="Navigate to Edits">
+    Go to the **Edits** page from the main navigation
+  </Step>
+  
+  <Step title="Click Add Edit">
+    Click the **+ Edit** button in the header
+  </Step>
+  
+  <Step title="Fill in Details">
+    Enter edit information:
+    - **Name**: Unique edit identifier (e.g., "E01_Cut_001")
+    - **Episode**: Associate with an episode (for TV shows)
+    - **Description**: Brief description of the edit
+    - **Frame range**: Start and end frames or timecode
+  </Step>
+  
+  <Step title="Create">
+    Click **Create** to add the edit to your production
+  </Step>
+</Steps>
+
+Tasks are automatically created based on your production's task types for the Edit entity type.
+
+## Edit Properties
+
+Each edit has:
+
+- **Name**: Unique identifier
+- **Episode**: Parent episode (for TV productions)
+- **Description**: Purpose or notes about this edit
+- **Frame In / Frame Out**: Timecode or frame range
+- **Duration**: Calculated from frame range
+- **FPS**: Frames per second (inherited from production)
+- **Preview**: Latest approved or uploaded video preview
+- **Tasks**: All tasks associated with this edit
+- **Data**: Custom metadata fields
+
+## Working with Edits
+
+### Viewing Edit Details
+
+Click an edit name to open the detailed view showing:
+
+- Full task list with status indicators
+- Preview player for uploaded cuts
+- Comments and feedback history
+- Version history
+- Related entities (shots used in the edit)
+
+### Uploading Edit Previews
+
+<Steps>
+  <Step title="Open Edit Task">
+    Click on a task (e.g., "Editorial" task) for the edit
+  </Step>
+  
+  <Step title="Upload Video">
+    Upload your edit file:
+    - Supported formats: MP4, MOV, WebM
+    - Video should match production FPS
+    - Include timecode if available
+  </Step>
+  
+  <Step title="Add Comment">
+    Describe what changed in this version
+  </Step>
+  
+  <Step title="Update Status">
+    Change task status to reflect progress (WIP, Waiting for Approval, etc.)
+  </Step>
+</Steps>
+
+### Comparing Versions
+
+Use the preview player to compare different versions:
+
+1. Open the edit detail page
+2. Click the **Version** dropdown in the preview player
+3. Select two versions to compare side-by-side
+4. Use frame-by-frame controls to review changes
+
+## Edit Tasks
+
+Common task types for edits:
+
+- **Editorial**: Initial cut assembly
+- **Sound Edit**: Audio mixing and sound design
+- **Music Edit**: Music integration
+- **Color Grading**: Color correction and grading
+- **VFX Conform**: Integration of VFX shots
+- **Online**: Final conform and mastering
+- **QC**: Quality control review
+
+Each task tracks:
+- Status (TODO, WIP, Waiting for Approval, Approved)
+- Assignees (editors, colorists, sound designers)
+- Time spent
+- Preview files (edit versions)
+- Comments and annotations
+
+## CSV Import/Export
+
+### Importing Edits
+
+Import multiple edits from a spreadsheet:
+
+1. Click **Import** button
+2. Download the CSV template
+3. Fill in edit details (Name, Episode, Frame In, Frame Out, Description)
+4. Upload the completed CSV
+5. Review and confirm import
+
+### Exporting Edits
+
+Export edit data for reports or external tools:
+
+1. Click **Export** button
+2. Choose export format (CSV or spreadsheet)
+3. Select columns to include
+4. Download the file
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Consistent Naming">
+    Use a clear naming convention for edits:
+    - Include episode/reel number: `E01_Cut_001`
+    - Add version numbers: `E01_Final_v3`
+    - Indicate type: `E01_Rough_Cut`, `E01_Fine_Cut`
+  </Accordion>
+  
+  <Accordion title="Version Control">
+    Maintain clear version history:
+    - Upload each significant revision
+    - Add descriptive comments for each version
+    - Use task status to indicate progress
+    - Keep previous versions for reference
+  </Accordion>
+  
+  <Accordion title="Timecode Accuracy">
+    Ensure accurate timecode information:
+    - Match production FPS
+    - Include frame ranges for all edits
+    - Update durations when edits change
+    - Use consistent timecode format
+  </Accordion>
+</AccordionGroup>
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Shots" icon="video" href="/features/shots">
+    Manage individual shots used in edits
+  </Card>
+  <Card title="Tasks" icon="check-square" href="/features/tasks">
+    Track editorial and post-production tasks
+  </Card>
+  <Card title="Playlists" icon="play" href="/features/playlists">
+    Create playlists for editorial review sessions
+  </Card>
+  <Card title="Reviews" icon="eye" href="/tasks/reviews">
+    Learn about the review and approval workflow
+  </Card>
+</CardGroup>

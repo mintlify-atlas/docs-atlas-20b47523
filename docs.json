@@ -45,6 +45,8 @@
               "features/productions",
               "features/assets",
               "features/shots",
+              "features/edits",
+              "features/concepts",
               "features/tasks",
               "features/scheduling",
               "features/playlists"
